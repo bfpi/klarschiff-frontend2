@@ -65,7 +65,7 @@ function init_layerSwitcher() {
         var checkedLayer = $(this).attr('id').slice(3);
         var layers = map.getLayers().getArray();
         for (i = 0; i < layers.length; ++i) {
-          if(layers[i].getProperties().displayInLayerSwitcher) {
+          if (layers[i].getProperties().displayInLayerSwitcher) {
             layers[i].setVisible(i == checkedLayer);
           }
         }
@@ -127,18 +127,16 @@ function init_gotoBBOX() {
       if (bboxArray.length == 4) {
         var view = map.getView();
 
-        // PUNKT
         if (bboxArray[0] == bboxArray[2]) {
+          // PUNKT
           view.setCenter([parseFloat(bboxArray[0]), parseFloat(bboxArray[1])]);
-          view.setZoom(10.5);
-
-          // POLYGON
+          view.setZoom(9.5);
         } else {
-          var x = parseFloat(bboxArray[0]) + ((parseFloat(bboxArray[2]) - parseFloat(bboxArray[0])) / 2);
-          var y = parseFloat(bboxArray[1]) + ((parseFloat(bboxArray[3]) - parseFloat(bboxArray[1])) / 2);
-
-          view.setCenter([x, y]);
-          view.setZoom(7.5);
+          // POLYGON
+          for(i = 0; i < bboxArray.length; i++) {
+            bboxArray[i] = parseFloat(bboxArray[i]);
+          }
+          view.fitExtent(bboxArray, map.getSize());
         }
       }
       return false;
