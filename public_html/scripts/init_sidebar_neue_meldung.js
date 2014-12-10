@@ -14,6 +14,9 @@ function onNeueMeldung(event) {
   // Alte Meldungen entfernen
   clearMeldungSketch();
 
+  // ggf. Hinweis zur Meldungserstellung anzeigen
+  showAdviceInstruction();
+
   // Mittelpunkt der Karte ermitteln.
   var position = map.getCoordinateFromPixel([mapDiv.width() / 2, mapDiv.height() / 2]);
 
@@ -539,4 +542,36 @@ function eingabeFehlerPopup(eingabeFehlerTyp) {
     }
   });
 }
-;
+
+var showInitialAdviceInstruction = true;
+function showAdviceInstruction() {
+  if (!showInitialAdviceInstruction) {
+    return;
+  }
+  var dlg = $('<div></div>').attr('id', 'advise-instruction').html(
+      'Bitte setzen Sie in der Karte das Symbol durch Verschieben mit gedrückter ' +
+      'linker Maustaste an den Ort des Problems / der Idee.<br/><br/>' +
+      'Teilen Sie bitte pro Meldung nur ein Problem / eine Idee aus den vorgegebenen ' +
+      'Kategorien mit.<br/><br/>Sehen Sie bitte von Meldungen ab, die komplexe ' +
+      'städtebauliche oder verkehrsplanerische Sachverhalte behandeln.'
+      ).dialog({
+        title: 'Hinweise',
+        width: 600,
+        modal: true,
+        closeOnEscape: false,
+        open: function(event, ui) {
+          $(this).find('.ui-dialog-titlebar-close').hide();
+        },
+        close: function(event, ui) {
+          $(this).dialog('destroy').remove();
+        }
+      });
+
+  dlg.dialog('option', 'buttons', {
+    schließen: function() {
+      $(this).dialog('close');
+    }
+  });
+
+  showInitialAdviceInstruction = false;
+}
