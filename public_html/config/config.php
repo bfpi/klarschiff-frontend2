@@ -1,7 +1,6 @@
 <?php
 
 define("ADRESSSUCHE_URL", "http://klarschiff-test:8080/solr/select?");
-define("ADRESSSUCHE_SELECT_URL", "/index.php?adresssuche_result=true");
 
 define("BACKEND_URL", "http://klarschiff-test/backend");
 

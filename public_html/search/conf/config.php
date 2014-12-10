@@ -8,7 +8,7 @@ define("PASS","admin");
 define("SCHEMA","public");
 
 # ORT
-# define("URL","http://demo.klarschiff-hro.de/frames/login.php?mb_user_myGui=Klarschiff&name=public&password=public");
+define("URL", "/map.php?adresssuche_result=true");
 # DEFAULT ORT - zur Begrenzung der Suche
 # define("ORT","Greifswald");
 
