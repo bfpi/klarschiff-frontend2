@@ -7,7 +7,6 @@
  * @returns null
  */
 function onNeueMeldung(event) {
-  var dragControl = getControlByTitle("DragFeature");
   var targetLayer = getLayerByTitle("SketchMeldung");
   var targetId = $(event.currentTarget).attr('id');
   var mapDiv = $("#" + map.getTarget());
@@ -89,7 +88,7 @@ function onNeueMeldung(event) {
   popup.setPosition(position);
 
   var popupHeading = (targetId == "problem" ? "Problem" : "Idee") + " melden";
-  
+
   $(element).popover({
     placement: 'auto',
     html: true,
@@ -137,7 +136,7 @@ function onNeueMeldung(event) {
         } else {
           // Keine Probleme
           dlg.dialog('close');
-          openMeldungDialog(feature, targetId, dragControl);
+          openMeldungDialog(feature, targetId);
         }
       },
       error: function() {
@@ -146,38 +145,50 @@ function onNeueMeldung(event) {
     });
   });
   $("a#verwerfen").button().click(function() {
-    clearMeldungSketch();
-    $(element).popover('destroy');
+    clearMeldungSketch(element);
+    $(element).popover('hide');
   });
 }
 
 /**
  * Löscht alle Meldungen im Sketch-Layer
  */
-function clearMeldungSketch() {
-  var layer = getLayerByTitle("SketchMeldung");
-  var features = layer.getSource().getFeatures();
+function clearMeldungSketch(elem) {
+  var SketchMeldungLayer = getLayerByTitle("SketchMeldung");
+  var features = SketchMeldungLayer.getSource().getFeatures();
   for (var i in features) {
     var feature = features[i];
-    if (feature.popup) {
-      feature.popup.destroy();
-      feature.popup = null;
-    }
-    layer.getSource().removeFeature(feature);
+    SketchMeldungLayer.getSource().removeFeature(feature);
   }
 }
 
-function openMeldungDialog(feature, targetId, dragControl) {
-  console.log(feature);
-  var title = (feature.data.vorgangstyp == "idee" ? "Idee" : "Problem") + " beschreiben";
+function openMeldungDialog(feature, targetId) {
+  var title = (targetId == "problem" ? "Problem" : "Idee") + " beschreiben";
   var attribs = {
     typ: targetId,
-    point: feature.geometry.toString()
+    point: feature.getGeometry().flatCoordinates.toString()
   }
-  var dlg = $('#meldung_edit');
+
+  var dlg = $('<div></div>')
+          .data('oWidth', 500)
+          .attr('id', 'meldung_edit')
+          .dialog({
+    autoOpen: false,
+    width: 500,
+    close: onMeldungFormClose,
+    buttons: {
+      "melden": meldungFormSubmit,
+      "abbrechen": function() {
+        $(this).dialog("close");
+      }
+    }
+  });
+
   $('#template_meldung_edit')
-  .tmpl(attribs)
-  .appendTo(dlg);
+          .tmpl(attribs)
+          .appendTo(dlg);
+
+  $("#popup").popover('destroy');
 
   var insertOptions = function(target, parent) {
     var t = $('select[name="' + target + '"]');
@@ -185,28 +196,28 @@ function openMeldungDialog(feature, targetId, dragControl) {
       return;
     t.empty();
 
-    var kategorien = getKategorien(parent, feature.data.vorgangstyp);
+    var kategorien = getKategorien(parent, targetId);
     $.each(kategorien, function(key, val) {
       $('<option></option>')
-      .attr('value', key)
-      .html(val)
-      .appendTo(t);
+              .attr('value', key)
+              .html(val)
+              .appendTo(t);
     });
 
     return t;
   };
 
   $('<option></option>')
-  .attr('value', 0)
-  .html("auswählen…")
-  .appendTo($('select[name="unterkategorie"]'));
+          .attr('value', 0)
+          .html("auswählen…")
+          .appendTo($('select[name="unterkategorie"]'));
 
   $('input[name="email"]').attr("placeholder", placeholder_email);
   $.Placeholder.init();
 
   $(".betreff-pflicht, .details-pflicht, .pflicht-fussnote").css("visibility", "hidden");
   $('input[name="betreff"], textarea[name="details"], input[name="email"]').focus(function() {
-    $(this).css({"color":"#000000"}); 
+    $(this).css({"color": "#000000"});
   }).blur(function() {
   });
   $("select[name='unterkategorie']").change(function() {
@@ -283,22 +294,249 @@ function openMeldungDialog(feature, targetId, dragControl) {
 
   });
 
-  // Popup entfernen
-  feature.popup.destroy();
-  feature.popup = null;
-
   // Dialog Titel geben und öffnen
   if (typeof dlg.data('oHeight') !== 'undefined') {
     dlg.dialog('option', 'height', dlg.data('oHeight'));
   }
   dlg.dialog('option', 'title', title)
-  .dialog('option', 'width', dlg.data('oWidth'))
-  .dialog("open")
-  .data('oHeight', dlg.dialog('option', 'height'));
+          .dialog('option', 'width', dlg.data('oWidth'))
+          .dialog("open")
+          .data('oHeight', dlg.dialog('option', 'height'));
   // URL aus dem Textfeld entfernen
   if ($("#meldung_edit form textarea").val() == window.location) {
     $("#meldung_edit form textarea").val("");
   }
-  dragControl.deactivate();
   unhideFeatureUnderDialog(feature, dlg);
 }
+
+/**
+ * Event-Handler, wird beim Click auf den "Meldung absetzen"-Button ausgeführt,
+ * um die Daten zum Server zu schicken.
+ * TODO: Eingabe-Validierung.
+ */
+function meldungFormSubmit() {
+  // Attributdaten aus Formular abholen
+  var dlg = $(this);
+  var postData = {
+    task: "submit",
+    typ: $('input[name="typ"]', dlg).val(),
+    point: $('input[name="point"]', dlg).val(),
+    hauptkategorie: $('select[name="hauptkategorie"]').val(),
+    unterkategorie: $('select[name="unterkategorie"]').val(),
+    betreff: $('input[name="betreff"]', dlg).val(),
+    details: $('textarea[name="details"]', dlg).val(),
+    email: $('input[name="email"]', dlg).val(),
+    foto: null
+  };
+
+  // clientseitige Validierung
+  var error = false;
+  if (postData.hauptkategorie == "0") {
+    $('select[name="hauptkategorie"]').addClass("error");
+    eingabeFehlerPopup("hauptkategorieLeer");
+    return;
+  } else {
+    $('select[name="hauptkategorie"]').removeClass("error");
+  }
+  if (postData.unterkategorie == "0") {
+    $('select[name="unterkategorie"]').addClass("error");
+    eingabeFehlerPopup("unterkategorieLeer");
+    return;
+  } else {
+    $('select[name="unterkategorie"]').removeClass("error");
+  }
+  var filter = /^\S+@\S+\.[A-Za-z]{2,6}$/;
+  if (!postData.email || postData.email === placeholder_email) {
+    $('input[name="email"]', dlg).addClass("error");
+    eingabeFehlerPopup("emailLeer");
+    return;
+  } 
+  else if (!filter.test(postData.email)) {
+    $('input[name="email"]', dlg).addClass("error");
+    eingabeFehlerPopup("emailFalsch");
+    return;
+  } 
+  else {
+    $('input[name="email"]', dlg).removeClass("error");
+  }
+  if ('undefined' !== typeof ks_lut.kategorie[parseInt(postData.unterkategorie)]) {
+    switch (ks_lut.kategorie[parseInt(postData.unterkategorie)].naehere_beschreibung_notwendig) {
+
+      case "betreff":
+        if (!postData.betreff || postData.betreff === placeholder_betreff) {
+          $('input[name="betreff"]').addClass("error");
+          eingabeFehlerPopup("betreffLeer");
+          return;
+        }
+        else
+          $('input[name="betreff"]').removeClass("error");
+        break;
+
+      case "details":
+        if (!postData.details || postData.details === placeholder_details) {
+          $('textarea[name="details"]').addClass("error");
+          eingabeFehlerPopup("detailsLeer");
+          return;
+        }
+        else
+          $('textarea[name="details"]').removeClass("error");
+        break;
+
+      case "betreffUndDetails":
+        if (!postData.betreff || postData.betreff === placeholder_betreff) {
+          $('input[name="betreff"]').addClass("error");
+          eingabeFehlerPopup("betreffLeer");
+          return;
+        }
+        else
+          $('input[name="betreff"]').removeClass("error");
+        if (!postData.details || postData.details === placeholder_details) {
+          $('textarea[name="details"]').addClass("error");
+          eingabeFehlerPopup("detailsLeer");
+          return;
+        }
+        else
+          $('textarea[name="details"]').removeClass("error");
+        break;
+
+    }
+  }
+
+  // Daten abschicken, Rückmeldung nur bei Fehler!
+  $.ajax({
+    url: '../php/meldung_submit.php',
+    data: $('form#meldung').serialize(),
+    method: 'post',
+    beforeSend: function() {
+      dlg.parent().css("display", "none");
+      $('body').spinner({
+        title: "neue Meldung",
+        message: "<p>Bitte warten, die Meldung wird gerade abgesetzt…</p>",
+        error: function() {
+          var d = dlg.parent();
+          var display = d.data("olddisplay") ? d.data("olddisplay") : "block";
+          dlg.parent().css("display", display);
+          $('body').spinner("destroy");
+        },
+        success: function() {
+          dlg.dialog("close");
+          $('body').spinner("destroy");
+        },
+        timer: 3
+      }).spinner("show");
+    },
+    success: function() {
+      //var layer = getLayerByTitle("Meldungen");
+      //layer.refresh({force: true});
+      map.render();
+      $('body').spinner("success", "<p>Es kann einige Minuten dauern, bis die Meldung auf der Karte erscheint. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.</p>");
+    },
+    error: function() {
+      $('body').spinner("error");
+    }
+  });
+}
+
+/**
+ * Event-Handler, entfernt das Eingabeformular aus dem Eingabe-Dialog, da
+ * dieser beim Öffnen des Dialogs dynamisch erstellt und  eingefügt wird.
+ * @returns null
+ */
+function onMeldungFormClose() {
+  // Dialog leeren
+  $('#meldung_edit').empty();
+  // Sketch-Layer leeren
+  clearMeldungSketch();
+}
+
+function getKategorien(parent, typ) {
+  var kategorien = {}
+  kategorien[0] = "auswählen…";
+  for (var i in ks_lut.kategorie) {
+    if (ks_lut.kategorie[i].parent == parent) {
+      if (parent == undefined && ks_lut.kategorie[i].typ != typ) {
+        continue;
+      }
+      kategorien[i] = ks_lut.kategorie[i].name;
+    }
+  }
+  return kategorien;
+}
+
+/**
+ * Verschiebt Karte und ggf. Dialog soweit, dass
+ * das Meldungs-Feature nicht verdeckt wird.
+ * @returns null
+ */
+function unhideFeatureUnderDialog(feature, dlg) {
+  // Prüfen, ob das dlg-Element in einem Dialog-Rahmen steckt.
+  dlgParent = dlg.parent('.ui-dialog');
+  if (dlgParent) {
+    dlg = dlgParent;
+  }
+
+  featureOffset = map.getPixelFromCoordinate(feature.getGeometry().flatCoordinates);
+
+  var viertel = ($(map.getViewport()).width() - dlg.width()) / 4;
+  new_top = featureOffset[1];
+  new_left = featureOffset[0] + viertel + (dlg.width() / 2);
+
+  var new_position = map.getCoordinateFromPixel(Array(new_left, new_top));
+  map.getView().setCenter(new_position);
+}
+
+
+/**
+ * Eingabefehler-Pop-up bei fehlender oder falscher Eingabe in Pflichtfelder
+ * @returns null
+ */
+function eingabeFehlerPopup(eingabeFehlerTyp) {
+  switch (eingabeFehlerTyp) {
+    case "emailFalsch":
+      var eingabeFehlerText = emailFalsch;
+      break;
+    case "emailLeer":
+      var eingabeFehlerText = emailLeer;
+      break;
+    case "begruendungLeer":
+      var eingabeFehlerText = begruendungLeer;
+      break;
+    case "freitextLeer":
+      var eingabeFehlerText = freitextLeer;
+      break;
+    case "hauptkategorieLeer":
+      var eingabeFehlerText = hauptkategorieLeer;
+      break;
+    case "unterkategorieLeer":
+      var eingabeFehlerText = unterkategorieLeer;
+      break;
+    case "betreffLeer":
+      var eingabeFehlerText = betreffLeer;
+      break;
+    case "detailsLeer":
+      var eingabeFehlerText = detailsLeer;
+      break;
+  }
+
+  var dlg = $('<div></div>')
+          .attr("id", 'eingabefehler-popup')
+          .html(eingabeFehlerText)
+          .dialog({
+    title: 'Eingabefehler',
+    modal: true,
+    closeOnEscape: false,
+    open: function(event, ui) {
+      $(this).find(".ui-dialog-titlebar-close").hide();
+    },
+    close: function(event, ui) {
+      $(this).dialog('destroy').remove();
+    }
+  });
+
+  dlg.dialog('option', 'buttons', {
+    schließen: function() {
+      $(this).dialog('close');
+    }
+  });
+}
+;

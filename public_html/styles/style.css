@@ -11,6 +11,11 @@ html,
   font-size: 14px;
 }
 
+h4 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
 #content {
   bottom: 0;
   left: 0;
@@ -28,6 +33,10 @@ html,
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.ui-widget {
+  z-index: 1002;
 }
 
 #sidebar {
@@ -76,6 +85,7 @@ html,
 }
 
 #layerswitcher label {
+  margin: 0;
   width: 50%;
 }
 
@@ -91,6 +101,13 @@ html,
 div.search {
   font-size: 13px;
   width: 265px;
+}
+
+form select {
+  margin-bottom: 15px;
+  max-width: 99%;
+  min-width: 99%;
+  width: 99%;
 }
 
 input#searchtext {
@@ -151,6 +168,7 @@ div.resultElement span {
 
 #melden ol {
   list-style: outside none none;
+  margin: 0;
 }
 
 #melden ol a {
@@ -163,6 +181,31 @@ div.resultElement span {
   margin-right: 0.3em;
   vertical-align: middle;
   width: 36px;
+}
+
+form#meldung label, #meldung_abuse label {
+  display: block;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 0.3em;
+}
+
+#meldung label, #meldung_abuse label {
+  width: 300px;
+}
+
+#meldung_edit form input,
+#meldung_edit form textarea {
+  margin-bottom: 15px;
+  max-width: 98%;
+  min-width: 98%;
+  width: 98%;
+}
+
+form .help {
+  color: #333;
+  font-size: 0.7em;
+  margin-top: 1.5em;
 }
 
 #beobachtungsflaechen button {
@@ -321,6 +364,14 @@ div.scrollCheckbox input {
   border-top-right-radius: 6px;
 }
 
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+  font-family: Verdana,sans-serif;
+  font-size: 1em;
+}
+
 .ui-widget-header {
   background: url("../images/ui-bg_flat_0_006cb7_40x100.png") repeat-x scroll 50% 50% #006cb7;
   border: 1px solid #164194;
@@ -332,6 +383,13 @@ div.scrollCheckbox input {
 .ui-widget-content .ui-state-default, 
 .ui-widget-header {
   background: url("../images/ui-bg_highlight-hard_50_006cb7_1x100.png") repeat-x scroll 50% 50% #f6f6f6;
+  border: 1px solid #164194;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  background: url("../images/ui-bg_flat_0_006cb7_40x100.png") repeat-x scroll 50% 50% #006cb7;
   border: 1px solid #164194;
   color: #ffffff;
   font-weight: bold;
@@ -396,9 +454,14 @@ div.scrollCheckbox input {
   background: #eee url("../images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;
 }
 
+.ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon,
 .ui-state-hover.ui-state-active .ui-icon,
 .ui-state-default .ui-icon {
   background-image: url("../images/ui-icons_ffffff_256x240.png");
+}
+
+.ui-dialog-titlebar .ui-dialog-titlebar-close.ui-state-hover .ui-icon {
+  background-image: url("../images/ui-icons_006cb7_256x240.png");
 }
 
 .ui-state-hover,
@@ -447,10 +510,15 @@ div.scrollCheckbox input {
 }
 
 .ol-overlaycontainer .popover-content .buttons {
-    text-align: center;
-    white-space: nowrap;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .ol-overlaycontainer .popover-content .buttons a#details.ui-button {
   margin-right: 3px;
+}
+
+#spinner {
+  margin: 1em;
+  text-align: center;
 }

@@ -3,23 +3,6 @@
 
 var filter = null;
 
-// Variablen mit Eingabefeld-Platzhaltern
-var placeholder_betreff = "Bitte geben Sie einen Betreff an.";
-var placeholder_details = "Bitte beschreiben Sie Ihre Meldung genauer.";
-var placeholder_email = "Bitte geben Sie Ihre E-Mail-Adresse an.";
-var placeholder_begruendung = "Bitte geben Sie eine Begründung an.";
-var placeholder_freitext = "Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.";
-
-// Variablen mit Fehlertexten
-var hauptkategorieLeer = "Sie müssen eine Hauptkategorie auswählen.";
-var unterkategorieLeer = "Sie müssen eine Unterkategorie auswählen.";
-var betreffLeer = "Sie müssen einen Betreff angeben.";
-var detailsLeer = "Sie müssen Ihre Meldung genauer beschreiben.";
-var emailFalsch = "Die angegebene E-Mail-Adresse ist syntaktisch falsch. Bitte korrigieren Sie Ihre Eingabe.";
-var emailLeer = "Sie müssen Ihre E-Mail-Adresse angeben.";
-var begruendungLeer = "Sie müssen eine Begründung angeben.";
-var freitextLeer = "Sie müssen Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung angeben.";
-
 /**
  * für IE Schriftgröße für Labels der Stadtteile festlegen
  */
@@ -371,37 +354,6 @@ meldungDetailsClick = function(dlg) {
 };
 
   /**
-   * Verschiebt Karte und ggf. Dialog soweit, dass
-   * das Meldungs-Feature nicht verdeckt wird.
-   * @returns null
-   */
-unhideFeatureUnderDialog = function(feature, dlg) {
-  // Prüfen, ob das dlg-Element in einem Dialog-Rahmen steckt.
-  dlgParent = dlg.parent('.ui-dialog');
-  if (dlgParent)
-    dlg = dlgParent;
-
-  featureOffset = map.getPixelFromLonLat(new OpenLayers.LonLat(
-    feature.geometry.x,
-    feature.geometry.y));	
-    dlgOffset = dlg.offset();
-    mapOffset = $(map.div).offset();
-
-    if (dlgOffset.left - mapOffset.left > mb_ol_config.markerSize) { // Move map to left		
-      // dx := X-Abstand zwischen Feature und linken Dialogrand
-      var dx = dlgOffset.left - (mapOffset.left + featureOffset.x);
-      if (dx < mb_ol_config.markerSize) {
-        map.pan(mb_ol_config.markerSize - dx, 0);
-      }
-    } else { // Move map as far left as possible, then dialog to the right
-      map.pan(featureOffset.x, 0);
-      dlg.animate({
-        left: mb_ol_config.markerSize
-      });
-    }
-},
-
-  /**
    * Setzt Unterstützungsmeldung an Server ab.
    * @returns null
    */
@@ -667,137 +619,9 @@ meldungLobHinweiseKritikSubmit = function() {
   });
 },
 
-  /**
-   * Event-Handler, entfernt das Eingabeformular aus dem Eingabe-Dialog, da
-   * dieser beim Öffnen des Dialogs dynamisch erstellt und  eingefügt wird.
-   * @returns null
-   */
-onMeldungFormClose = function() {
-  // Dialog leeren
-  $('#meldung_edit').empty();
-  // Sketch-Layer leeren
-  clearMeldungSketch();
-},
 
-  /**
-   * Event-Handler, wird beim Click auf den "Meldung absetzen"-Button ausgeführt,
-   * um die Daten zum Server zu schicken.
-   * TODO: Eingabe-Validierung.
-   */
-meldungFormSubmit = function() {
-  // Attributdaten aus Formular abholen
-  var dlg = $(this);
-  var postData = {
-    task: "submit",
-    typ: $('input[name="typ"]', dlg).val(),
-    point: $('input[name="point"]', dlg).val(),
-    hauptkategorie: $('select[name="hauptkategorie"]').val(),
-    unterkategorie: $('select[name="unterkategorie"]').val(),
-    betreff: $('input[name="betreff"]', dlg).val(),
-    details: $('textarea[name="details"]', dlg).val(),
-    email: $('input[name="email"]', dlg).val(),
-    foto: null
-  };
 
-  // clientseitige Validierung
-  var error = false;
-  if (postData.hauptkategorie == "0") {
-    $('select[name="hauptkategorie"]').addClass("error");
-    eingabeFehlerPopup("hauptkategorieLeer");
-    return;
-  } else {
-    $('select[name="hauptkategorie"]').removeClass("error");
-  }
-  if (postData.unterkategorie == "0") {
-    $('select[name="unterkategorie"]').addClass("error");
-    eingabeFehlerPopup("unterkategorieLeer");
-    return;
-  } else {
-    $('select[name="unterkategorie"]').removeClass("error");
-  }
-  var filter = /^\S+@\S+\.[A-Za-z]{2,6}$/;
-  if (!postData.email || postData.email === placeholder_email) {
-    $('input[name="email"]', dlg).addClass("error");
-    eingabeFehlerPopup("emailLeer");
-    return;
-  }
-  else if (!filter.test(postData.email)) {
-    $('input[name="email"]', dlg).addClass("error");
-    eingabeFehlerPopup("emailFalsch");
-    return;
-  }
-  else $('input[name="email"]', dlg).removeClass("error");
-  if ('undefined' !== typeof ks_lut.kategorie[parseInt(postData.unterkategorie)]) {
-    switch (ks_lut.kategorie[parseInt(postData.unterkategorie)].naehere_beschreibung_notwendig) {
-
-      case "betreff":
-        if (!postData.betreff || postData.betreff === placeholder_betreff) {
-          $('input[name="betreff"]').addClass("error");
-          eingabeFehlerPopup("betreffLeer");
-          return;
-        }
-        else $('input[name="betreff"]').removeClass("error");
-        break;
-
-      case "details":
-        if (!postData.details || postData.details === placeholder_details) {
-          $('textarea[name="details"]').addClass("error");
-          eingabeFehlerPopup("detailsLeer");
-          return;
-        }
-        else $('textarea[name="details"]').removeClass("error");
-        break;
-
-      case "betreffUndDetails":
-        if (!postData.betreff || postData.betreff === placeholder_betreff) {
-          $('input[name="betreff"]').addClass("error");
-          eingabeFehlerPopup("betreffLeer");
-          return;
-        }
-        else $('input[name="betreff"]').removeClass("error");
-        if (!postData.details || postData.details === placeholder_details) {
-          $('textarea[name="details"]').addClass("error");
-          eingabeFehlerPopup("detailsLeer");
-          return;
-        }
-        else $('textarea[name="details"]').removeClass("error");
-        break;
-
-    }
-  }
-
-  // Daten abschicken, Rückmeldung nur bei Fehler!
-  $('form#meldung')
-  .ajaxSubmit({
-    url: "../pc/frontend/meldung_submit.php",
-    type: "POST",
-    beforeSubmit: function(arr, form, options) {
-      dlg.parent().css("display", "none");
-      $('body').spinner({
-        title: "neue Meldung",
-        message: "<p>Bitte warten, die Meldung wird gerade abgesetzt…</p>",
-        error: function() {
-          var d = dlg.parent();
-          var display = d.data("olddisplay") ? d.data("olddisplay") : "block"; 
-          dlg.parent().css("display", display);
-          $('body').spinner("destroy");
-        },
-        success: function() {
-          dlg.dialog("close");
-          $('body').spinner("destroy");
-        },
-        timer: 3
-      }).spinner("show");
-    },
-    success: function() {
-      var layer = map.getLayer(mb_ol_config.layers["Meldungen"].id);
-      layer.refresh({force: true});
-      $('body').spinner("success", "<p>Es kann einige Minuten dauern, bis die Meldung auf der Karte erscheint. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.</p>");
-    },
-    error: function() {
-      $('body').spinner("error");}
-  });
-},
+  
 
   /**
    * Event-Handler (jQuery), wird beim Schließen des Meldungs-Dialogs
@@ -986,81 +810,8 @@ prepareProject = function(mapElement) {
   }).bind('dialogclose', onMeldungShowClose);
 
 
-  // Dialog für neue Meldung
-  $('<div></div>')
-  .data('oWidth', 500)
-  .attr('id', 'meldung_edit')
-  .dialog({
-    autoOpen: false,
-    width: 500,
-    close: onMeldungFormClose,
-    buttons: {
-      "melden": meldungFormSubmit,
-      "abbrechen": function() {$(this).dialog("close");}
-    }
-  });
+
 };
-
-
-
-
-
-
-
-/**
- * Eingabefehler-Pop-up bei fehlender oder falscher Eingabe in Pflichtfelder
- * @returns null
- */
-eingabeFehlerPopup = function(eingabeFehlerTyp) {
-  switch(eingabeFehlerTyp) {
-    case "emailFalsch":
-      var eingabeFehlerText = emailFalsch;
-      break;
-    case "emailLeer":
-      var eingabeFehlerText = emailLeer;
-      break;
-    case "begruendungLeer":
-      var eingabeFehlerText = begruendungLeer;
-      break;
-    case "freitextLeer":
-      var eingabeFehlerText = freitextLeer;
-      break;
-    case "hauptkategorieLeer":
-      var eingabeFehlerText = hauptkategorieLeer;
-      break;
-    case "unterkategorieLeer":
-      var eingabeFehlerText = unterkategorieLeer;
-      break;
-    case "betreffLeer":
-      var eingabeFehlerText = betreffLeer;
-      break;
-    case "detailsLeer":
-      var eingabeFehlerText = detailsLeer;
-      break;
-  }
-
-  var dlg = $('<div></div>')
-  .attr("id", 'eingabefehler-popup')
-  .html(eingabeFehlerText)
-  .dialog({
-    title: 'Eingabefehler',
-    modal: true,
-    closeOnEscape: false,
-    open: function(event, ui) {
-      $(this).find(".ui-dialog-titlebar-close").hide();
-    },
-    close: function(event, ui) {
-      $(this).dialog('destroy').remove();
-    }
-  });
-
-  dlg.dialog('option', 'buttons', {
-    schließen: function() {
-      $(this).dialog('close');
-    }
-  });
-};
-
 
 $(document).ready(function() {
   $("input[name='idee_alle']").live("click", function() {

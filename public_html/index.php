@@ -1,3 +1,6 @@
+<?php
+$config = include(dirname(__FILE__) . "/config/config.php");
+?>
 <!DOCTYPE html>
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -10,19 +13,23 @@
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.1.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/style.css" media="all" />
 
-    <script src="scripts/libs/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="scripts/libs/jquery-1.11.1.js" type="text/javascript"></script>
     <script src="scripts/libs/bootstrap-3.3.1.js" type="text/javascript"></script>
     <script src="scripts/libs/jquery-tmpl-1.0.4.js" type="text/javascript"></script>
+    <script src="scripts/libs/jquery-placeholder-1.3.min.js" type="text/javascript"></script>
     <script src="scripts/libs/jquery-ui-1.11.2.min.js" type="text/javascript"></script>
+    <script src="scripts/libs/jquery.ks.spinner.js" type="text/javascript"></script>
     <script src="scripts/libs/proj4js.min.js" type="text/javascript"></script>
-    <script src="scripts/libs/OpenLayers-3.0.0.js" type="text/javascript"></script>
-    <script src="scripts/libs/OpenLayers-factories.js" type="text/javascript"></script>
+    <script src="scripts/libs/OpenLayers-3.0.0-min.js" type="text/javascript"></script>
 
     <script src="config/config.js" type="text/javascript"></script>
+    <script src="scripts/OpenLayers-controlFactories.js" type="text/javascript"></script>
+    <script src="scripts/OpenLayers-layerFactories.js" type="text/javascript"></script>
     <script src="scripts/functions.js" type="text/javascript"></script>
     <script src="scripts/rss_functions.js" type="text/javascript"></script>
     <script src="scripts/init_map.js" type="text/javascript"></script>
     <script src="scripts/init_sidebar_neue_meldung.js" type="text/javascript"></script>
+    <script src="scripts/init_sidebar_beobachtungsflaechen.js" type="text/javascript"></script>
     <script src="scripts/init_sidebar.js" type="text/javascript"></script>
     <script src="scripts/init_ks_lut.js.php" type="text/javascript"></script>
     <script src="scripts/init.js" type="text/javascript"></script>
@@ -34,7 +41,7 @@
       <div id="sidebar" class="sidebar-open">
         <div id="sidebar_toggle" class="sidebar-open" title="Menü ein-/ausfahren"></div>
         <div id="sidebar-content">
-          <div class="headline">DEMO</div>
+          <div class="headline"><?= $config['labels']['sidebar_headline'] ?></div>
           <div id="layerswitcher"></div>
 
           <div id="widgets">
@@ -48,18 +55,28 @@
             <h3>neue Meldung</h3>
             <div id='melden'>
               <ol>
-                <li>
-                  <a href="#" id="problem">
-                    <img style="margin-right:10px" alt="Problem melden" src="images/icons/problem_0.png"/>
-                    Problem melden
-                  </a>
-                </li>
-                <li style="margin-top:5px">
-                  <a href="#" id="idee">
-                    <img style="margin-right:10px" alt="Idee melden" src="images/icons/idee_0.png"/>
-                    Idee melden
-                  </a>
-                </li>
+                <?php
+                if ($config['functions']['report_problem'] == true) {
+                  ?>
+                  <li>
+                    <a href="#" id="problem">
+                      <img style="margin-right:10px" alt="Problem melden" src="images/icons/problem_0.png"/>
+                      Problem melden
+                    </a>
+                  </li>
+                  <?php
+                }
+                if ($config['functions']['report_idea'] == true) {
+                  ?>
+                  <li style="margin-top:5px">
+                    <a href="#" id="idee">
+                      <img style="margin-right:10px" alt="Idee melden" src="images/icons/idee_0.png"/>
+                      Idee melden
+                    </a>
+                  </li>
+                  <?php
+                }
+                ?>
               </ol>
             </div>
             <h3>Beobachtungsfl&auml;chen</h3>
@@ -86,30 +103,16 @@
         </div>
       </div>
     </div>
-    <script id='template_flaeche_abonnieren' type="text/x-jquery-templ">
-      <form id="rss_abo">
-      <input type="hidden" name="id" value="${id}"/>
-      <input type="hidden" name="geom" value="${geom}"/>
-
-      <div id="problem" style="width:48%;margin-right:2%">
-      <h4 style="margin-bottom:5px;margin-top:2px">Probleme</h4>
-      <div>
-      <div name="problem_kategorie" class="scrollCheckbox" style="border-bottom:1px solid #999999;margin-bottom:6px">
-      </div>
-      <input type="checkbox" name="problem_alle" value="1" style="margin-bottom:0"/>
-      <label style="font-style:italic;font-weight:bold;font-size:0.8em">alle Probleme</label>
-      </div>
-      </div>
-      <div id="idee" style="width:48%;margin-right:2%">
-      <h4 style="margin-bottom:5px;margin-top:2px">Ideen</h4>
-      <div>
-      <div name="idee_kategorie" class="scrollCheckbox" style="border-bottom:1px solid #999999;margin-bottom:6px">
-      </div>
-      <input type="checkbox" name="idee_alle" value="1" style="margin-bottom:0"/>
-      <label style="font-style:italic;font-weight:bold;font-size:0.8em">alle Ideen</label>
-      </div>
-      </div>
-      </form>
-    </script>
+    <?php
+    $arr = array('template_flaeche_abonnieren', 'template_meldung_edit');
+    foreach ($arr as $template) {
+      echo "<script id='" . $template . "' type='text/x-jquery-templ'>";
+      $filename = "templates/" . $template . ".html";
+      if (file_exists($filename)) {
+        echo file_get_contents($filename);
+      }
+      echo "</script>";
+    }
+    ?>
   </body>
 </html>

@@ -8,6 +8,7 @@ $connection = pg_connect("host=" . $config['psql']['host'] .
   " dbname=" . $config['psql']['database'] .
   " user=" . $config['psql']['username'] .
   " password=" . $config['psql']['password'] . "");
+
 $res = pg_query("SELECT * FROM klarschiff.klarschiff_kategorie ORDER BY name");
 while ($row = pg_fetch_assoc($res)) {
   $lut["kategorie"][$row["id"]] = array(
@@ -27,28 +28,17 @@ foreach ($lut["kategorie"] as $key => $val) {
     $lut["kategorie"][$parent]["childcount"] = $childcount + 1;
   }
 }
-pg_close($connection);
 
-$connection = pg_connect("host=" . $config['psql']['host'] .
-  " port=" . $config['psql']['port'] .
-  " dbname=" . $config['psql']['database'] .
-  " user=" . $config['psql']['username'] .
-  " password=" . $config['psql']['password'] . "");
 $res = pg_query("SELECT * FROM klarschiff.klarschiff_vorgangstyp");
 while ($row = pg_fetch_assoc($res)) {
   $lut["typ"][$row["id"]] = $row;
 }
-pg_close($connection);
 
-$connection = pg_connect("host=" . $config['psql']['host'] .
-  " port=" . $config['psql']['port'] .
-  " dbname=" . $config['psql']['database'] .
-  " user=" . $config['psql']['username'] .
-  " password=" . $config['psql']['password'] . "");
 $res = pg_query("SELECT * FROM klarschiff.klarschiff_status");
 while ($row = pg_fetch_assoc($res)) {
   $lut["status"][$row["id"]] = $row;
 }
+
 pg_close($connection);
 ?>
 

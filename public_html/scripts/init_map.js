@@ -19,16 +19,12 @@ function init_map() {
   // Alle Layer erzeugen
   var layerFactory = new OLLayerFactory();
   $.each(ol_config.layers, function(name, def) {
-    def["name"] = name;
     var layer = layerFactory.createLayer(def, projection_25833);
     layer && map.addLayer(layer);
   });
 
-  addControls(map);
 
-  if (typeof(prepareProject) == "function") {
-    prepareProject(mapElement);
-  }
+  addControls(map);
 
 //  var point1 = proj4('EPSG:4326', 'EPSG:25833', [11.49824, 53.74828]);
 //  var point2 = ol.proj.transform([11.49824, 53.74828], 'EPSG:4326', projection_25833);
@@ -67,4 +63,10 @@ function addControls(map) {
 
   var zoom = new ol.control.Zoom();
   map.addControl(zoom);
+
+  var controlFactory = new OLControlFactory();
+  $.each(ol_config.controls, function(name, def) {
+    var control = controlFactory.createControl(def, projection_25833);
+    control && map.addControl(control);
+  });
 }

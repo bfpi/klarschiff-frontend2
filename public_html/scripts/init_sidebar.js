@@ -8,9 +8,9 @@ function init_sidebar() {
   $('#beobachtungsflaechen button').button();
   $('#sonderseiten button').button();
 
-  $('#flaeche_stadtgebiet').click(onRssStadtgebiet);
-  $('#flaeche_stadtteil').click(onRssStartSelect);
-  $('#flaeche_neu').click(onRssStartNeueFlaeche);
+  $('#flaeche_stadtgebiet').click(beobachtungsflaecheStadtgebiet);
+  $('#flaeche_stadtteil').click(beobachtungsflaecheStartSelect);
+  $('#flaeche_neu').click(beobachtungsflaecheStartNeueFlaeche);
 
   // Accordion bauen
   $('#widgets').accordion({
@@ -50,7 +50,7 @@ function init_layerSwitcher() {
   var layers = map.getLayers();
   for (var i = 0; i < layers.getLength(); i++) {
     var layer = layers.item(i);
-    if (layer != null && layer.values_.displayInLayerSwitcher == true) {
+    if (layer != null && layer.getProperties().displayInLayerSwitcher) {
       buttonset.append($('<input/>')
               .attr('type', 'radio')
               .attr('id', 'bl_' + i)
@@ -65,7 +65,7 @@ function init_layerSwitcher() {
         var checkedLayer = $(this).attr('id').slice(3);
         var layers = map.getLayers().getArray();
         for (i = 0; i < layers.length; ++i) {
-          if(layers[i].values_.displayInLayerSwitcher == true) {
+          if(layers[i].getProperties().displayInLayerSwitcher) {
             layers[i].setVisible(i == checkedLayer);
           }
         }

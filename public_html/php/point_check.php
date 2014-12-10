@@ -3,38 +3,20 @@
 define('BUFFER', 10);
 
 $included = strtolower(realpath(__FILE__)) != strtolower(realpath($_SERVER['SCRIPT_FILENAME']));
+include(dirname(__FILE__) . "/functions.php");
 
-function point_check(&$wkt, $displace) {
+function point_check($point, $displace) {
   $config = include(dirname(__FILE__) . "/../config/config.php");
-
-  $connection = pg_connect("host=" . $config['psql']['host'] .
-    " port=" . $config['psql']['port'] .
-    " dbname=" . $config['psql']['database'] .
-    " user=" . $config['psql']['username'] .
-    " password=" . $config['psql']['password'] . "");
-
   // Inside allowed area?
-  if (!inside_allowed_area_check($connection, "POINT(" . $wkt . ")")) {
-    return '1002#1002#Die neue Meldung befindet sich außerhalb Rostocks.';
+  if(!validate_meldung_im_erlaubten_bereich($config, $point)) {
+    return '1002#1002#' . $config['labels']['errors']['ausserhalb_des_bereichs'];
   }
-
-  pg_close($connection);
-  return false;
-}
-
-function inside_allowed_area_check($connection, $wkt) {
-  $sql = "SELECT ST_Within(ST_GeometryFromText($1, 25833), klarschiff.klarschiff_stadtgrenze_hro.the_geom) FROM klarschiff.klarschiff_stadtgrenze_hro";
-  $result = pg_query_params($connection, $sql, array($wkt));
-
-  while ($row = pg_fetch_assoc($result)) {
-    return $row['st_within'] === 't';
-  }
+  
   return false;
 }
 
 if (!$included) {
-  $wkt = str_replace(",", " ", $_REQUEST['point']);
-  $ptc = point_check($wkt, false);
+  $ptc = point_check("POINT(" . $_REQUEST["point"] . ")", false);
   if ($ptc) {
     die($ptc);
   }
