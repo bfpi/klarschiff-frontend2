@@ -20,7 +20,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <script src="scripts/libs/jquery-ui-1.11.2.min.js" type="text/javascript"></script>
     <script src="scripts/libs/jquery.ks.spinner.js" type="text/javascript"></script>
     <script src="scripts/libs/proj4js-2.3.3-min.js" type="text/javascript"></script>
-    <script src="scripts/libs/OpenLayers-3.0.0-min.js" type="text/javascript"></script>
+    <script src="scripts/libs/OpenLayers-3.0.0.js" type="text/javascript"></script>
 
     <script src="config/config.js" type="text/javascript"></script>
     <script src="scripts/OpenLayers-controlFactories.js" type="text/javascript"></script>
