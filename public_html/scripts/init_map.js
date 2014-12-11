@@ -1,11 +1,16 @@
 
+proj4.defs('EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+proj4.defs('urn:ogc:def:crs:EPSG::25833', proj4.defs('EPSG:25833'));
+var projection_25833 = ol.proj.get('EPSG:25833');
+projection_25833.setExtent(mv_bbox_25833);
+
 function init_map() {
 
   if (typeof(preAddMap) == "function") {
     preAddMap();
   }
 
-  var mapCenterStart = ol.proj.transform(lonLat_center, 'EPSG:4326', 'EPSG:25833');
+  var mapCenterStart = ol.proj.transform(lonLat_center, 'EPSG:4326', projection_25833);
 
   map = new ol.Map({
     target: 'ol_map',
@@ -36,15 +41,11 @@ function init_map() {
 //  console.log(htmlStr);
 }
 
-proj4.defs("EPSG:25833", "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
-var projection_25833 = ol.proj.get('EPSG:25833');
-projection_25833.setExtent(mv_bbox_25833);
-
 function addControls(map) {
 
   var mousePositionControl = new ol.control.MousePosition({
     coordinateFormat: ol.coordinate.createStringXY(4),
-    projection: 'EPSG:25833',
+    projection: projection_25833,
     undefinedHTML: '?,?'
   });
   map.addControl(mousePositionControl);
