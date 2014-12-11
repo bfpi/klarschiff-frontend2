@@ -62,9 +62,6 @@ function addControls(map) {
   var scaleLine = new ol.control.ScaleLine()
   map.addControl(scaleLine);
 
-  var zoom = new ol.control.Zoom();
-  map.addControl(zoom);
-
   var controlFactory = new OLControlFactory();
   $.each(ol_config.controls, function(name, def) {
     var control = controlFactory.createControl(def, projection_25833);
