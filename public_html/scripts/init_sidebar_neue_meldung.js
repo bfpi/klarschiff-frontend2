@@ -24,6 +24,12 @@ function onNeueMeldung(event) {
     geometry: new ol.geom.Point(position),
   });
 
+  map.addInteraction(new ol.interaction.Modify({
+    features: new ol.Collection([feature]),
+    pixelTolerance: 50,
+    style: new ol.style.Style()
+  }));
+
   var iconStyle = new ol.style.Style({
     image: new ol.style.Icon(({
       anchorXUnits: 'pixels',
@@ -67,19 +73,6 @@ function onNeueMeldung(event) {
     displayFeatureInfo(pixel);
 
   });
-
-  var modify = new ol.interaction.Modify({
-    features: featureOverlay.getFeatures(),
-    deleteCondition: function(event) {
-      return ol.events.condition.shiftKeyOnly(event) &&
-              ol.events.condition.singleClick(event);
-    },
-    style: new ol.style.Style({
-      stroke: null,
-      fill: null
-    })
-  });
-  map.addInteraction(modify);
 
   var element = document.getElementById('popup');
   var popup = new ol.Overlay({
