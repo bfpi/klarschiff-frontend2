@@ -1,4 +1,4 @@
-var zoom = 4;
+var zoom = 3.7;
 var lonLat_center = [13.409414, 54.089276];
 //var mv_bbox_25833 = [271265.01714072, 5971859.93045162, 346749.189382955, 6017571.95459192];
 var mv_bbox_25833 = [380000, 5980000, 410000, 6010000];
@@ -126,60 +126,6 @@ ol_styles = {
 //    })
 //  })
 };
-
-function preAddMap() {
-  //var ows_namespace = window.location.protocol + "//" + window.location.host + "/ows/klarschiff";
-  //var ows_url = ows_namespace + "/wfs";
-  var extra_config = {
-    controls: {
-//      "Attribution": {
-//        type: "Attribution"
-//      },
-//      "SelectMeldung": {
-//        type: "SelectFeature",
-//        layer: "Meldungen",
-//        options: {
-//          multiple: false,
-//          autoActivate: true,
-//          box: false
-//        }},
-//      "SelectPolygon": {
-//        title: "SelectPolygon",
-//        type: "SelectFeature",
-//        layer: "GeoRSS-Polygone",
-//        options: {
-//          multiple: true,
-//          toggle: true,
-//          box: false,
-//          clickout: false,
-//          autoActivate: false
-//        }},
-//      "DragFeature": {
-//        type: "DragFeature",
-//        layer: "SketchMeldung",
-//        options: {
-//          onStart: onNeueMeldungDragStart,
-//          onComplete: onNeueMeldungDragComplete
-//        }
-//      },
-//      "DrawBeobachtungsflaeche": {
-//        type: "DrawFeature",
-//        layer: "SketchBeobachtungsfläche",
-//        options: {
-//          featureAdded: onRssNeueFlaeche
-//        }},
-//      "ScaleLine": {
-//        type: "ScaleLine",
-//        options: {
-//          bottomInUnits: ""
-//        }
-//      }
-    },
-    markerSize: 60
-  }
-
-  $.extend(true, ol_config, extra_config);
-}
 
 var ol_config = {
   "layers": {

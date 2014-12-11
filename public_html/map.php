@@ -23,7 +23,6 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <script src="scripts/libs/OpenLayers-3.0.0.js" type="text/javascript"></script>
 
     <script src="config/config.js" type="text/javascript"></script>
-    <script src="scripts/OpenLayers-controlFactories.js" type="text/javascript"></script>
     <script src="scripts/OpenLayers-layerFactories.js" type="text/javascript"></script>
     <script src="scripts/functions.js" type="text/javascript"></script>
     <script src="scripts/rss_functions.js" type="text/javascript"></script>
@@ -107,9 +106,9 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     $arr = array('template_flaeche_abonnieren', 'template_meldung_edit');
     foreach ($arr as $template) {
       echo "<script id='" . $template . "' type='text/x-jquery-templ'>";
-      $filename = "templates/" . $template . ".html";
+      $filename = "templates/" . $template . ".php";
       if (file_exists($filename)) {
-        echo file_get_contents($filename);
+        include($filename);
       }
       echo "</script>";
     }

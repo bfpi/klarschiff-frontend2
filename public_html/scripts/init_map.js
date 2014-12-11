@@ -5,11 +5,6 @@ var projection_25833 = ol.proj.get('EPSG:25833');
 projection_25833.setExtent(mv_bbox_25833);
 
 function init_map() {
-
-  if (typeof(preAddMap) == "function") {
-    preAddMap();
-  }
-
   var mapCenterStart = ol.proj.transform(lonLat_center, 'EPSG:4326', projection_25833);
 
   map = new ol.Map({
@@ -27,7 +22,6 @@ function init_map() {
     var layer = layerFactory.createLayer(def, projection_25833);
     layer && map.addLayer(layer);
   });
-
 
   addControls(map);
 
@@ -61,10 +55,4 @@ function addControls(map) {
 
   var scaleLine = new ol.control.ScaleLine()
   map.addControl(scaleLine);
-
-  var controlFactory = new OLControlFactory();
-  $.each(ol_config.controls, function(name, def) {
-    var control = controlFactory.createControl(def, projection_25833);
-    control && map.addControl(control);
-  });
 }
