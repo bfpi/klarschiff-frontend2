@@ -522,3 +522,7 @@ div.scrollCheckbox input {
   margin: 1em;
   text-align: center;
 }
+
+.popover {
+  z-index: 1000;
+}
