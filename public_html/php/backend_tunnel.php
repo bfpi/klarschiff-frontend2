@@ -5,7 +5,7 @@
  * Der Tunnel wird von den Frontend-Fassaden verwendet.
  */
 
-define("ENTRYPOINT", BACKEND_URL . "/service");
+define("ENTRYPOINT", BACKEND_URL . "service");
 
 function relay($data, $path) {
   $post_array = array();

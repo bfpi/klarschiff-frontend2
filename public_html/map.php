@@ -91,10 +91,11 @@ $config = include(dirname(__FILE__) . "/config/config.php");
             </div>
             <h3>Hilfe und Impressum</h3>
             <div id="sonderseiten">
-              <button onClick="window.open('http://demo.klarschiff-hro.de/pc/hilfe.html', '_blank')">Hilfe</button>
-              <button onClick="window.open('http://demo.klarschiff-hro.de/pc/datenschutz.html', '_blank')">Datenschutz</button>
-              <button onClick="window.open('http://demo.klarschiff-hro.de/pc/impressum.html', '_blank')">Impressum</button>
-              <button onClick="window.open('http://demo.klarschiff-hro.de/pc/nutzungsbedingungen.html', '_blank')">Nutzungsbedingungen</button>
+              <?php
+              foreach ($config['sidebar_links']['hilfe_und_impressum'] as $row) {
+                echo "<button onClick=\"window.open('" . $row['link'] . "', '_blank')\">" . $row['label'] . "</button>";
+              }
+              ?>
             </div>
           </div>
           <div id="back_to_start"></div>

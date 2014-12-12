@@ -1,8 +1,8 @@
 <?php
 
 define("ADRESSSUCHE_URL", "http://klarschiff-test:8080/solr/select?");
-
-define("BACKEND_URL", "http://klarschiff-test/backend");
+define("BACKEND_URL", "http://klarschiff-test/backend/");
+define("FRONTEND_URL", "http://klarschiff-test/pc/");
 
 return array(
   'psql' => array(
@@ -23,6 +23,26 @@ return array(
   'functions' => array(
     'report_idea' => false,
     'report_problem' => true
+  ),
+  'sidebar_links' => array(
+    'hilfe_und_impressum' => array(
+      array(
+        'label' => 'Hilfe',
+        'link' => FRONTEND_URL . 'hilfe.html'
+      ),
+      array(
+        'label' => 'Datenschutz',
+        'link' => FRONTEND_URL . 'datenschutz.html'
+      ),
+      array(
+        'label' => 'Impressum',
+        'link' => FRONTEND_URL . 'impressum.html'
+      ),
+      array(
+        'label' => 'Nutzungsbedingungen',
+        'link' => FRONTEND_URL . 'nutzungsbedingungen.html'
+      )
+    )
   )
 );
 ?>
