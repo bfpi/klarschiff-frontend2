@@ -1,3 +1,5 @@
+var beobachtungsflaechenOverlay;
+var drawBeobachtungsflaeche;
 
 function beobachtungsflaecheStadtgebiet() {
   hideFlaecheActionBtns();
@@ -11,53 +13,16 @@ function beobachtungsflaecheStartSelect() {
   $("#flaeche_cancel").unbind("click").click(beobachtungsflaecheStopSelect);
 
   var layer = getLayerByTitle("SketchBeobachtungsflaeche");
-  var control = getControlByTitle("SelectPolygon");
 
-  console.log("layer: " + layer);
-  console.log("control: " + control);
-
-  //	beobachtungsflaecheStopNeueFlaeche();
-  $("#flaeche_apply").unbind("click").click(function() {
-    beobachtungsflaecheSelect(control.layer.selectedFeatures);
-  });
+  $("#flaeche_apply").unbind("click").click(beobachtungsflaecheSelect);
 
   layer.setVisible(true);
-  var featureOverlay = new ol.FeatureOverlay({
+  beobachtungsflaechenOverlay = new ol.FeatureOverlay({
     map: map,
     style: ol_styles.beobachtungsflaeche_hover
   });
 
-  var highlight;
-  var displayFeatureInfo = function(pixel) {
-
-    var feature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-      return feature;
-    });
-
-    if (feature) {
-      console.log(feature.getId() + ': ' + feature.get('bezeichnung'));
-    }
-
-    if (feature !== highlight) {
-      if (highlight) {
-        featureOverlay.removeFeature(highlight);
-      }
-      if (feature) {
-        featureOverlay.addFeature(feature);
-      }
-      highlight = feature;
-    }
-
-  };
-
-  //  $(map.getViewport()).on('mousemove', function(evt) {
-  //    var pixel = map.getEventPixel(evt.originalEvent);
-  //    displayFeatureInfo(pixel);
-  //  });
-
-  map.on('click', function(evt) {
-    displayFeatureInfo(evt.pixel);
-  });
+  map.on('click', waehleStadtteil);
 
   $(document).bind('keydown.rss', function(event) {
     if (event.keyCode && event.keyCode === $.ui.keyCode.ESCAPE) {
@@ -67,6 +32,48 @@ function beobachtungsflaecheStartSelect() {
   });
 }
 
+function beobachtungsflaecheSelect() {
+  features = beobachtungsflaechenOverlay.getFeatures().getArray();
+  var IDs = "";
+  for (var i = 0; i < features.length; i++) {
+    IDs += "," + features[i].get("ogc_fid");
+  }
+
+  hideFlaecheActionBtns();
+  beobachtungsflaechenDialog(IDs, null, "thematische Eingrenzung", null);
+  beobachtungsflaecheStopSelect();
+}
+
+function beobachtungsflaecheStopSelect() {
+  showFlaecheActionBtns();
+  hideFlaecheCtrlBtns();
+  var layer = getLayerByTitle("SketchBeobachtungsflaeche");
+
+  layer.setVisible(false);
+  beobachtungsflaechenOverlay.getFeatures().clear();
+  map.un('click', waehleStadtteil);
+}
+
+function waehleStadtteil(elem) {
+  pixel = elem.pixel;
+  var newFeature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+    return feature;
+  });
+
+  var isCurrent = false;
+  beobachtungsflaechenOverlay.getFeatures().forEach(function(feature) {
+    if (newFeature == feature) {
+      isCurrent = true;
+    }
+  });
+
+  if (isCurrent) {
+    beobachtungsflaechenOverlay.removeFeature(newFeature);
+  } else if (newFeature) {
+    beobachtungsflaechenOverlay.addFeature(newFeature);
+  }
+}
+
 /**
  * Event-Handler (jQuery), wird nach dem Klick auf "Neue Fläche erstellen"
  * ausgeführt. Aktiviert das DrawFeature-Control und ändert den Mauszeiger auf
@@ -74,32 +81,67 @@ function beobachtungsflaecheStartSelect() {
  * @param event Klick-Event, unbenutzt.
  * @returns null
  */
-function beobachtungsflaecheStartNeueFlaeche(event) {
+function beobachtungsflaecheStartNeueFlaeche() {
+  var layer = getLayerByTitle("DrawBeobachtungsflaeche");
+
   hideFlaecheActionBtns();
   showFlaecheCtrlBtns();
   $("#flaeche_cancel").unbind("click").click(beobachtungsflaecheStopNeueFlaeche);
-
-  var control = map.getControl(ol_config.controls["DrawBeobachtungsflaeche"].id);
-  var mapDiv = $(map.div);
-
-  //	console.info(control);
-
   $("#flaeche_apply").click(function() {
-    control.handler.finishGeometry();
-    //		console.info(control.layer.features);
+    removeAllFeaturesFromLayer(layer);
+    var feature = new ol.Feature({
+      geometry: new ol.geom.Polygon(drawBeobachtungsflaeche.sketchPolygonCoords_)
+    });
+
+    layer.getSource().addFeature(feature);
+
+    beobachtungsflaechenDialog(null, feature);
+    beobachtungsflaecheStopNeueFlaeche();
   });
 
-  beobachtungsflaecheStopSelect();
+  layer.setVisible(true);
 
-  control.activate();
-  mapDiv.css('cursor', 'crosshair');
+  drawBeobachtungsflaeche = new ol.interaction.Draw({
+    source: layer.getSource(),
+    type: "Polygon",
+    style: ol_styles.beobachtungsflaeche
+  });
 
+  drawBeobachtungsflaeche.on('drawend',
+          function(evt) {
+            map.removeInteraction(drawBeobachtungsflaeche);
+            $("#" + map.getTarget()).css("cursor", "auto");
+          }, this);
+
+  map.addInteraction(drawBeobachtungsflaeche);
+
+  $("#" + map.getTarget()).css("cursor", "crosshair");
   $(document).bind('keydown.rss', function(event) {
     if (event.keyCode && event.keyCode === $.ui.keyCode.ESCAPE) {
       beobachtungsflaecheStopNeueFlaeche();
       event.preventDefault();
     }
   });
+}
+
+function beobachtungsflaecheStopNeueFlaeche() {
+  showFlaecheActionBtns();
+  hideFlaecheCtrlBtns();
+
+  map.removeInteraction(drawBeobachtungsflaeche);
+  $("#" + map.getTarget()).css("cursor", "auto");
+
+  var layer = getLayerByTitle("DrawBeobachtungsflaeche");
+  layer.setVisible(false);
+  removeAllFeaturesFromLayer(layer);
+}
+
+showFlaecheActionBtns = function() {
+  $("button.flaecheAction").show();
+}
+
+hideFlaecheCtrlBtns = function() {
+  $("button.flaecheCtrl").unbind("click").hide();
 }
 
 // Hide and show buttons for Beobachtungsflaeche.
@@ -113,19 +155,6 @@ function hideFlaecheActionBtns(buttonID) {
 
 showFlaecheCtrlBtns = function() {
   $("button.flaecheCtrl").show();
-}
-
-function beobachtungsflaecheStopSelect() {
-  showFlaecheActionBtns();
-  hideFlaecheCtrlBtns();
-  var layer = getLayerByTitle("SketchBeobachtungsflaeche");
-  var control = getControlByTitle("SelectPolygon");;
-
-  layer.setVisible(false);
-  control.unselectAll();
-  control.deactivate();
-
-  $(document).unbind('.rss');
 }
 
 /**
@@ -165,15 +194,22 @@ function beobachtungsflaechenDialog(id, feature, name, geom_string) {
     });
   });
 
+  console.log(feature);
+
   dlg.dialog({
     modal: true,
     width: 500,
     close: function() {
-      if (feature)
-        feature.destroy();
+      if (feature) {
+        map.getLayers().forEach(function(layer) {
+          if (typeof removeFeature == 'function') {
+            layer.getSource().removeFeature(feature);
+          }
+        });
+      }
     },
     open: function() {
-      var $btn_beobachten = dlg.siblings(".ui-dialog-buttonpane").find(":button:").first();
+      var $btn_beobachten = dlg.siblings(".ui-dialog-buttonpane").find(":button").first();
       if (dlg.find(" :checked").size() == 0) {
         $btn_beobachten.attr("disabled", true).addClass("ui-state-disabled");
       } else {
@@ -201,34 +237,34 @@ function beobachtungsflaechenDialog(id, feature, name, geom_string) {
           idee_kat_arr.push($(this).val());
         });
 
-        if (feature && feature.geometry) {
-          geom_as_text = feature.geometry.toString();
+        if (feature && feature.getGeometry()) {
+          geom_as_text = "POLYGON((" + feature.getGeometry().flatCoordinates.toString() + ")) ";
+          var koordinaten = [];
+          feature.getGeometry().getCoordinates()[0].forEach(function(coord) {
+            koordinaten[koordinaten.length] = coord.toString().replace(/,/g, " ");
+          });
+          geom_as_text = "POLYGON((" + koordinaten.join(",") + ")) ";
+
         } else if (geom_string) {
           geom_as_text = geom_string;
         }
 
         $.ajax({
-          url: "../pc/frontend/rss_submit.php",
+          url: "../php/flaechen_submit.php",
           type: "POST",
           dataType: "json",
           data: {
-            id: id,
+            id: id ? id : "null",
             geom: geom_as_text,
-            //problem: $('input[name="problem"]', dlg).is(':checked') ? true : false,
-            //idee: $('input[name="idee"]', dlg).is(':checked') ? true : false,
             problem_kategorie: problem_kat_arr,
             idee_kategorie: idee_kat_arr
           },
           beforeSend: function() {
-            //dlg.parent().css("display", "none");
             dlg.dialog("close");
             $('body').spinner({
               title: "GeoRSS-Feed",
               message: "<p>Bitte warten, der GeoRSS-Feed wird gerade erstellt…</p>",
               error: function() {
-                //var d = dlg.parent();
-                //var display = d.data("olddisplay") ? d.data("olddisplay") : "block";
-                //dlg.parent().css("display", display);
                 $('body').spinner("destroy");
                 dlg.dialog("show");
               },
@@ -242,7 +278,7 @@ function beobachtungsflaechenDialog(id, feature, name, geom_string) {
             $('body').spinner("error");
           },
           success: function(data) {
-            var feed_url = "../pc/georss.php?id=" + data.hash;
+            var feed_url = "../georss.php?id=" + data.hash;
             var message = "Der GeoRSS-Feed wurde erfolgreich erstellt und ist nun unter folgender Adresse abrufbar: ";
             message += '<a href="' + feed_url + '" target="_blank" style="color:#006CB7;text-decoration:none;">GeoRSS-Feed</a>';
             $('body').spinner("success", message);

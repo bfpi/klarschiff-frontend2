@@ -26,16 +26,17 @@ var ows_url = ows_namespace + "/wfs";
 var styleCache = {};
 var highlightStyleCache = {};
 ol_styles = {
+  stroke: new ol.style.Stroke({
+    color: "#FF8700",
+    width: 2
+  }),
   beobachtungsflaeche: function(feature, resolution) {
     var text = resolution < 15 ? feature.get("bezeichnung") : "";
     if (!styleCache[text]) {
       styleCache[text] = [new ol.style.Style({
+          stroke: ol_styles.stroke,
           fill: new ol.style.Fill({
             color: "rgba(255,135,0,0.5)"
-          }),
-          stroke: new ol.style.Stroke({
-            color: "#FF8700",
-            width: 2
           }),
           text: new ol.style.Text({
             font: "bold 12px Verdana",
@@ -52,10 +53,7 @@ ol_styles = {
     var text = resolution < 5000 ? feature.get("bezeichnung") : "";
     if (!highlightStyleCache[text]) {
       highlightStyleCache[text] = [new ol.style.Style({
-          stroke: new ol.style.Stroke({
-            color: "#FF8700",
-            width: 2
-          }),
+          stroke: ol_styles.stroke,
           fill: new ol.style.Fill({
             color: "rgba(255,0,255,0.3)"
           }),
@@ -212,6 +210,13 @@ var ol_config = {
       title: "SketchBeobachtungsflaeche",
       type: "Vector",
       url: "http://klarschiff-test:8080/geoserver/klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&maxFeatures=50&outputFormat=application/json",
+      default_layer: false,
+      displayInLayerSwitcher: false,
+      style: ol_styles.beobachtungsflaeche
+    },
+    "DrawBeobachtungsflaeche": {
+      title: "DrawBeobachtungsflaeche",
+      type: "Vector",
       default_layer: false,
       displayInLayerSwitcher: false,
       style: ol_styles.beobachtungsflaeche

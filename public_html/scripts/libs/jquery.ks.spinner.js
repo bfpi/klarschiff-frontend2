@@ -18,7 +18,7 @@
     _close_button: undefined,
     _timeout: false,
 
-    _create: function() {       
+    _create: function() {   
       this._dialog = $('<div/>')
       .hide()
       .addClass("ks-spinner")
@@ -42,10 +42,8 @@
         .button("disable");
     },
 
-    destroy: function() {       
-      this._dialog.dialog("destroy");
+    _destroy: function() {       
       this._dialog.remove();
-      this.element.removeData("spinner");
     },
 
     show: function() {

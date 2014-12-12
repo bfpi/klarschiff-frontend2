@@ -4,6 +4,7 @@ function init_sidebar() {
   init_homeButton();
   init_adresssuche();
   init_gotoBBOX();
+  init_checkAll();
 
   $('#beobachtungsflaechen button').button();
   $('#sonderseiten button').button();
@@ -133,7 +134,7 @@ function init_gotoBBOX() {
           view.setZoom(9.5);
         } else {
           // POLYGON
-          for(i = 0; i < bboxArray.length; i++) {
+          for (i = 0; i < bboxArray.length; i++) {
             bboxArray[i] = parseFloat(bboxArray[i]);
           }
           view.fitExtent(bboxArray, map.getSize());
@@ -145,4 +146,30 @@ function init_gotoBBOX() {
       return false;
     }
   });
+}
+
+function init_checkAll() {
+  $(document).on("click", "input[name='idee_alle']", function() {
+    if ($(this).prop("checked")) {
+      $("div[name='idee_kategorie'] input").each(function() {
+        $(this).prop("checked", true);
+      });
+    } else {
+      $("div[name='idee_kategorie'] input").each(function() {
+        $(this).prop("checked", false);
+      });
+    }
+  })
+
+  $(document).on("click", "input[name='problem_alle']", function() {
+    if ($(this).prop("checked")) {
+      $("div[name='problem_kategorie'] input").each(function() {
+        $(this).prop("checked", true);
+      });
+    } else {
+      $("div[name='problem_kategorie'] input").each(function() {
+        $(this).prop("checked", false);
+      });
+    }
+  })
 }
