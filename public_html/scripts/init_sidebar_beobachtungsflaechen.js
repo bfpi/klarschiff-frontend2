@@ -88,7 +88,7 @@ function beobachtungsflaecheStartNeueFlaeche() {
   showFlaecheCtrlBtns();
   $("#flaeche_cancel").unbind("click").click(beobachtungsflaecheStopNeueFlaeche);
   $("#flaeche_apply").click(function() {
-    removeAllFeaturesFromLayer(layer);
+    layer.getSource().clear();
     var feature = new ol.Feature({
       geometry: new ol.geom.Polygon(drawBeobachtungsflaeche.sketchPolygonCoords_)
     });
@@ -133,7 +133,7 @@ function beobachtungsflaecheStopNeueFlaeche() {
 
   var layer = getLayerByTitle("DrawBeobachtungsflaeche");
   layer.setVisible(false);
-  removeAllFeaturesFromLayer(layer);
+  layer.getSource().clear();
 }
 
 showFlaecheActionBtns = function() {
@@ -193,8 +193,6 @@ function beobachtungsflaechenDialog(id, feature, name, geom_string) {
       }
     });
   });
-
-  console.log(feature);
 
   dlg.dialog({
     modal: true,

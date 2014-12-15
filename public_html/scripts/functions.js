@@ -9,9 +9,3 @@ function getLayerByTitle(title) {
   }
   return null;
 }
-
-function removeAllFeaturesFromLayer(layer) {
-  layer.getSource().getFeatures().forEach(function(feature) {
-    layer.getSource().removeFeature(feature);
-  });
-}
