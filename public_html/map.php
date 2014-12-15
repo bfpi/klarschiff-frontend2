@@ -22,9 +22,9 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <script src="scripts/libs/proj4js-2.3.3-min.js" type="text/javascript"></script>
     <script src="scripts/libs/OpenLayers-3.0.0.js" type="text/javascript"></script>
 
+    <script src="scripts/functions.js" type="text/javascript"></script>
     <script src="config/config.js" type="text/javascript"></script>
     <script src="scripts/OpenLayers-layerFactories.js" type="text/javascript"></script>
-    <script src="scripts/functions.js" type="text/javascript"></script>
     <script src="scripts/init_map.js" type="text/javascript"></script>
     <script src="scripts/init_sidebar_neue_meldung.js" type="text/javascript"></script>
     <script src="scripts/init_sidebar_beobachtungsflaechen.js" type="text/javascript"></script>

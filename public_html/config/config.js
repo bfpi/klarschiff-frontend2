@@ -179,6 +179,8 @@ var ol_config = {
       url: klarschiff_geoserver + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&maxFeatures=50&outputFormat=application/json",
       default_layer: true,
       displayInLayerSwitcher: false,
+      enableClustering: true,
+      style: meldungenStyles
     },
     "SketchBeobachtungsflaeche": {
       title: "SketchBeobachtungsflaeche",

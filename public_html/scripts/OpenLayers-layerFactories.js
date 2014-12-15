@@ -31,17 +31,23 @@ var OLLayerFactory = function() {
     });
     return layer;
   },
-
   /**
    * Erzeugt einen Vector-Layer.
    */
   this.createVectorLayer = function(def, projection) {
+    var source = new ol.source.GeoJSON({
+      projection: projection,
+      url: def.url
+    });
+    if (def.enableClustering) {
+      source = new ol.source.Cluster({
+        distance: 40,
+        source: Object.create(source)
+      })
+    }
     var vectorLayer = new ol.layer.Vector({
       title: def.title,
-      source: new ol.source.GeoJSON({
-        projection: projection,
-        url: def.url
-      }),
+      source: source,
       style: def.style,
       visible: def.default_layer,
       displayInLayerSwitcher: def.displayInLayerSwitcher
@@ -49,17 +55,16 @@ var OLLayerFactory = function() {
 
     map.addLayer(vectorLayer);
   },
-
   /**
    * Eigentliche Fabrikfunktion.
    */
   this.createLayer = function(def, projection) {
     var funcName = "create" + def.type + "Layer";
-    if(typeof(this[funcName]) == 'function') {
+    if (typeof(this[funcName]) == 'function') {
       return this[funcName].apply(this, [def, projection]);
     } else {
       console.error("Can not create layer of type " + def.type);
       return null;
-    }		
+    }
   };
 }
