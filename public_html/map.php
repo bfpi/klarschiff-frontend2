@@ -28,6 +28,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <script src="scripts/init_map.js" type="text/javascript"></script>
     <script src="scripts/init_sidebar_neue_meldung.js" type="text/javascript"></script>
     <script src="scripts/init_sidebar_beobachtungsflaechen.js" type="text/javascript"></script>
+    <script src="scripts/init_sidebar_mapicons.js" type="text/javascript"></script>
     <script src="scripts/init_sidebar.js" type="text/javascript"></script>
     <script src="scripts/init_ks_lut.js.php" type="text/javascript"></script>
     <script src="scripts/init.js" type="text/javascript"></script>
@@ -86,9 +87,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
               <button id="flaeche_cancel" class="flaecheCtrl" style="display:none">abbrechen</button>
             </div>
             <h3>Kartenelemente</h3>
-            <div id="kartenelemente">
-              TODO
-            </div>
+            <div id="mapicons"></div>
             <h3>Hilfe und Impressum</h3>
             <div id="sonderseiten">
               <?php

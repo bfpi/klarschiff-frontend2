@@ -213,37 +213,39 @@ form .help {
   width: 90%;
 }
 
-#kartenelemente ol div {
+#mapicons ol div {
   height: 24px;
   line-height: 24px;
 }
 
-#kartenelemente label {
+#mapicons label {
   font-size: 90%;
+  font-weight: normal;
   margin-left: 0.3em;
 }
 
-#kartenelemente input {
+#mapicons input {
   vertical-align: middle;
 }
 
-#kartenelemente img {
+#mapicons img {
   float: right;
   height: 22px;
-  padding: 0 0 0 5px;
+  margin-left: 5px;
+  padding: 0;
   vertical-align: middle;
   width: 22px;
 }
 
-#kartenelemente #ideen12 {
+#mapicons #ideen12 {
   margin-top: 1em;
 }
 
-#kartenelemente div {
+#mapicons div {
   margin-top: 0.5em;
 }
 
-#kartenelemente #generalisiert {
+#mapicons #generalisiert {
   margin-top: 1em;
 }
 

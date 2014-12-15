@@ -5,6 +5,7 @@ function init_sidebar() {
   init_adresssuche();
   init_gotoBBOX();
   init_checkAll();
+  init_mapicons();
 
   $('#beobachtungsflaechen button').button();
   $('#sonderseiten button').button();

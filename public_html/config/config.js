@@ -1,7 +1,9 @@
 var zoom = 3.7;
 var lonLat_center = [13.409414, 54.089276];
-//var mv_bbox_25833 = [271265.01714072, 5971859.93045162, 346749.189382955, 6017571.95459192];
 var mv_bbox_25833 = [380000, 5980000, 410000, 6010000];
+
+var problemMeldungenMoeglich = true;
+var ideeMeldungenMoeglich = false;
 
 var placeholder_betreff = "Bitte geben Sie einen Betreff an.";
 var placeholder_details = "Bitte beschreiben Sie Ihre Meldung genauer.";
@@ -22,6 +24,8 @@ var freitextLeer = "Sie müssen Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meld
 var ows_namespace = window.location.protocol + "//" + window.location.host + "/ows/klarschiff";
 ows_namespace = "http://www.klarschiff-local.de/ows/klarschiff";
 var ows_url = ows_namespace + "/wfs";
+
+var klarschiff_geoserver = 'http://klarschiff-test:8080/geoserver/';
 
 var styleCache = {};
 var highlightStyleCache = {};
@@ -166,50 +170,20 @@ var ol_config = {
     "SketchMeldung": {
       title: "SketchMeldung",
       type: "Vector",
-      url: "http://klarschiff-test:8080/geoserver/klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&maxFeatures=50&outputFormat=application/json",
       default_layer: true,
       displayInLayerSwitcher: false,
     },
-//    "Meldungen": {
-//      title: "Meldungen",
-//      //filter: filter,
-//      type: "Vector",
-//      displayInLayerSwitcher: true,
-//      projection: "EPSG:25833",
-//      protocol: {
-//        type: "WFS",
-//        options: {
-//          url: ows_url,
-//          featureType: "vorgaenge",
-//          featureNS: ows_namespace,
-//          srsName: "epsg:25833"
-//        }
-//      }
-//    },
-//    "GeoRSS-Polygone": {
-//      title: "GeoRSS-Polygone",
-//      type: "Vector",
-////        styleMap: "rss",
-////        visibility: false,
-////        strategies: {
-////          BBOX: {}
-////        },
-////        protocol: {
-////          type: "WFS",
-////          options: {
-////            version: "1.1.0",
-////            url: ows_url,
-////            featureType: "klarschiff_stadtteile_hro",
-////            featureNS: ows_namespace,
-////            srsName: "epsg:25833"
-////          }
-//      displayInLayerSwitcher: false,
-////        }
-//    },
+    "Meldungen": {
+      title: "Meldungen",
+      type: "Vector",
+      url: klarschiff_geoserver + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&maxFeatures=50&outputFormat=application/json",
+      default_layer: true,
+      displayInLayerSwitcher: false,
+    },
     "SketchBeobachtungsflaeche": {
       title: "SketchBeobachtungsflaeche",
       type: "Vector",
-      url: "http://klarschiff-test:8080/geoserver/klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&maxFeatures=50&outputFormat=application/json",
+      url: klarschiff_geoserver + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&maxFeatures=50&outputFormat=application/json",
       default_layer: false,
       displayInLayerSwitcher: false,
       style: ol_styles.beobachtungsflaeche
@@ -223,3 +197,88 @@ var ol_config = {
     }
   }
 };
+
+var mapicons_config = {};
+
+if (problemMeldungenMoeglich) {
+  var problem_mapicons_config = {
+    probleme12: {
+      icons: ["problem_1_layer.png", "problem_2_layer.png"],
+      label: "offene Probleme",
+      checked: true,
+      filter: {
+        vorgangstyp: "problem",
+        status: ["gemeldet", "offen"]
+      }
+    },
+    probleme3: {
+      icons: ["problem_3_layer.png"],
+      label: "Probleme in Bearbeitung",
+      checked: true,
+      filter: {
+        vorgangstyp: "problem",
+        status: "inBearbeitung"
+      }
+    },
+    probleme4: {
+      icons: ["problem_4_layer.png"],
+      label: "nicht lösbare Probleme",
+      checked: true,
+      filter: {
+        vorgangstyp: "problem",
+        status: "wirdNichtBearbeitet"
+      }
+    },
+    probleme5: {
+      icons: ["problem_5_layer.png"],
+      label: "gelöste Probleme",
+      checked: true,
+      filter: {
+        vorgangstyp: "problem",
+        status: "abgeschlossen"
+      }
+    }
+  }
+  mapicons_config = $.extend(mapicons_config, problem_mapicons_config);
+}
+if (ideeMeldungenMoeglich) {
+  var idee_mapicons_config = {
+    ideen12: {
+      icons: ["idee_1_layer.png", "idee_2_layer.png"],
+      label: "offene Ideen",
+      checked: true,
+      filter: {
+        vorgangstyp: "idee",
+        status: ["gemeldet", "offen"]
+      }
+    },
+    ideen3: {
+      icons: ["idee_3_layer.png"],
+      label: "Ideen in Bearbeitung",
+      checked: true,
+      filter: {
+        vorgangstyp: "idee",
+        status: "inBearbeitung"
+      }
+    },
+    ideen4: {
+      icons: ["idee_4_layer.png"],
+      label: "nicht umsetzbare Ideen",
+      checked: true,
+      filter: {
+        vorgangstyp: "idee",
+        status: "wirdNichtBearbeitet"
+      }
+    },
+    ideen5: {
+      icons: ["idee_5_layer.png"],
+      label: "umgesetzte Ideen",
+      checked: true,
+      filter: {
+        vorgangstyp: "idee",
+        status: "abgeschlossen"
+      }
+    }
+  }
+  mapicons_config = $.extend(mapicons_config, idee_mapicons_config);
+}

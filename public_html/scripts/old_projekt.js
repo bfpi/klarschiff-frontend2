@@ -14,37 +14,6 @@ function checkBrowser(name) {
   return false;  
 }
 
-/**
- * Baut Gesamtfilter aus Filterfragmenten für WFS-Layer.
- * Die Filterfragmente werden mit OR verbunden und als neuer Filter
- * der Filterstrategie gesetzt.
- * @returns null
- */
-var buildFilter = function() {
-  var layer = map.getLayer(mb_ol_config.layers["Meldungen"].id);
-  // Alle angehakten Teilfilter abholen...
-  var cbs = $('#kartenelemente input');
-  var filters = [];
-  cbs.each(function() {
-    var self = $(this);
-    if (self.is(':checked')) {
-      var id = self.attr('name');
-      filters.push(ks_config.filter[id].filter);
-    }
-  });
-
-  if (!filter) {
-    filter = new OpenLayers.Filter.Logical({
-      type: OpenLayers.Filter.Logical.OR
-    });
-    layer.filter = filter;
-  }
-  filter.filters = filters;
-
-  if (map.getExtent())
-    layer.refresh({force: true});
-},
-
 preAddMap = function() {
   
 
@@ -743,38 +712,7 @@ prepareProject = function(mapElement) {
   // Neue Fläche
   
 
-  // Kartenelemente
-  var kartenelemente = $('#kartenelemente');
-  var kol = $('<ol></ol>');
-  for(var id in ks_config.filter) {
-    var checkbox = $('<input/>')
-    .attr('type', 'checkbox')
-    .attr('name', id);
-    if (ks_config.filter[id].enabled)
-      checkbox.attr('checked', 'checked');			
-
-    var div = $('<div></div>')
-    .attr('id', id);
-    div.append(checkbox)
-    .append($('<label></label>')
-            .attr('for',  id)
-            .html(ks_config.filter[id].label));
-            $.each(ks_config.filter[id].icons, function(key, val) {
-              div.append($("<img/>")
-                         .attr("src", "../pc/media/icons/" + val));
-            });
-            kol.append(div);
-  }
-
-  var generalisiert = $('<div></div>')
-  .attr('id', 'generalisiert');
-  generalisiert.append($('<label></label>').html('zusammengefasste Meldungen'));
-
-  generalisiert.append($("<img/>").attr("src", "../pc/media/icons/generalisiert_layer.png"));
-  kol.append(generalisiert);
-
-  $('input', kol).click(function() { buildFilter(); });
-  kartenelemente.append(kol);
+  
 
   buildFilter();
   window.setInterval(buildFilter, (ks_config.reload_interval || 30)*1000);
