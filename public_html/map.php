@@ -35,8 +35,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
   </head>
   <body>
     <div id="content">
-      <div id="ol_map"> </div>
-      <div id="popup"> </div>
+      <div id="ol_map"></div>
       <div id="sidebar" class="sidebar-open">
         <div id="sidebar_toggle" class="sidebar-open" title="Menü ein-/ausfahren"></div>
         <div id="sidebar-content">

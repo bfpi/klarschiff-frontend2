@@ -41,72 +41,87 @@ function onNeueMeldung(event) {
 
   targetLayer.setStyle(iconStyle);
 
-  var source = targetLayer.getSource();
-  source.addFeature(feature);
+  targetLayer.getSource().addFeature(feature);
 
   var featureOverlay = new ol.FeatureOverlay({
     map: map,
     style: iconStyle
   });
 
+  var getCurrentTargetFeature = function(pixel) {
+    return map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+      if (layer == targetLayer) {
+        return feature;
+      }
+    })
+  };
+
   var highlight;
   var displayFeatureInfo = function(pixel) {
 
-    var feature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-      return feature;
-    });
+    var feature = getCurrentTargetFeature(pixel);
 
-    if (feature !== highlight) {
+    if (feature == undefined) {
       if (highlight) {
         featureOverlay.removeFeature(highlight);
+        highlight = null;
       }
-      if (feature) {
-        featureOverlay.addFeature(feature);
-        popup.setPosition(feature.getGeometry().flatCoordinates);
-      }
+    } else {
+      if (feature !== highlight) {
       highlight = feature;
+      featureOverlay.addFeature(highlight);
+      }
     }
   };
 
   $(map.getViewport()).on('mousemove', function(evt) {
-    var pixel = map.getEventPixel(evt.originalEvent);
-    displayFeatureInfo(pixel);
-
+    displayFeatureInfo(map.getEventPixel(evt.originalEvent));
   });
 
-  var element = document.getElementById('popup');
-  var popup = new ol.Overlay({
-    element: element,
-    positioning: 'top-right',
-    stopEvent: false
+  var changingFeature;
+
+  feature.on('change', function(evt) {
+    changingFeature = true;
+    popupElement.popover('hide');
   });
-  map.addOverlay(popup);
-  popup.setPosition(position);
 
-  var popupHeading = (targetId == "problem" ? "Problem" : "Idee") + " melden";
+  $(map.getViewport()).on('click', function(evt) {
+    var feature = getCurrentTargetFeature(map.getEventPixel(evt.originalEvent));
+    if (feature && changingFeature) {
+      setTimeout(function() {
+        popupOverlay.setPosition(feature.getGeometry().flatCoordinates);
+        popupElement.popover('show');
+      }, 200);
+      changingFeature = null;
+    }
+  });
 
-  $(element).popover({
+  var popupElement = $(document.createElement('div')).attr('id', 'popup');
+  var popupOverlay = new ol.Overlay({ element: popupElement, stopEvent: false });
+  map.addOverlay(popupOverlay);
+  popupOverlay.setPosition(position);
+
+  popupElement.popover({
     placement: 'auto',
     html: true,
-    title: popupHeading,
+    title: (targetId == "problem" ? "Problem" : "Idee") + " melden",
     content: '<div class="buttons"><a href="#" id="details">beschreiben</a><a href="#" id="verwerfen">abbrechen</a></div>'
-  });
-  $(element).popover('show');
-
-  $("a#details").button().click(function() {
-    var dlg = $('<div></div>')
-            .html('Bitte warten, die Koordinaten der neuen Meldung werden gerade geprüft…')
-            .dialog({
-      title: 'Koordinatenprüfung',
-      modal: true,
-      closeOnEscape: false,
-      open: function(event, ui) {
-        $(this).find(".ui-dialog-titlebar-close").hide();
-      },
-      close: function(event, ui) {
-        $(this).dialog('destroy').remove();
-      }
-    });
+  }
+  ).on('shown.bs.popover', function() {
+    $("a#details").button().click(function() {
+      var dlg = $('<div></div>')
+      .html('Bitte warten, die Koordinaten der neuen Meldung werden gerade geprüft…')
+      .dialog({
+        title: 'Koordinatenprüfung',
+        modal: true,
+        closeOnEscape: false,
+        open: function(event, ui) {
+          $(this).find(".ui-dialog-titlebar-close").hide();
+        },
+        close: function(event, ui) {
+          $(this).dialog('destroy').remove();
+        }
+      });
 
     var show_message = function(msg) {
       dlg.html(msg);
@@ -139,23 +154,26 @@ function onNeueMeldung(event) {
         show_message('Es trat ein allgemeiner Fehler auf.');
       }
     });
-  });
-  $("a#verwerfen").button().click(function() {
-    clearMeldungSketch(element);
-    $(element).popover('hide');
-  });
+    });
+    $("a#verwerfen").button().click(function() {
+      clearMeldungSketch(popupElement);
+    });
+  }).popover('show');
 }
 
 /**
  * Löscht alle Meldungen im Sketch-Layer
  */
-function clearMeldungSketch(elem) {
+function clearMeldungSketch(popupElement) {
   var SketchMeldungLayer = getLayerByTitle("SketchMeldung");
   var features = SketchMeldungLayer.getSource().getFeatures();
   for (var i in features) {
     var feature = features[i];
     SketchMeldungLayer.getSource().removeFeature(feature);
   }
+  var popup = popupElement || $('div#popup');
+  popup.popover('destroy');
+  popup.parent('div').remove();
 }
 
 function openMeldungDialog(feature, targetId) {
