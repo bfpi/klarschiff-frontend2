@@ -167,12 +167,6 @@ var ol_config = {
 //        minScale: 600,
 //        singleTile: true
 //      },
-    "SketchMeldung": {
-      title: "SketchMeldung",
-      type: "Vector",
-      default_layer: true,
-      displayInLayerSwitcher: false,
-    },
     "Meldungen": {
       title: "Meldungen",
       type: "Vector",
@@ -181,6 +175,12 @@ var ol_config = {
       displayInLayerSwitcher: false,
       enableClustering: true,
       style: meldungenStyles
+    },
+    "SketchMeldung": {
+      title: "SketchMeldung",
+      type: "Vector",
+      default_layer: true,
+      displayInLayerSwitcher: false,
     },
     "SketchBeobachtungsflaeche": {
       title: "SketchBeobachtungsflaeche",
