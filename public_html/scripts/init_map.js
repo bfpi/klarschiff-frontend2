@@ -55,4 +55,34 @@ function addControls(map) {
 
   var scaleLine = new ol.control.ScaleLine()
   map.addControl(scaleLine);
+
+  map.on("click", function(e) {
+    map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {
+      size = feature.get("features").length;
+      if (size == 1) {
+        showMeldung(feature.get("features")[0]);
+      } else {
+        map.getView().setCenter(e.coordinate);
+        current_zoom = map.getView().getZoom();
+        if (current_zoom == undefined) {
+          current_zoom = zoom;
+        }
+        map.getView().setZoom(parseInt(current_zoom + 1));
+        return;
+      }
+    })
+  });
+
+  if (getUrlParam('advice') != null) {
+    setTimeout(openFeatureFromParameter, 100);
+  }
+}
+
+function openFeatureFromParameter() {
+  var features = getLayerByTitle("Meldungen").getSource().getFeatures();
+  features.forEach(function(ft) {
+    if (ft.get("features").length == 1 && ft.get("features")[0].get("id") == getUrlParam('advice')) {
+      showMeldung(ft.get("features")[0]);
+    }
+  });
 }

@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+p {
+  margin: 0;
+}
+
 body,
 html,
 .ui-widget,
@@ -200,6 +204,10 @@ form#meldung label, #meldung_abuse label {
   max-width: 98%;
   min-width: 98%;
   width: 98%;
+}
+
+#meldung_show #meldung_details_show {
+  float: right;
 }
 
 form .help {
@@ -458,7 +466,8 @@ div.scrollCheckbox input {
 
 .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon,
 .ui-state-hover.ui-state-active .ui-icon,
-.ui-state-default .ui-icon {
+.ui-state-default .ui-icon,
+.ui-widget-content .ui-icon {
   background-image: url("../images/ui-icons_ffffff_256x240.png");
 }
 
@@ -477,10 +486,6 @@ div.scrollCheckbox input {
 
 .ui-widget-content {
   color: #000000;
-}
-
-.ui-widget-content .ui-icon{
-  background-image: url("../images/ui-icons_222222_256x240.png");
 }
 
 .ui-widget-overlay {
@@ -527,4 +532,104 @@ div.scrollCheckbox input {
 
 .popover {
   z-index: 1000;
+}
+
+#supporters {
+  float: right;
+  width: 30%;
+  display: none;
+  text-align: center;
+}
+
+#supporters .meldung_unterstuetzer {
+  display: block!important;
+  margin: 0 auto;
+}
+
+.teaser #supporters {
+  display: block;
+}
+
+#meldung_show .meldung_unterstuetzer {
+  font-weight: bold;
+  display: inline-block;
+  padding-top:2px;
+  height: 1.4em;
+  width: 2em;
+  text-align: center;
+  background: #50C80F;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
+}
+
+#meldung_show.problem .meldung_unterstuetzer{
+  background: #F5E123;
+}
+
+#meldung_show.idee .meldung_unterstuetzer.unter-schwellenwert {
+  background: #FF3700;
+}
+
+#meldung_show label,
+#meldung_show input {
+  display: block;
+  width: 100%;
+}
+
+#meldung_details_recorder {
+  position: relative;
+  top: -0.5ex;
+}
+
+#meldung_details_icon {
+  margin-right: 0.75em;
+  vertical-align: middle;
+}
+
+#meldung_show #meldung_details_show {
+  float: right !important;
+  margin-right: 15px !important;
+}
+
+form#meldung label,
+#meldung_abuse label,
+#meldung_lobhinweisekritik label {
+  display: block;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 0.3em;
+}
+
+#meldung_actions button {
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 1em;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 0.1em;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.meldung_eintrag {
+  font-size: 115%;
+  font-style: italic;
+  padding-bottom: 12px;
+}
+
+.meldung_eintrag-nicht-vorhanden {
+  font-size: 115%;
+  padding-bottom: 12px;
+}
+
+a.directlink, 
+a.directlink:hover {
+  font-size: 80%;
+  padding-left: 5px;
+  text-decoration: underline;
 }

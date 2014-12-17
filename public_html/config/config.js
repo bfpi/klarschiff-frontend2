@@ -5,6 +5,8 @@ var mv_bbox_25833 = [380000, 5980000, 410000, 6010000];
 var problemMeldungenMoeglich = true;
 var ideeMeldungenMoeglich = false;
 
+var unterstuetzer_schwellenwert = 20;
+
 var placeholder_betreff = "Bitte geben Sie einen Betreff an.";
 var placeholder_details = "Bitte beschreiben Sie Ihre Meldung genauer.";
 var placeholder_email = "Bitte geben Sie Ihre E-Mail-Adresse an.";
@@ -25,6 +27,7 @@ var ows_namespace = window.location.protocol + "//" + window.location.host + "/o
 ows_namespace = "http://www.klarschiff-local.de/ows/klarschiff";
 var ows_url = ows_namespace + "/wfs";
 
+var klarschiff_map = 'map.php';
 var klarschiff_geoserver = 'http://klarschiff-test:8080/geoserver/';
 
 var styleCache = {};
@@ -170,7 +173,7 @@ var ol_config = {
     "Meldungen": {
       title: "Meldungen",
       type: "Vector",
-      url: klarschiff_geoserver + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&maxFeatures=50&outputFormat=application/json",
+      url: klarschiff_geoserver + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&outputFormat=application/json",
       default_layer: true,
       displayInLayerSwitcher: false,
       enableClustering: true,
@@ -185,7 +188,7 @@ var ol_config = {
     "SketchBeobachtungsflaeche": {
       title: "SketchBeobachtungsflaeche",
       type: "Vector",
-      url: klarschiff_geoserver + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&maxFeatures=50&outputFormat=application/json",
+      url: klarschiff_geoserver + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&outputFormat=application/json",
       default_layer: false,
       displayInLayerSwitcher: false,
       style: ol_styles.beobachtungsflaeche

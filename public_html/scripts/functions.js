@@ -10,6 +10,14 @@ function getLayerByTitle(title) {
   return null;
 }
 
+function getUrlParam(name) {
+  var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+  if(results == null) {
+    return null;
+  }
+  return results[1] || 0;
+}
+
 function meldungenStyles(features) {
   size = features.get("features").length;
   if (size == 1) {
@@ -36,8 +44,7 @@ function meldungenStyles(features) {
         fill: new ol.style.Fill({
           color: '#000000'
         })
-      }),
-      title: "asdsdsa"
+      })
     }));
   }
 }

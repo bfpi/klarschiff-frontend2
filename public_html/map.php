@@ -32,6 +32,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <script src="scripts/init_sidebar.js" type="text/javascript"></script>
     <script src="scripts/init_ks_lut.js.php" type="text/javascript"></script>
     <script src="scripts/init.js" type="text/javascript"></script>
+    <script src="scripts/meldung_show.js" type="text/javascript"></script>
   </head>
   <body>
     <div id="content">
@@ -101,14 +102,16 @@ $config = include(dirname(__FILE__) . "/config/config.php");
       </div>
     </div>
     <?php
-    $arr = array('template_flaeche_abonnieren', 'template_meldung_edit');
-    foreach ($arr as $template) {
-      echo "<script id='" . $template . "' type='text/x-jquery-templ'>";
-      $filename = "templates/" . $template . ".php";
-      if (file_exists($filename)) {
-        include($filename);
+    foreach (scandir("templates") as $template) {
+      if ($template != "." && $template != "..") {
+        $file = str_replace(".php", "", $template);
+        echo "<script id='" . $file . "' type='text/x-jquery-templ'>";
+        $filename = "templates/" . $template;
+        if (file_exists($filename)) {
+          include($filename);
+        }
+        echo "</script>";
       }
-      echo "</script>";
     }
     ?>
   </body>
