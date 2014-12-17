@@ -80,5 +80,5 @@ function buildFilter() {
   if (condition.length > 0) {
     layer_config.url += "&cql_filter=" + condition.join(" or ")
   }
-  layerFactory.createVectorLayer(layer_config, projection_25833);
+  map.addLayer(layerFactory.createVectorLayer(layer_config, projection_25833));
 }

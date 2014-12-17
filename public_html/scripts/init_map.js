@@ -19,8 +19,7 @@ function init_map() {
   // Alle Layer erzeugen
   var layerFactory = new OLLayerFactory();
   $.each(ol_config.layers, function(name, def) {
-    var layer = layerFactory.createLayer(def, projection_25833);
-    layer && map.addLayer(layer);
+    map.addLayer(layerFactory.createLayer(def, projection_25833));
   });
 
   addControls(map);
@@ -58,17 +57,19 @@ function addControls(map) {
 
   map.on("click", function(e) {
     map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {
-      size = feature.get("features").length;
-      if (size == 1) {
-        showMeldung(feature.get("features")[0]);
-      } else {
-        map.getView().setCenter(e.coordinate);
-        current_zoom = map.getView().getZoom();
-        if (current_zoom == undefined) {
-          current_zoom = zoom;
+      if (layer.get("title") === "Meldungen") {
+        size = feature.get("features").length;
+        if (size == 1) {
+          showMeldung(feature.get("features")[0]);
+        } else {
+          map.getView().setCenter(e.coordinate);
+          current_zoom = map.getView().getZoom();
+          if (current_zoom == undefined) {
+            current_zoom = zoom;
+          }
+          map.getView().setZoom(parseInt(current_zoom + 1));
+          return;
         }
-        map.getView().setZoom(parseInt(current_zoom + 1));
-        return;
       }
     })
   });
