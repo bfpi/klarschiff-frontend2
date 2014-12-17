@@ -14,7 +14,7 @@ function showMeldung(feature) {
     feature.set("hauptkategorie", ks_lut.kategorie[feature.get("kategorieid")].name);
     feature.set("unterkategorie", "auswählen…");
   }
-  
+
   var dlg = $('<div></div>')
           .data('oWidth', 500)
           .attr('id', 'meldung_show')
@@ -65,7 +65,8 @@ function showMeldung(feature) {
           .dialog('option', 'width', dlg.data('oWidth'))
           .dialog("open");
   dlg.dialog('widget').find('.ui-dialog-title').html(title);
-  return dlg;
+
+  moveMapToShowFeature(feature, dlg);
 }
 
 /**

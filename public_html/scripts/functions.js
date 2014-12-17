@@ -12,7 +12,7 @@ function getLayerByTitle(title) {
 
 function getUrlParam(name) {
   var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
-  if(results == null) {
+  if (results == null) {
     return null;
   }
   return results[1] || 0;
@@ -47,4 +47,15 @@ function meldungenStyles(features) {
       })
     }));
   }
+}
+
+function moveMapToShowFeature(feature, dlg) {
+  featureOffset = map.getPixelFromCoordinate(feature.getGeometry().flatCoordinates);
+
+  var viertel = ($(map.getViewport()).width() - dlg.width()) / 4;
+  new_top = featureOffset[1];
+  new_left = featureOffset[0] + viertel + (dlg.width() / 2);
+
+  var new_position = map.getCoordinateFromPixel(Array(new_left, new_top));
+  map.getView().setCenter(new_position);
 }

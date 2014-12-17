@@ -68,8 +68,8 @@ function onNeueMeldung(event) {
       }
     } else {
       if (feature !== highlight) {
-      highlight = feature;
-      featureOverlay.addFeature(highlight);
+        highlight = feature;
+        featureOverlay.addFeature(highlight);
       }
     }
   };
@@ -97,7 +97,7 @@ function onNeueMeldung(event) {
   });
 
   var popupElement = $(document.createElement('div')).attr('id', 'popup');
-  var popupOverlay = new ol.Overlay({ element: popupElement, stopEvent: false });
+  var popupOverlay = new ol.Overlay({element: popupElement, stopEvent: false});
   map.addOverlay(popupOverlay);
   popupOverlay.setPosition(position);
 
@@ -110,8 +110,8 @@ function onNeueMeldung(event) {
   ).on('shown.bs.popover', function() {
     $("a#details").button().click(function() {
       var dlg = $('<div></div>')
-      .html('Bitte warten, die Koordinaten der neuen Meldung werden gerade geprüft…')
-      .dialog({
+              .html('Bitte warten, die Koordinaten der neuen Meldung werden gerade geprüft…')
+              .dialog({
         title: 'Koordinatenprüfung',
         modal: true,
         closeOnEscape: false,
@@ -123,37 +123,37 @@ function onNeueMeldung(event) {
         }
       });
 
-    var show_message = function(msg) {
-      dlg.html(msg);
-      dlg.dialog('option', 'buttons', {
-        schließen: function() {
-          $(this).dialog('close');
+      var show_message = function(msg) {
+        dlg.html(msg);
+        dlg.dialog('option', 'buttons', {
+          schließen: function() {
+            $(this).dialog('close');
+          }
+        });
+      }
+
+      $.ajax({
+        url: '../php/point_check.php',
+        data: {
+          point: feature.getGeometry().flatCoordinates.toString()
+        },
+        context: this,
+        success: function(data) {
+          if (data.length > 0) {
+            // Probleme!
+            var messages = data.split('#');
+            var message = messages[2];
+            show_message(message);
+          } else {
+            // Keine Probleme
+            dlg.dialog('close');
+            openMeldungDialog(feature, targetId);
+          }
+        },
+        error: function() {
+          show_message('Es trat ein allgemeiner Fehler auf.');
         }
       });
-    }
-
-    $.ajax({
-      url: '../php/point_check.php',
-      data: {
-        point: feature.getGeometry().flatCoordinates.toString()
-      },
-      context: this,
-      success: function(data) {
-        if (data.length > 0) {
-          // Probleme!
-          var messages = data.split('#');
-          var message = messages[2];
-          show_message(message);
-        } else {
-          // Keine Probleme
-          dlg.dialog('close');
-          openMeldungDialog(feature, targetId);
-        }
-      },
-      error: function() {
-        show_message('Es trat ein allgemeiner Fehler auf.');
-      }
-    });
     });
     $("a#verwerfen").button().click(function() {
       clearMeldungSketch(popupElement);
@@ -364,12 +364,12 @@ function meldungFormSubmit() {
     $('input[name="email"]', dlg).addClass("error");
     eingabeFehlerPopup("emailLeer");
     return;
-  } 
+  }
   else if (!filter.test(postData.email)) {
     $('input[name="email"]', dlg).addClass("error");
     eingabeFehlerPopup("emailFalsch");
     return;
-  } 
+  }
   else {
     $('input[name="email"]', dlg).removeClass("error");
   }
@@ -489,14 +489,7 @@ function unhideFeatureUnderDialog(feature, dlg) {
     dlg = dlgParent;
   }
 
-  featureOffset = map.getPixelFromCoordinate(feature.getGeometry().flatCoordinates);
-
-  var viertel = ($(map.getViewport()).width() - dlg.width()) / 4;
-  new_top = featureOffset[1];
-  new_left = featureOffset[0] + viertel + (dlg.width() / 2);
-
-  var new_position = map.getCoordinateFromPixel(Array(new_left, new_top));
-  map.getView().setCenter(new_position);
+  moveMapToShowFeature(feature, dlg);
 }
 
 
@@ -560,23 +553,23 @@ function showAdviceInstruction() {
     return;
   }
   var dlg = $('<div></div>').attr('id', 'advise-instruction').html(
-      'Bitte setzen Sie in der Karte das Symbol durch Verschieben mit gedrückter ' +
-      'linker Maustaste an den Ort des Problems / der Idee.<br/><br/>' +
-      'Teilen Sie bitte pro Meldung nur ein Problem / eine Idee aus den vorgegebenen ' +
-      'Kategorien mit.<br/><br/>Sehen Sie bitte von Meldungen ab, die komplexe ' +
-      'städtebauliche oder verkehrsplanerische Sachverhalte behandeln.'
-      ).dialog({
-        title: 'Hinweise',
-        width: 600,
-        modal: true,
-        closeOnEscape: false,
-        open: function(event, ui) {
-          $(this).find('.ui-dialog-titlebar-close').hide();
-        },
-        close: function(event, ui) {
-          $(this).dialog('destroy').remove();
-        }
-      });
+          'Bitte setzen Sie in der Karte das Symbol durch Verschieben mit gedrückter ' +
+          'linker Maustaste an den Ort des Problems / der Idee.<br/><br/>' +
+          'Teilen Sie bitte pro Meldung nur ein Problem / eine Idee aus den vorgegebenen ' +
+          'Kategorien mit.<br/><br/>Sehen Sie bitte von Meldungen ab, die komplexe ' +
+          'städtebauliche oder verkehrsplanerische Sachverhalte behandeln.'
+          ).dialog({
+    title: 'Hinweise',
+    width: 600,
+    modal: true,
+    closeOnEscape: false,
+    open: function(event, ui) {
+      $(this).find('.ui-dialog-titlebar-close').hide();
+    },
+    close: function(event, ui) {
+      $(this).dialog('destroy').remove();
+    }
+  });
 
   dlg.dialog('option', 'buttons', {
     schließen: function() {
