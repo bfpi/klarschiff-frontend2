@@ -20,7 +20,7 @@ return array(
       'mail_on_blacklist' => 'Ihre E-Mail-Adresse wird nicht akzeptiert, da sie auf unserer Trashmail-Blacklist steht.'
     )
   ),
-  'minify_js' => true,
+  'minify_js' => false,
   'minify_js_tempfile' => "/tmp/temp_uM0ahzie.js",
   'minify_js_force' => false,
   'functions' => array(

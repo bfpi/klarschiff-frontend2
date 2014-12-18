@@ -16,6 +16,11 @@ function init_map() {
     })
   });
 
+  var bboxString = getUrlParam("BBOX");
+  if (bboxString !== null) {
+    fitViewportToBBox(bboxString.split(","));
+  }
+
   // Alle Layer erzeugen
   var layerFactory = new OLLayerFactory();
   $.each(ol_config.layers, function(name, def) {
@@ -52,8 +57,21 @@ function addControls(map) {
   });
   map.addControl(latlon_mousePositionControl);
 
-  var scaleLine = new ol.control.ScaleLine()
+  var scaleLine = new ol.control.ScaleLine();
   map.addControl(scaleLine);
+
+  $(map.getViewport()).on("mousemove", function(evt) {
+    pixel = map.getEventPixel(evt.originalEvent);
+    var feature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+      return feature;
+    });
+
+    if (feature == undefined) {
+      $("#" + map.getTarget()).css("cursor", "auto");
+    } else {
+      $("#" + map.getTarget()).css("cursor", "pointer");
+    }
+  });
 
   map.on("click", function(e) {
     map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {

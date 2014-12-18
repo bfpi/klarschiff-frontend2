@@ -63,8 +63,9 @@ foreach ($result->documents as $doc) {
             implode(",", $bbox_array), $data["type"], $title);
         $resultJson["array"][] = generateJson($bbox_array, $data["type"], $title);
     } else {
+        $bbox_string = implode(",", $bbox_array);
         $resultJson["result"] .= generateHtml(
-            URL . '&BBOX=' . $data['geom'], implode(",", $bbox_array), $data["type"], $title);
+            URL . '?BBOX=' . $bbox_string, $bbox_string, $data["type"], $title);
     }
 }
 

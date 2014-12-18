@@ -59,3 +59,27 @@ function moveMapToShowFeature(feature, dlg) {
   var new_position = map.getCoordinateFromPixel(Array(new_left, new_top));
   map.getView().setCenter(new_position);
 }
+
+function fitViewportToBBox(bboxArray) {
+  try {
+    if (bboxArray.length == 4) {
+      var view = map.getView();
+
+      if (bboxArray[0] == bboxArray[2]) {
+        // PUNKT
+        view.setCenter([parseFloat(bboxArray[0]), parseFloat(bboxArray[1])]);
+        view.setZoom(9.5);
+      } else {
+        // POLYGON
+        for (i = 0; i < bboxArray.length; i++) {
+          bboxArray[i] = parseFloat(bboxArray[i]);
+        }
+        view.fitExtent(bboxArray, map.getSize());
+      }
+    }
+    return false;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}

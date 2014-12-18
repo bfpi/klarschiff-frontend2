@@ -123,29 +123,8 @@ function init_adresssuche() {
 function init_gotoBBOX() {
   $("#standortsuche").on("click", "a.gotoBBOX", function() {
     var bboxString = $(this).attr("name");
-    var bboxArray = bboxString.split(",");
-
-    try {
-      if (bboxArray.length == 4) {
-        var view = map.getView();
-
-        if (bboxArray[0] == bboxArray[2]) {
-          // PUNKT
-          view.setCenter([parseFloat(bboxArray[0]), parseFloat(bboxArray[1])]);
-          view.setZoom(9.5);
-        } else {
-          // POLYGON
-          for (i = 0; i < bboxArray.length; i++) {
-            bboxArray[i] = parseFloat(bboxArray[i]);
-          }
-          view.fitExtent(bboxArray, map.getSize());
-        }
-      }
-      return false;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
+    fitViewportToBBox(bboxString.split(","));
+    return false;
   });
 }
 
