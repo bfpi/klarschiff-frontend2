@@ -276,7 +276,7 @@ function beobachtungsflaechenDialog(id, feature, name, geom_string) {
             $('body').spinner("error");
           },
           success: function(data) {
-            var feed_url = "../georss.php?id=" + data.hash;
+            var feed_url = "georss.php?id=" + data.hash;
             var message = "Der GeoRSS-Feed wurde erfolgreich erstellt und ist nun unter folgender Adresse abrufbar: ";
             message += '<a href="' + feed_url + '" target="_blank" style="color:#006CB7;text-decoration:none;">GeoRSS-Feed</a>';
             $('body').spinner("success", message);
