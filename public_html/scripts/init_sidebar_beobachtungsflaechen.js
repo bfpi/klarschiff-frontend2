@@ -248,7 +248,7 @@ function beobachtungsflaechenDialog(id, feature, name, geom_string) {
         }
 
         $.ajax({
-          url: "../php/flaechen_submit.php",
+          url: "php/flaechen_submit.php",
           type: "POST",
           dataType: "json",
           data: {

@@ -133,7 +133,7 @@ function onNeueMeldung(event) {
       }
 
       $.ajax({
-        url: '../php/point_check.php',
+        url: 'php/point_check.php',
         data: {
           point: feature.getGeometry().flatCoordinates.toString()
         },
@@ -418,7 +418,7 @@ function meldungFormSubmit() {
 
   // Daten abschicken, Rückmeldung nur bei Fehler!
   $.ajax({
-    url: '../php/meldung_submit.php',
+    url: 'php/meldung_submit.php',
     data: $('form#meldung').serialize(),
     method: 'post',
     beforeSend: function() {

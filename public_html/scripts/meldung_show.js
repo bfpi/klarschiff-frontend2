@@ -237,7 +237,7 @@ meldungSupportSubmit = function() {
   dlg.dialog('option', 'title', 'Unterstützungsmeldung');
   onMeldungShowClose({originalEvent: true});
   $.ajax({
-    url: "../php/meldung_support.php",
+    url: "php/meldung_support.php",
     type: "post",
     data: {
       id: id,
@@ -297,7 +297,7 @@ function meldungAbuseSubmit() {
   dlg.dialog('option', 'title', 'Missbrauchsmeldung');
   onMeldungShowClose({originalEvent: true});
   $.ajax({
-    url: "../php/meldung_abuse.php",
+    url: "php/meldung_abuse.php",
     type: "post",
     data: {
       id: id,
@@ -356,7 +356,7 @@ meldungLobHinweiseKritikSubmit = function() {
   dlg.dialog('option', 'title', 'Lob, Hinweise oder Kritik');
   onMeldungShowClose({originalEvent: true});
   $.ajax({
-    url: "../php/meldung_lobhinweisekritik.php",
+    url: "php/meldung_lobhinweisekritik.php",
     type: "post",
     data: {
       id: id,
