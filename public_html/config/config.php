@@ -2,7 +2,7 @@
 
 define("ADRESSSUCHE_URL", "http://klarschiff-test:8080/solr/select?");
 define("BACKEND_URL", "http://klarschiff-test/backend/");
-define("FRONTEND_URL", "http://klarschiff-test/pc/");
+define("FRONTEND_URL", "http://klarschiff-test/");
 
 return array(
   'psql' => array(
@@ -20,6 +20,9 @@ return array(
       'mail_on_blacklist' => 'Ihre E-Mail-Adresse wird nicht akzeptiert, da sie auf unserer Trashmail-Blacklist steht.'
     )
   ),
+  'minify_js' => true,
+  'minify_js_tempfile' => "/tmp/temp_uM0ahzie.js",
+  'minify_js_force' => false,
   'functions' => array(
     'report_idea' => false,
     'report_problem' => true

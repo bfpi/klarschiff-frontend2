@@ -1,5 +1,9 @@
 <?php
 $config = include(dirname(__FILE__) . "/config/config.php");
+$js_jquery = "";
+if ($config['minify_js']) {
+  $js_jquery = ".min";
+}
 ?>
 <!DOCTYPE html>
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml">
@@ -12,27 +16,9 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.11.2.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.1.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/style.css" media="all" />
-
-    <script src="scripts/libs/jquery-1.11.1.js" type="text/javascript"></script>
-    <script src="scripts/libs/bootstrap-3.3.1.js" type="text/javascript"></script>
-    <script src="scripts/libs/jquery-tmpl-1.0.4.js" type="text/javascript"></script>
-    <script src="scripts/libs/jquery-placeholder-1.3.min.js" type="text/javascript"></script>
-    <script src="scripts/libs/jquery-ui-1.11.2.min.js" type="text/javascript"></script>
-    <script src="scripts/libs/jquery.ks.spinner.js" type="text/javascript"></script>
-    <script src="scripts/libs/proj4js-2.3.3-min.js" type="text/javascript"></script>
-    <script src="scripts/libs/OpenLayers-3.0.0.js" type="text/javascript"></script>
-
-    <script src="scripts/functions.js" type="text/javascript"></script>
-    <script src="config/config.js" type="text/javascript"></script>
-    <script src="scripts/OpenLayers-layerFactories.js" type="text/javascript"></script>
-    <script src="scripts/init_map.js" type="text/javascript"></script>
-    <script src="scripts/init_sidebar_neue_meldung.js" type="text/javascript"></script>
-    <script src="scripts/init_sidebar_beobachtungsflaechen.js" type="text/javascript"></script>
-    <script src="scripts/init_sidebar_mapicons.js" type="text/javascript"></script>
-    <script src="scripts/init_sidebar.js" type="text/javascript"></script>
-    <script src="scripts/init_ks_lut.js.php" type="text/javascript"></script>
-    <script src="scripts/init.js" type="text/javascript"></script>
-    <script src="scripts/meldung_show.js" type="text/javascript"></script>
+    
+    <script src="scripts/libs/jquery-1.11.1<?= $js_jquery ?>.js" type="text/javascript"></script>
+    <script src="scripts/minify_js.php" type="text/javascript"></script>
   </head>
   <body>
     <div id="content">

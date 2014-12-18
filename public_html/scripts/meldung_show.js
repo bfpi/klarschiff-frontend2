@@ -41,7 +41,7 @@ function showMeldung(feature) {
       secondary: 'ui-icon-circle-triangle-s'
     }
   }).click(function() {
-    meldungDetailsClick(dlg)
+    meldungDetailsClick(dlg);
   });
   // auf Fall prüfen, in dem die Buttons deaktiviert werden sollen
   if (feature.get("status_id") == 'gemeldet')
@@ -78,7 +78,7 @@ function showMeldung(feature) {
  */
 function onMeldungShowClose(event) {
   // Dialog leeren
-  $('#meldung_show').parent().remove()
+  $('#meldung_show').parent().remove();
 }
 
 function meldungDetailsClick(dlg) {
@@ -259,7 +259,7 @@ meldungSupportSubmit = function() {
       });
     }
   });
-}
+};
 
 /**
  * Setzt Missbrauchsmeldung ab.
@@ -379,4 +379,4 @@ meldungLobHinweiseKritikSubmit = function() {
       });
     }
   });
-}
+};

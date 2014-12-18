@@ -1,3 +1,6 @@
+<?php
+$config = include(dirname(__FILE__) . "/../config/config.php");
+?>
 /**
  * @author Christian Wygoda
  */
@@ -6,7 +9,7 @@
     options: {
       title: "Spinner",
       message: undefined,
-      markup: '<div id="spinner"><img src="../../images/spinner.gif"/></div>{%html message%}',
+      markup: '<div id="spinner"><img src="<?= FRONTEND_URL ?>images/spinner.gif"/></div>{%html message%}',
       modal: true,
       error: undefined,
       success: undefined,

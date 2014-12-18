@@ -183,7 +183,7 @@ var ol_config = {
       title: "SketchMeldung",
       type: "Vector",
       default_layer: true,
-      displayInLayerSwitcher: false,
+      displayInLayerSwitcher: false
     },
     "SketchBeobachtungsflaeche": {
       title: "SketchBeobachtungsflaeche",
@@ -243,7 +243,7 @@ if (problemMeldungenMoeglich) {
         status: "abgeschlossen"
       }
     }
-  }
+  };
   mapicons_config = $.extend(mapicons_config, problem_mapicons_config);
 }
 if (ideeMeldungenMoeglich) {
@@ -284,6 +284,6 @@ if (ideeMeldungenMoeglich) {
         status: "abgeschlossen"
       }
     }
-  }
+  };
   mapicons_config = $.extend(mapicons_config, idee_mapicons_config);
 }
