@@ -57,7 +57,7 @@ function addControls(map) {
 
   map.on("click", function(e) {
     map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {
-      if (layer.get("title") === "Meldungen") {
+      if (layer && layer.get("title") === "Meldungen") {
         size = feature.get("features").length;
         if (size == 1) {
           showMeldung(feature.get("features")[0]);
