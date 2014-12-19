@@ -15,6 +15,9 @@ function showMeldung(feature) {
     feature.set("unterkategorie", "auswählen…");
   }
 
+  feature.set("status_id", feature.get("status"));
+  feature.set("status", ks_lut.status[feature.get("status_id")].name);
+
   var dlg = $('<div></div>')
           .data('oWidth', 500)
           .attr('id', 'meldung_show')
@@ -44,8 +47,9 @@ function showMeldung(feature) {
     meldungDetailsClick(dlg);
   });
   // auf Fall prüfen, in dem die Buttons deaktiviert werden sollen
-  if (feature.get("status_id") == 'gemeldet')
+  if (feature.get("status_id") === 'gemeldet') {
     var buttonsDeaktivieren = true;
+  }
 
   // je nach Fall Deaktivierungen durchführen und/oder weitere Dialoge aufbauen
   if (buttonsDeaktivieren) {
