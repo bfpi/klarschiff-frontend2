@@ -2,6 +2,8 @@
 
 $config = include('../config/config.php');
 
+$jquery = "scripts/libs/jquery-1.11.1.js";
+
 $files = array(
   "scripts/libs/bootstrap-3.3.1.js",
   "scripts/libs/jquery-tmpl-1.0.4.js",
@@ -13,7 +15,7 @@ $files = array(
   "config/config.js",
   "scripts/jquery.ks.spinner.php",
   "scripts/OpenLayers-layerFactories.js",
-  "scripts/ks-search.js",
+  //"scripts/ks-search.js",
   "scripts/init_map.js",
   "scripts/init_sidebar_neue_meldung.js",
   "scripts/init_sidebar_beobachtungsflaechen.js",
@@ -35,7 +37,7 @@ if ($config['minify_js']) {
   } else {
     $handle = fopen($config['minify_js_tempfile'], "a");
 
-    foreach ($files as $file) {
+    foreach (array_merge(array($jquery), $files) as $file) {
       $file_name = FRONTEND_URL . $file;
       $file_content = Minifier::minify(file_get_contents($file_name));
       echo $file_content;
@@ -48,16 +50,32 @@ if ($config['minify_js']) {
   if (file_exists($config['minify_js_tempfile'])) {
     unlink($config['minify_js_tempfile']);
   }
-  foreach ($files as $file) {
-    echo 'imports("' . $file . '");';
-  }
+  
+  ?>
+  importJQuery("<?= $jquery ?>", function() {
+    <?php
+    foreach ($files as $file) {
+      echo 'importJs("' . $file . '");';
+    }
+    ?>
+  });
 
-  echo 'function imports(file) {
-    var script = document.createElement(\'script\');
-    script.type = \'text/javascript\';
+  function importJQuery(file, callback) {
+    var script = document.createElement("script");
+    script.src = file;
+    script.type = "text/javascript";
+    
+    script.onload = callback;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  }
+  
+  function importJs(file) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
     script.src = file;
 
-    $(\'head\').find(\'script:last\').append(script);
-  }';
+    $('head').find('script:last').append(script);
+  }
+<?php
 }
 ?>

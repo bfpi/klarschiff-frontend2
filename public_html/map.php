@@ -1,9 +1,5 @@
 <?php
 $config = include(dirname(__FILE__) . "/config/config.php");
-$js_jquery = "";
-if ($config['minify_js']) {
-  $js_jquery = ".min";
-}
 ?>
 <!DOCTYPE html>
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml">
@@ -17,8 +13,7 @@ if ($config['minify_js']) {
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.1.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/style.css" media="all" />
     
-    <script src="scripts/libs/jquery-1.11.1<?= $js_jquery ?>.js" type="text/javascript"></script>
-    <script src="scripts/minify_js.php" type="text/javascript"></script>
+    <script type="text/javascript" src="scripts/js.php"></script>
   </head>
   <body>
     <div id="content">
