@@ -12,8 +12,8 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.11.2.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.1.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/map.css" media="all" />
-    
-    <script type="text/javascript" src="scripts/js.php"></script>
+
+    <script type="text/javascript" src="javascripts/js.php"></script>
   </head>
   <body>
     <div id="content">
@@ -78,7 +78,11 @@ $config = include(dirname(__FILE__) . "/config/config.php");
               ?>
             </div>
           </div>
-          <div id="back_to_start"></div>
+          <div id="back_to_start">
+            <a href="<?= FRONTEND_URL ?>">
+              Startseite
+            </a>
+          </div>
         </div>
       </div>
     </div>

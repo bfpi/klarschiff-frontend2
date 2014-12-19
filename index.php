@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="styles/bootstrap-3.3.1.min.css" />
     <link rel="stylesheet" type="text/css" media="all" href="styles/index.css" />
     
-    <script type="text/javascript" src="scripts/js.php"></script>
+    <script type="text/javascript" src="javascripts/js.php"></script>
   </head>
   <body>
     <div class="container">

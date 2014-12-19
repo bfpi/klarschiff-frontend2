@@ -1,12 +1,12 @@
 function init_sidebar() {
   init_sidebarToggle();
   init_layerSwitcher();
-  init_homeButton();
   KS.Search.init();
   init_gotoBBOX();
   init_checkAll();
   init_mapicons();
 
+  $('#back_to_start').button()
   $('#beobachtungsflaechen button').button();
   $('#sonderseiten button').button();
 
@@ -76,16 +76,6 @@ function init_layerSwitcher() {
   }
   buttonset.buttonset();
   target.append(buttonset);
-}
-
-function init_homeButton() {
-  // Button für die Rückkehr zur Startseite
-  var target = $('#back_to_start');
-  target.append($('<a></a>').attr('href', window.location.protocol + "//" + window.location.host));
-  var button = $('<div></div>').addClass('button');
-  button.append($('<span></span>').html('Startseite'));
-  button.button();
-  $('#back_to_start a').append(button);
 }
 
 function init_gotoBBOX() {
