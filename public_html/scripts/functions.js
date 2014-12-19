@@ -83,3 +83,11 @@ function fitViewportToBBox(bboxArray) {
     return false;
   }
 }
+
+function checkBrowser(name) {  
+  var agent = navigator.userAgent.toLowerCase();  
+  if (agent.indexOf(name.toLowerCase()) > -1) {  
+    return true;  
+  }
+  return false;  
+}

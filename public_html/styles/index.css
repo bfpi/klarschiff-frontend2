@@ -1,0 +1,333 @@
+html {
+  height: 100%;
+}
+
+body {
+  font-family: Tahoma,Verdana,sans-serif;
+  font-size: 100.1%;
+  height: 100%;
+  margin: 0;
+}
+
+h1 {
+  font-size: 13px;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 0 10px;
+}
+
+h3 {
+  font-size: 13px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.important {
+  color: #d81920;
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+div.container {
+  background-color: #f5f5f3;
+  border-left: 1px solid #104382;
+  border-right: 1px solid #8e8f8a;
+  width: 1000px !important;
+}
+
+div#header {
+  background: url("/images/bg_header.jpg") repeat-x scroll center top #f5f5f5;
+}
+
+div#header img#headerimage {
+  float: left;
+}
+
+div#header img#sloganimage {
+  float: right;
+  margin-top: 2.2em;
+  width: 54.1em;
+}
+
+div#header img#klarschifflogo {
+  margin-left: 67px;
+  margin-top: -31px;
+  width: 219px;
+}
+
+div#menu {
+  background: url("/images/bg_menu.jpg") repeat-x scroll center top #f5f4f2;
+  border-bottom: 1px solid #00417b;
+  clear: left;
+  margin: 0 auto 20px;
+  font-weight: bold;
+  padding: 20px 0;
+}
+
+div#menu ul#list{
+  margin-bottom: 0;
+  margin-left: 56px;
+  margin-top: 0;
+  overflow: hidden;
+}
+
+ul#list li.item {
+  display: block;
+  position: relative;
+  float: left;
+}
+
+li.item > a {
+  display: block;
+  height: 25px;
+  padding: 0 20px;
+  border-right: 2px solid #c7c7c7;
+  color: #006cb7;
+  font-size: 20px;
+  line-height: 22px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+li.item > a:hover {
+  color: #d81920;
+}
+
+li.item.first > a {
+  padding-left: 0;
+}
+
+li.item.last > a {
+  padding-right: 0;
+  border-right: medium none;
+}
+
+div#eye-catcher {
+  font-size: 13px;
+  height: 213px;
+  position: relative;
+}
+
+div#map {
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+div.overlay {
+  -webkit-border-radius: 5px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 2px solid #006cb7;
+  height: 189px;
+  padding: 8px 10px;
+  position: absolute;
+  text-align: justify;
+  top: 10px;
+  width: 296px;
+  z-index: 100;
+}
+
+div.overlay p {
+  margin: 13px 0;
+}
+
+div.overlay.guide {
+  left: 10px;
+}
+
+div.overlay.news {
+  right: 10px;
+}
+
+div#main {
+  margin-bottom: 20px;
+}
+
+div.statistic {
+  margin-top: 5px;
+}
+
+div.statistic div.number {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 43px;
+  padding-right: 0;
+  text-align: center;
+  width: 75px;
+}
+
+div.statistic div.text {
+  font-size: 11px;
+  line-height: 43px;
+  padding-left: 10px;
+}
+
+div.green {
+  background-color: #c5d891;
+}
+
+div.red {
+  background-color: #fead91;
+}
+
+div.yellow {
+  background-color: #FFE778;
+}
+
+div.divider {
+  width: 2px;
+  margin: 0 auto;
+}
+
+div.clear {
+  clear: both;
+}
+
+input#searchtext {
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-box-shadow: inset 2px 4px 15px 1px #cccccc;
+  background-color: #eeeeee;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: 2px solid #ffa200;
+  box-shadow: inset 2px 4px 15px 1px #cccccc;
+  font-size: 13px;
+  height: 36px;
+  outline: none;
+  padding-left: 5px;
+  width: 100%;
+}
+
+div.results {
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  background-color: #ffffff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom: 2px solid #ffa200;
+  border-left: 2px solid #ffa200;
+  border-right: 2px solid #ffa200;
+  display: none;
+  font-size: 13px;
+  position: absolute;
+  text-align: left;
+  width: 303px;
+  z-index: 1;
+}
+
+div.result-element {
+  line-height: 23px;
+  cursor: pointer;
+}
+
+div.result-element:hover {
+  background-color: #eeeeee;
+}
+
+div.result-element span {
+  float: right;
+  padding-right: 6px;
+  color: #cccccc;
+  font-size: 9px;
+}
+
+div.result-element:hover span {
+  color: #888888;
+}
+
+div.result-element a {
+  color: #006cb7;
+  text-decoration: none;
+}
+
+div.result-element a:hover {
+  color: #d81920;
+}
+
+img#rss {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+div#issues {
+  padding-left: 30px;
+}
+
+div.issue {
+  cursor: pointer;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+div.footer {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 2px solid #006cb7;
+  font-size: 13px;
+  margin: 10px auto;
+  padding: 8px 10px;
+  text-align: justify;
+}
+
+a {
+  color: #006cb7;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #d81920;
+  text-decoration: none;
+}
+
+div#start {
+  margin-top: 74px;
+}
+
+div#start a.button {
+  -webkit-border-radius: 5px;
+  -webkit-box-shadow: inset 0px 0px 6px #ffffff;
+  background: #006cb7;
+  background: -moz-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
+  background: -ms-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
+  background: -o-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
+  background: -webkit-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
+  background: linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
+  border-radius: 5px;
+  border: 2px solid #006cb7;
+  box-shadow: inset 0px 0px 6px #ffffff;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 81.5px;
+}
+
+div#start a.button:hover {
+  background: #d81920;
+  background: -moz-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
+  background: -ms-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
+  background: -o-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
+  background: -webkit-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
+  background: linear-gradient(top, #f1bdc1 0%, #d81920 100%);
+  border-color: #d81920;
+}

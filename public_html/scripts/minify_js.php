@@ -13,6 +13,7 @@ $files = array(
   "config/config.js",
   "scripts/jquery.ks.spinner.php",
   "scripts/OpenLayers-layerFactories.js",
+  "scripts/ks-search.js",
   "scripts/init_map.js",
   "scripts/init_sidebar_neue_meldung.js",
   "scripts/init_sidebar_beobachtungsflaechen.js",

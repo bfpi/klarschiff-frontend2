@@ -2,7 +2,7 @@ function init_sidebar() {
   init_sidebarToggle();
   init_layerSwitcher();
   init_homeButton();
-  init_adresssuche();
+  KS.Search.init()
   init_gotoBBOX();
   init_checkAll();
   init_mapicons();
@@ -86,38 +86,6 @@ function init_homeButton() {
   button.append($('<span></span>').html('Startseite'));
   button.button();
   $('#back_to_start a').append(button);
-}
-
-var results;
-var searchField;
-function init_adresssuche() {
-  results = $("div.results");
-  searchField = $("input#searchtext");
-
-  searchField.on("keyup", function() {
-    if ($(this).val().length >= 3) {
-      var searchText = searchField.val();
-      $.ajax({
-        url: 'search/server.php',
-        dataType: 'json',
-        data: {
-          searchtext: searchText
-        },
-        success: function(data) {
-          results.children().remove();
-          results.append(data.result);
-          results.fadeIn();
-        }
-      });
-    } else {
-      results.children().remove();
-      results.fadeOut();
-    }
-  })
-
-  $(".resultElement").on("click", function() {
-    results.fadeOut();
-  });
 }
 
 function init_gotoBBOX() {
