@@ -15,12 +15,8 @@
     <link rel="alternate" type="application/atom+xml" title="Klarschiff: Meldungen" href="rss.php" />
     <link rel="stylesheet" type="text/css" media="all" href="styles/bootstrap-3.3.1.min.css" />
     <link rel="stylesheet" type="text/css" media="all" href="styles/index.css" />
-    <!--<script type="text/javascript" src="scripts/js.php"></script>-->
-    <script type="text/javascript" src="scripts/libs/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="scripts/libs/OpenLayers-3.0.0.js"></script>
-    <!--<script type="text/javascript">var markerOffset = <?php //print LP_MARKER_OFFSET ?>;</script>-->
-    <script type="text/javascript" src="scripts/ks-search.js"></script>
-    <script type="text/javascript" src="scripts/index.js"></script>
+    
+    <script type="text/javascript" src="scripts/js.php"></script>
   </head>
   <body>
     <div class="container">

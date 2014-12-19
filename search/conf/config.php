@@ -8,7 +8,7 @@ define("PASS","admin");
 define("SCHEMA","public");
 
 # ORT
-define("URL", "/map.php");
+define("URL", "map.php");
 # DEFAULT ORT - zur Begrenzung der Suche
 # define("ORT","Greifswald");
 

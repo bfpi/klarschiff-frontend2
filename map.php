@@ -11,7 +11,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <link rel="stylesheet" type="text/css" href="styles/OpenLayers-3.0.0.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.11.2.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.1.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="styles/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="styles/map.css" media="all" />
     
     <script type="text/javascript" src="scripts/js.php"></script>
   </head>

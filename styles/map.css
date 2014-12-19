@@ -150,20 +150,20 @@ div.results {
   display: none;
   float: left;
   text-align: left;
-  width: 268px;
+  width: 264px;
 }
 
-div.resultElement {
+div.result-element {
   cursor: pointer;
   line-height: 23px;
 }
 
-div.resultElement a {
+div.result-element a {
   color: #006cb7;
   text-decoration: none;
 }
 
-div.resultElement span {
+div.result-element span {
   color: #bbbbbb;
   float: right;
   font-size: 9px;

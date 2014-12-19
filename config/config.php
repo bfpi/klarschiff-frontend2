@@ -21,7 +21,7 @@ return array(
     )
   ),
   'minify_js' => false,
-  'minify_js_tempfile' => "/tmp/temp_uM0ahzie.js",
+  'minify_js_tempfile_folter' => "/tmp/",
   'minify_js_force' => false,
   'functions' => array(
     'report_idea' => false,

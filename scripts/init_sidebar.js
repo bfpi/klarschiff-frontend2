@@ -2,7 +2,7 @@ function init_sidebar() {
   init_sidebarToggle();
   init_layerSwitcher();
   init_homeButton();
-  //KS.Search.init()
+  KS.Search.init();
   init_gotoBBOX();
   init_checkAll();
   init_mapicons();

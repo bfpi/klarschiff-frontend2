@@ -50,7 +50,7 @@ div.container {
 }
 
 div#header {
-  background: url("/images/bg_header.jpg") repeat-x scroll center top #f5f5f5;
+  background: url("../images/bg_header.jpg") repeat-x scroll center top #f5f5f5;
 }
 
 div#header img#headerimage {
@@ -70,7 +70,7 @@ div#header img#klarschifflogo {
 }
 
 div#menu {
-  background: url("/images/bg_menu.jpg") repeat-x scroll center top #f5f4f2;
+  background: url("../images/bg_menu.jpg") repeat-x scroll center top #f5f4f2;
   border-bottom: 1px solid #00417b;
   clear: left;
   margin: 0 auto 20px;
