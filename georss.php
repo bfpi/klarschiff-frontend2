@@ -5,40 +5,18 @@
  *
  * GET-Parameter: id=<number>
  */
-$WFS_URL = "http://klarschiff-test:8080/geoserver/klarschiff/wms/reflect?layers=klarschiff:vorgaenge_rss&format=rss";
-
-function get_rss_data($id) {
-  $database = include(dirname(__FILE__) . "/config/database.php");
-
-  $connection = pg_connect("host=" . $database['frontend']['host'] .
-    " port=" . $database['frontend']['port'] .
-    " dbname=" . $database['frontend']['database'] .
-    " user=" . $database['frontend']['username'] .
-    " password=" . $database['frontend']['password'] . "");
-
-  // Retrieve all data from georss_polygone
-  $data = array();
-
-  $sql = "SELECT g.ideen, g.ideen_kategorien, g.probleme, g.probleme_kategorien, st_astext(g.the_geom) AS wkt FROM klarschiff.klarschiff_geo_rss g WHERE md5(g.id::varchar)=$1";
-  $result = pg_query_params($connection, $sql, array($id));
-  
-  if ($row = pg_fetch_assoc($result)) {
-    $data = $row;
-  }
-  pg_close($connection);
-  return($data);
-}
+require_once 'config/urls.php';
+require_once 'php/frontend_dao.php';
+$frontend = new FrontendDAO();
 
 $xml_out = "";
 $id = isset($_REQUEST["id"]) ? $_REQUEST["id"] : "";
 
-if ($id != "" && count($data = get_rss_data($id))) {
+if ($id != "" && count($data = $frontend->rss_data($id))) {
   $cql_filter = "";
 
   $IDEE_KAT = "";
   $PROB_KAT = "";
-
-
 
   if ($data["ideen"] == "t") {
     $cql_filter .= "vorgangstyp = 'idee'";
@@ -62,7 +40,6 @@ if ($id != "" && count($data = get_rss_data($id))) {
 
     $cql_filter .= "vorgangstyp = 'problem'";
 
-
     $probleme_kategorien = explode(",", $data["probleme_kategorien"]);
     foreach ($probleme_kategorien AS $problemKategorie) {
       if ($problemKategorie != "") {
@@ -73,7 +50,6 @@ if ($id != "" && count($data = get_rss_data($id))) {
     if ($PROB_KAT != "") {
       $cql_filter .= " AND (" . substr($PROB_KAT, 3) . ")";
     }
-
 
     if ($data["ideen"] == "t") {
       $cql_filter .= "))";
@@ -87,7 +63,7 @@ if ($id != "" && count($data = get_rss_data($id))) {
 
   $ch = curl_init();
   curl_setopt_array($ch, array(
-    CURLOPT_URL => $WFS_URL,
+    CURLOPT_URL => WFS_URL,
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => "cql_filter=" . urlencode($cql_filter),
     CURLOPT_HEADER => false,
