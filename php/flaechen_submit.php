@@ -4,8 +4,8 @@
  * @file
  * Frontend-Fassade für das Abonnieren von RSS-Feeds.
  */
-$database = include(dirname(__FILE__) . "/../config/databse.php");
-$config = include(dirname(__FILE__) . "/../config/config.php");
+$database = include dirname(__FILE__) . "/../config/database.php";
+$config = include dirname(__FILE__) . "/../config/config.php";
 
 $problem_kat_arr = array();
 $idee_kat_arr = array();
