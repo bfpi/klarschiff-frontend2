@@ -8,13 +8,13 @@
 $WFS_URL = "http://klarschiff-test:8080/geoserver/klarschiff/wms/reflect?layers=klarschiff:vorgaenge_rss&format=rss";
 
 function get_rss_data($id) {
-  $config = include(dirname(__FILE__) . "/config/config.php");
+  $database = include(dirname(__FILE__) . "/config/database.php");
 
-  $connection = pg_connect("host=" . $config['psql']['host'] .
-    " port=" . $config['psql']['port'] .
-    " dbname=" . $config['psql']['database'] .
-    " user=" . $config['psql']['username'] .
-    " password=" . $config['psql']['password'] . "");
+  $connection = pg_connect("host=" . $database['frontend']['host'] .
+    " port=" . $database['frontend']['port'] .
+    " dbname=" . $database['frontend']['database'] .
+    " user=" . $database['frontend']['username'] .
+    " password=" . $database['frontend']['password'] . "");
 
   // Retrieve all data from georss_polygone
   $data = array();

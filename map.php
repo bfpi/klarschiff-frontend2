@@ -72,8 +72,8 @@ $config = include(dirname(__FILE__) . "/config/config.php");
             <h3>Hilfe und Impressum</h3>
             <div id="sonderseiten">
               <?php
-              foreach ($config['sidebar_links']['hilfe_und_impressum'] as $row) {
-                echo "<button onClick=\"window.open('" . $row['link'] . "', '_blank')\">" . $row['label'] . "</button>";
+              foreach ($config['links']['help_and_impressing'] as $link) {
+                echo "<button onClick=\"window.open('" . $link['url'] . "', '_blank')\">" . $link['label'] . "</button>";
               }
               ?>
             </div>

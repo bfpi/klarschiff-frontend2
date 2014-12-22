@@ -1,17 +1,8 @@
 <?php
 
-define("ADRESSSUCHE_URL", "http://klarschiff-test:8080/solr/select?");
-define("BACKEND_URL", "http://klarschiff-test/backend/");
-define("FRONTEND_URL", "http://klarschiff-test/");
-
+require_once 'urls.php';
 return array(
-  'psql' => array(
-    'host' => 'klarschiff-test',
-    'port' => 5432,
-    'username' => 'klarschiff_frontend',
-    'password' => 'klarschiff_frontend',
-    'database' => 'klarschiff_frontend'
-  ),
+  'database' => include('database.php'),
   'labels' => array(
     'sidebar_headline' => 'DEMO',
     'errors' => array(
@@ -27,25 +18,24 @@ return array(
     'report_idea' => false,
     'report_problem' => true
   ),
-  'sidebar_links' => array(
-    'hilfe_und_impressum' => array(
+  'links' => array(
+    'help_and_impressing' => array(
       array(
         'label' => 'Hilfe',
-        'link' => FRONTEND_URL . 'hilfe.html'
+        'url' => FRONTEND_URL . 'hilfe.html'
       ),
       array(
         'label' => 'Datenschutz',
-        'link' => FRONTEND_URL . 'datenschutz.html'
+        'url' => FRONTEND_URL . 'datenschutz.html'
       ),
       array(
         'label' => 'Impressum',
-        'link' => FRONTEND_URL . 'impressum.html'
+        'url' => FRONTEND_URL . 'impressum.html'
       ),
       array(
         'label' => 'Nutzungsbedingungen',
-        'link' => FRONTEND_URL . 'nutzungsbedingungen.html'
+        'url' => FRONTEND_URL . 'nutzungsbedingungen.html'
       )
     )
   )
 );
-?>

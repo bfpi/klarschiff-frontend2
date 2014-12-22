@@ -1,12 +1,12 @@
 <?php
 
 function validate_meldung_im_erlaubten_bereich($config, $point) {
-
-  $connection = pg_connect("host=" . $config['psql']['host'] .
-    " port=" . $config['psql']['port'] .
-    " dbname=" . $config['psql']['database'] .
-    " user=" . $config['psql']['username'] .
-    " password=" . $config['psql']['password'] . "") or die("1000#1000#" . $config['labels']['errors']['db_unavailable']);
+  $db_config = $config['database']['frontend'];
+  $connection = pg_connect("host=" . $db_config['host'] .
+    " port=" . $db_config['port'] .
+    " dbname=" . $db_config['database'] .
+    " user=" . $db_config['username'] .
+    " password=" . $db_config['password'] . "") or die("1000#1000#" . $config['labels']['errors']['db_unavailable']);
 
   // Inside allowed area?
   $ret = false;
@@ -24,11 +24,12 @@ function validate_meldung_im_erlaubten_bereich($config, $point) {
 }
 
 function trashmail_check($config, $email) {
-  $connection = pg_connect("host=" . $config['psql']['host'] .
-    " port=" . $config['psql']['port'] .
-    " dbname=" . $config['psql']['database'] .
-    " user=" . $config['psql']['username'] .
-    " password=" . $config['psql']['password'] . "");
+  $db_config = $config['database']['frontend'];
+  $connection = pg_connect("host=" . $db_config['host'] .
+    " port=" . $db_config['port'] .
+    " dbname=" . $db_config['database'] .
+    " user=" . $db_config['username'] .
+    " password=" . $db_config['password'] . "");
 
   $blacklist_this = false;
 

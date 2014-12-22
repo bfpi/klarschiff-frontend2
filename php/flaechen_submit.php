@@ -4,6 +4,7 @@
  * @file
  * Frontend-Fassade für das Abonnieren von RSS-Feeds.
  */
+$database = include(dirname(__FILE__) . "/../config/databse.php");
 $config = include(dirname(__FILE__) . "/../config/config.php");
 
 $problem_kat_arr = array();
@@ -50,11 +51,11 @@ if ($data["geom"] != "null" && strlen($data["geom"]) > 0 &&
   header("HTTP/1.0 500 Internal Server Error");
   die("Es kann entweder ein Polygon oder eine Polygon-Id übergeben werden, aber nicht beides.");
 }
-$connection = pg_connect("host=" . $config['psql']['host'] .
-  " port=" . $config['psql']['port'] .
-  " dbname=" . $config['psql']['database'] .
-  " user=" . $config['psql']['username'] .
-  " password=" . $config['psql']['password'] . "");
+$connection = pg_connect("host=" . $database['frontend']['host'] .
+  " port=" . $database['frontend']['port'] .
+  " dbname=" . $database['frontend']['database'] .
+  " user=" . $database['frontend']['username'] .
+  " password=" . $database['frontend']['password'] . "");
 
 
 /* * ************************************************************************** */

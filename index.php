@@ -1,7 +1,8 @@
 <?php
-  require_once(dirname(__FILE__) . "/php/frontend_dao.php");
-  $frontend = new FrontendDAO();
-  $map_url = 'map.php';
+require_once(dirname(__FILE__) . "/php/frontend_dao.php");
+$frontend = new FrontendDAO();
+$map_url = 'map.php';
+$config = include 'config/config.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@
     <link rel="alternate" type="application/atom+xml" title="Klarschiff: Meldungen" href="rss.php" />
     <link rel="stylesheet" type="text/css" media="all" href="styles/bootstrap-3.3.1.min.css" />
     <link rel="stylesheet" type="text/css" media="all" href="styles/index.css" />
-    
+
     <script type="text/javascript" src="javascripts/js.php"></script>
   </head>
   <body>
@@ -25,31 +26,33 @@
         <img id="sloganimage" src="images/sloganimage-uhgw.jpg" alt="Schriftzug Universitäts- und Hansestadt Greifswald">
         <img id="klarschifflogo" src="images/klarschiff_uhgw_328px.png" alt="Logo Klarschiff-UHGW">
       </div>
-      <div id="menu">
-        <ul id="list">
-          <li class="item first">
-            <a href="map.php" target="_self">Karte</a>
-          </li>
-          <li class="item">
-            <a href="hilfe.html" target="_blank">Hilfe</a>
-          </li>
-          <li class="item">
-            <a href="datenschutz.html" target="_blank">Datenschutz</a>
-          </li>
-          <li class="item">
-            <a href="impressum.html" target="_blank">Impressum</a>
-          </li>
-          <li class="item last">
-            <a href="nutzungsbedingungen.html" target="_blank">Nutzungsbedingungen</a>
-          </li>
-        </ul>
+      <div id="menu" class="row">
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header pull-left">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <img alt="Brand" src="images/klarschiff.png">
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="<?= $map_url ?>">Karte</a></li>
+                <?php
+                foreach ($config['links']['help_and_impressing'] as $link) {
+                  echo '<li><a href="', $link['url'], '" target="_blank">', $link['label'], '</a></li>';
+                }
+                ?>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </div>
       <div id="eye-catcher" class="row">
         <div class="overlay guide">
           <h3><span class="italic">Klarschiff.UHGW</span> – Bürgerbeteiligung</h3>
           <p>
             Rufen Sie die <a href="<?php echo $map_url; ?>" target="_self">
-            <span class="bold">Karte</span></a> auf <span class="bold">→</span>
+              <span class="bold">Karte</span></a> auf <span class="bold">→</span>
             setzen Sie Ihre Meldung an die passende Stelle <span class="bold">→</span>
             beschreiben Sie Ihre Meldung kurz <span class="bold">→</span>
             verfolgen Sie, wie die Stadtverwaltung die Bearbeitung übernimmt.

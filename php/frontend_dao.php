@@ -5,12 +5,12 @@ class FrontendDAO {
   private $connection;
 
   function __construct() {
-    $config = include(dirname(__FILE__) . "/../config/config.php");
+    $database = include(dirname(__FILE__) . "/../config/database.php");
     $this->connection = pg_connect(
-      "host=" . $config['psql']['host'] . " port=" . $config['psql']['port']
-      . " dbname=" . $config['psql']['database']
-      . " user=" . $config['psql']['username']
-      . " password=" . $config['psql']['password'] . "");
+      "host=" . $database['frontend']['host'] . " port=" . $database['frontend']['port']
+      . " dbname=" . $database['frontend']['database']
+      . " user=" . $database['frontend']['username']
+      . " password=" . $database['frontend']['password'] . "");
   }
 
   function __destruct() {

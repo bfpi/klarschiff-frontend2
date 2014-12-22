@@ -36,6 +36,7 @@ if(endsWith($referer['path'], "map.php")) {
 } else {
   // index.php
   $files = array(
+    "libs/bootstrap-3.3.1.js",
     "libs/proj4js-2.3.3.js",
     "libs/OpenLayers-3.0.0.js",
     "javascripts/functions.js",
@@ -45,7 +46,7 @@ if(endsWith($referer['path'], "map.php")) {
     "javascripts/OpenLayers-layerFactories.js",
     "javascripts/index.js"
   );
-  $js_tempfile = $config['minify_js_tempfile_folter'] . "ks_start.js";
+  $js_tempfile = $config['minify_js_tempfile_folter'] . "ks_index.js";
 }
 
 if ($config['minify_js']) {
