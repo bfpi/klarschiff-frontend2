@@ -4,76 +4,44 @@
  * @file
  * Frontend-Fassade für das Abonnieren von RSS-Feeds.
  */
-$database = include dirname(__FILE__) . "/../config/database.php";
+require_once 'backend_tunnel.php';
+require_once 'frontend_dao.php';
+$frontend = new FrontendDAO();
+
 $config = include dirname(__FILE__) . "/../config/config.php";
 
-$problem_kat_arr = array();
-$idee_kat_arr = array();
-$idee = "false";
-$problem = "false";
-$debug = "";
-
-
-if (!empty($_REQUEST["problem_kategorie"]) AND is_array($_REQUEST["problem_kategorie"])) {
-  $problem_kat_arr = $_REQUEST["problem_kategorie"];
-  if (!empty($problem_kat_arr)) {
-    $problem = "true";
-  }
+$problem_categories = filter_input(INPUT_POST, 'problem_kategorie');
+if (empty($problem_categories) || !is_array($problem_categories)) {
+  $problem_categories = array();
 }
 
-if (!empty($_REQUEST["idee_kategorie"]) AND is_array($_REQUEST["idee_kategorie"])) {
-  $idee_kat_arr = $_REQUEST["idee_kategorie"];
-  if (!empty($idee_kat_arr)) {
-    $idee = "true";
-  }
+$idea_categories = filter_input(INPUT_POST, 'idee_kategorie');
+if (empty($idea_categories) || !is_array($idea_categories)) {
+  $idea_categories = array();
 }
 
-if (substr($_REQUEST["id"], 0, 1) == ",") {
-  $_REQUEST["id"] = substr($_REQUEST["id"], 1);
-}
-
-$data = array(
-  "geom" => $_REQUEST["geom"],
-  "id" => $_REQUEST["id"],
-  "ideen" => $idee,
-  "ideen_kategorien" => implode(",", $idee_kat_arr),
-  "probleme" => $problem,
-  "probleme_kategorien" => implode(",", $problem_kat_arr)
+$data = array_merge(
+  filter_input_array(INPUT_POST, array(
+  'id' => FILTER_VALIDATE_INT,
+  'geom' => FILTER_UNSAFE_RAW)), array(
+  "ideen" => empty($idea_categories) ? 'false' : 'true',
+  "ideen_kategorien" => implode(",", $idea_categories),
+  "probleme" => empty($problem_categories) ? 'false' : 'true',
+  "probleme_kategorien" => implode(",", $problem_categories)
+  )
 );
 
-
-/* * ************************************************************************** */
-/*                     VALIDIERUNG & TRANSFORMIERUNG                         */
-/* * ************************************************************************** */
-
-if ($data["geom"] != "null" && strlen($data["geom"]) > 0 && 
+if ($data["geom"] != "null" && strlen($data["geom"]) > 0 &&
   $data["id"] != "null" && strlen($data["id"]) > 0) {
   header("HTTP/1.0 500 Internal Server Error");
   die("Es kann entweder ein Polygon oder eine Polygon-Id übergeben werden, aber nicht beides.");
 }
-$connection = pg_connect("host=" . $database['frontend']['host'] .
-  " port=" . $database['frontend']['port'] .
-  " dbname=" . $database['frontend']['database'] .
-  " user=" . $database['frontend']['username'] .
-  " password=" . $database['frontend']['password'] . "");
 
-
-/* * ************************************************************************** */
-/*                      Geometrie ermitteln - START                          */
-/*                       STADTGEBIET / STADTTEILE                            */
-/* * ************************************************************************** */
-$geom = "";
-
-// STADTGEBIET
 if ($data["id"] == -1) {
-  $result = pg_query($connection, "SELECT st_astext(st_multi(the_geom)) FROM klarschiff.klarschiff_stadtgrenze_hro LIMIT 1;");
-  if (pg_num_rows($result) == 1) {
-    $row = pg_fetch_row($result);
-    $data["geom"] = $row[0];
-  }
-
-  // STADTTEILE
+  // STADTGEBIET
+  $data["geom"] = $frontend->city_boundary();
 } else if ($data["id"] != "null" && strlen($data["id"]) > 0) {
+  // STADTTEILE
   $ids = array();
 
   // Überprüfen ob es sich um Zahlen handelt.
@@ -85,56 +53,16 @@ if ($data["id"] == -1) {
 
   // Wenn gültige id/s gefunden wurde/n, Anfrage an die Datenbank.
   if (!empty($ids)) {
-
-    // SQL aufbauen.
-    $sql = "SELECT st_astext(st_multi(st_memunion((the_geom)))) FROM klarschiff.klarschiff_stadtteile_hro WHERE ogc_fid IN (" . implode(",", $ids) . ");";
-
-    $debug.= "\n" . $sql;
-
-    $result = pg_query($connection, $sql);
-
-    if (pg_num_rows($result) == 1) {
-      $row = pg_fetch_row($result);
-      $data["geom"] = $row[0];
-    } else {
-      $debug.= "\n count : " . pg_num_rows($result);
-    }
+    $data["geom"] = $frontend->district_boundary($ids);
   }
-
-  $debug.= "\n ids : " . print_r($ids, true);
 } else if ($data["geom"] != "null" && strlen($data["geom"]) > 0) {
-  $sql = "SELECT st_astext(st_multi('" . $data["geom"] . "'));";
-  $result = pg_query($connection, $sql);
-
-  if (pg_num_rows($result) == 1) {
-    $row = pg_fetch_row($result);
-    $data["geom"] = $row[0];
-  }
+  $data["geom"] = $frontend->boundary($data["geom"]);
 }
 
-
-/* * ************************************************************************** */
-/*                      Geometrie ermitteln - ENDE                           */
-/* * ************************************************************************** */
-
-pg_close($connection);
-
-
-/* * ************************************************************************** */
-/*                  Geometrie an das Backend durchreichen                    */
-/* * ************************************************************************** */
-
-require_once dirname(__FILE__) . '/backend_tunnel.php';
-
-/*
- * @todo change this!
- */
 $data["oviWkt"] = $data["geom"];
 $data["problemeKategorien"] = $data["probleme_kategorien"];
 $data["ideenKategorien"] = $data["ideen_kategorien"];
 
 $result = returnRelay($data, 'geoRss');
 
-echo json_encode(array(
-  "hash" => md5($result["content"])
-));
+echo json_encode(array("hash" => md5($result["content"])));

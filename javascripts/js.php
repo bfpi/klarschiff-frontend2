@@ -1,3 +1,4 @@
+/* js.php */
 <?php
 
 $config = include('../config/config.php');
