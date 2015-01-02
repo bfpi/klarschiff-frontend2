@@ -181,15 +181,13 @@ function beobachtungsflaechenDialog(id, feature, name, geom_string) {
     var target = $('div[name="' + typ + '_kategorie"]', dlg);
     $.each(ks_lut.kategorie, function(kategorie_id, kategorie) {
       if (!kategorie.parent && kategorie.typ == typ) {
-        var nobr = $('<nobr>');
-        $('<input>')
-                .attr("name", typ + "_kategorie[" + kategorie_id + "]") // kategorie.name
-                .attr("type", "checkbox")
-                .val(kategorie_id)
-                .appendTo(nobr);
-        $('<label></label>').html(" " + kategorie.name).appendTo(nobr);
-        nobr.appendTo(target);
-        $('<br>').appendTo(target);
+        $('<div>').addClass('checkbox')
+          .append($('<label>').html(kategorie.name)
+            .prepend($('<input>')
+              .attr("name", typ + "_kategorie[" + kategorie_id + "]")
+              .attr("type", "checkbox")
+              .val(kategorie_id)))
+          .appendTo(target);
       }
     });
   });

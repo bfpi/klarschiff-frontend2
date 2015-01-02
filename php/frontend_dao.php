@@ -75,25 +75,17 @@ class FrontendDAO {
   }
 
   function city_boundary() {
-    $boundary = null;
-    if ($row = pg_fetch_assoc(
+    return pg_fetch_result(
       pg_query($this->conn, "SELECT ST_asText(ST_Multi(the_geom)) "
         . "FROM klarschiff.klarschiff_stadtgrenze_hro "
-        . "LIMIT 1"))) {
-      $boundary = $row[0];
-    }
-    return $boundary;
+        . "LIMIT 1"), 0);
   }
 
   function district_boundary($district_ids) {
-    $boundary = null;
-    if ($row = pg_fetch_assoc(
+    return pg_fetch_result(
       pg_query_params($this->conn, "SELECT ST_asText(ST_Multi(ST_MemUnion((the_geom)))) "
         . "FROM klarschiff.klarschiff_stadtteile_hro "
-        . "WHERE ogc_fid IN $1", array($district_ids)))) {
-      $boundary = $row[0];
-    }
-    return $boundary;
+        . "WHERE ogc_fid IN $1", array($district_ids)), 0);
   }
 
   function boundary($geom) {

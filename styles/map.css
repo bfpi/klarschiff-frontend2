@@ -271,30 +271,23 @@ form .help {
   color: #ffffff;
 }
 
-#rss_abo #problem {
-  float: left;
-  width: 50%;
-}
-
-div#idee input,
-div#problem input {
-  width: 5%;
-}
-
-#rss_abo #idee {
-  float: right;
-  width: 50%;
-}
-
-div.scrollCheckbox {
+#rss-abo {
   font-size: 0.8em;
-  height: 100%;
-  line-height: 7px;
+  overflow: hidden;
 }
 
-div.scrollCheckbox input {
-  margin: 0.5em 0;
-  vertical-align: middle;
+#rss-abo label {
+  margin-left: 2px;
+}
+
+#rss-abo label.all {
+  font-style: italic;
+  font-weight: bold;
+}
+
+div.scroll-checkbox {
+  border-bottom: 1px solid #999999;
+  margin-bottom: 6px;
 }
 
 .ol-scale-line {

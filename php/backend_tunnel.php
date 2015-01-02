@@ -4,7 +4,7 @@
  * Tunnel vom Frontend-Server zum Backend für den Frontend-Client.
  * Der Tunnel wird von den Frontend-Fassaden verwendet.
  */
-
+require_once dirname(__FILE__) . "/../config/urls.php";
 define("ENTRYPOINT", BACKEND_URL . "service");
 
 function relay($data, $path) {
@@ -57,10 +57,7 @@ function returnRelay($data,$path) {
   $contents = curl_exec($ch);
   curl_close($ch);
 
-  return array(
-    "content" => $contents,
-    //		"url" => ENTRYPOINT . "/" . $path
-  );
+  return array("content" => $contents);
 }
 
 function http_post($url,$data,$header = "") {
