@@ -23,10 +23,6 @@ var emailLeer = "Sie müssen Ihre E-Mail-Adresse angeben.";
 var begruendungLeer = "Sie müssen eine Begründung angeben.";
 var freitextLeer = "Sie müssen Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung angeben.";
 
-var ows_namespace = window.location.protocol + "//" + window.location.host + "/ows/klarschiff";
-ows_namespace = "http://www.klarschiff-local.de/ows/klarschiff";
-var ows_url = ows_namespace + "/wfs";
-
 var klarschiff_map = 'map.php';
 var klarschiff_geoserver = 'http://klarschiff-test:8080/geoserver/';
 
