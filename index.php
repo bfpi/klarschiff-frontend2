@@ -1,7 +1,7 @@
 <?php
-require_once(dirname(__FILE__) . "/php/frontend_dao.php");
+require_once "config/urls.php";
+require_once "php/frontend_dao.php";
 $frontend = new FrontendDAO();
-$map_url = 'map.php';
 $config = include 'config/config.php';
 ?>
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ $config = include 'config/config.php';
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li><a href="<?= $map_url ?>">Karte</a></li>
+                <li><a href="<?= MAP_URL ?>">Karte</a></li>
                 <?php
                 foreach ($config['links']['help_and_impressing'] as $link) {
                   echo '<li><a href="', $link['url'], '" target="_blank">', $link['label'], '</a></li>';
@@ -51,7 +51,7 @@ $config = include 'config/config.php';
         <div class="overlay guide">
           <h3><span class="italic">Klarschiff.UHGW</span> – Bürgerbeteiligung</h3>
           <p>
-            Rufen Sie die <a href="<?php echo $map_url; ?>" target="_self">
+            Rufen Sie die <a href="<?php echo MAP_URL; ?>" target="_self">
               <span class="bold">Karte</span></a> auf <span class="bold">→</span>
             setzen Sie Ihre Meldung an die passende Stelle <span class="bold">→</span>
             beschreiben Sie Ihre Meldung kurz <span class="bold">→</span>
@@ -98,7 +98,7 @@ $config = include 'config/config.php';
           </div>
           <div id="start">
             <div class="block">
-              <a class="button" href="<?php echo $map_url; ?>" target="_self">Karte aufrufen</a>
+              <a class="button" href="<?php echo MAP_URL; ?>" target="_self">Karte aufrufen</a>
             </div>
           </div>
         </div>

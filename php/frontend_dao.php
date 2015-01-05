@@ -66,12 +66,29 @@ class FrontendDAO {
     $result = array();
     if ($row = pg_fetch_assoc(
       pg_query_params($this->conn, "SELECT g.ideen, g.ideen_kategorien, g.probleme, "
-        . "g.probleme_kategorien, st_astext(g.the_geom) AS wkt "
+        . "g.probleme_kategorien, ST_AsText(g.the_geom) AS wkt "
         . "FROM klarschiff.klarschiff_geo_rss g "
         . "WHERE md5(g.id::varchar) = $1", array($id)))) {
       $result = $row;
     }
     return $result;
+  }
+
+  function rss() {
+    return pg_fetch_all(
+      pg_query($this->conn, "SELECT v.id, v.datum::timestamp, v.vorgangstyp AS typ, "
+        . "v.status, hk.name AS hauptkategorie, uk.name AS unterkategorie, "
+        . "v.betreff_vorhanden, v.betreff_freigegeben, v.titel AS betreff, "
+        . "v.details_vorhanden, v.details_freigegeben, v.details, v.foto_vorhanden, "
+        . "v.foto_freigegeben, v.bemerkung, wfs.unterstuetzer AS unterstuetzungen, "
+        . "ST_X(ST_Transform(v.the_geom,4326)) AS x, "
+        . "ST_Y(ST_Transform(v.the_geom,4326)) AS y "
+        . "FROM klarschiff.klarschiff_vorgang v, klarschiff.klarschiff_kategorie uk, "
+        . "klarschiff.klarschiff_kategorie hk, klarschiff.klarschiff_wfs wfs "
+        . "WHERE v.archiviert IS NOT TRUE "
+        . "AND v.status IN ('offen', 'inBearbeitung', 'wirdNichtBearbeitet', 'abgeschlossen') "
+        . "AND v.kategorieid = uk.id AND uk.parent = hk.id AND v.id = wfs.id "
+        . "ORDER BY v.datum DESC"));
   }
 
   function city_boundary() {
