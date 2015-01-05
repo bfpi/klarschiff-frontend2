@@ -102,7 +102,7 @@ class FrontendDAO {
     return pg_fetch_result(
       pg_query_params($this->conn, "SELECT ST_asText(ST_Multi(ST_MemUnion((the_geom)))) "
         . "FROM klarschiff.klarschiff_stadtteile_hro "
-        . "WHERE ogc_fid IN $1", array($district_ids)), 0);
+        . "WHERE ogc_fid = ANY($1)", array('{' . implode(', ', $district_ids) . '}')), 0);
   }
 
   function boundary($geom) {

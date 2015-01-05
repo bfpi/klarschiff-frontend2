@@ -22,7 +22,7 @@ if (empty($idea_categories) || !is_array($idea_categories)) {
 
 $data = array_merge(
   filter_input_array(INPUT_POST, array(
-  'id' => FILTER_VALIDATE_INT,
+  'id' => FILTER_SANITIZE_STRING,
   'geom' => FILTER_UNSAFE_RAW)), array(
   "ideen" => empty($idea_categories) ? 'false' : 'true',
   "ideen_kategorien" => implode(",", $idea_categories),
@@ -45,7 +45,7 @@ if ($data["id"] == -1) {
   $ids = array();
 
   // Überprüfen ob es sich um Zahlen handelt.
-  foreach (explode(",", $_POST["id"]) AS $id) {
+  foreach (explode(",", $data["id"]) AS $id) {
     if (is_numeric($id)) {
       $ids[] = $id;
     }

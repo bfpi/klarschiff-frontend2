@@ -34,13 +34,16 @@ function beobachtungsflaecheStartSelect() {
 
 function beobachtungsflaecheSelect() {
   features = beobachtungsflaechenOverlay.getFeatures().getArray();
-  var IDs = "";
+  var ids = "";
   for (var i = 0; i < features.length; i++) {
-    IDs += "," + features[i].get("ogc_fid");
+    if (i > 0) {
+      ids += ",";
+    }
+    ids += features[i].get("ogc_fid");
   }
 
   hideFlaecheActionBtns();
-  beobachtungsflaechenDialog(IDs, null, "thematische Eingrenzung", null);
+  beobachtungsflaechenDialog(ids, null, "thematische Eingrenzung", null);
   beobachtungsflaecheStopSelect();
 }
 
