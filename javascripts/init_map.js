@@ -22,15 +22,6 @@ function init_map() {
   });
 
   addControls(map);
-
-//  var point1 = proj4('EPSG:4326', 'EPSG:25833', [11.49824, 53.74828]);
-//  var point2 = ol.proj.transform([11.49824, 53.74828], 'EPSG:4326', projection_25833);
-//  var point3 = proj4('EPSG:4326', 'EPSG:25833', [11.43663, 53.69561]);
-//  var point4 = ol.proj.transform([11.43663, 53.69561], 'EPSG:4326', projection_25833);
-//  var htmlStr = "Transformation of points from GeoJSON to view projection:\n";
-//  htmlStr += "[11.49824,53.74828] proj4: [" + point1[0] + ', ' + point1[1] + '] ol3: [' + point2[0] + ', ' + point2[1] + ']' + '\n';
-//  htmlStr += "[11.43663,53.69561] proj4: [" + point3[0] + ', ' + point3[1] + '] ol3: [' + point4[0] + ', ' + point4[1] + ']' + '\n';
-//  console.log(htmlStr);
 }
 
 function addControls(map) {
