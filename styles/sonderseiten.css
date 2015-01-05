@@ -1,118 +1,119 @@
 body {
-    margin:0 auto;
-    margin-bottom:15px;
-    background-color:#FFFFFF;
-    color:#000000;
-    font-family:'Verdana',sans-serif;
-    text-align:center;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-family: 'Verdana',sans-serif;
+  margin-bottom: 15px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 div#main {
-    width:1000px;
-    margin:0 auto;
-    margin-top:15px;
-    margin-bottom:15px;
-    font-size:110%;
+  font-size: 110%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin: 0 auto;
+  width: 1000px;
 }
 
 div.headline {
-    margin-top:15px;
-    color:#D81920;
-    font-weight:bold;
+  color: #D81920;
+  font-weight: bold;
+  margin-top: 15px;
 }
 
 div.content {
-    margin-top:10px;
-    font-size:80%;
+  font-size: 80%;
+  margin-top: 10px;
 }
 
 div.content_columns{
-    width:500px;
-    margin:0 auto;
-    margin-top:10px;
-    font-size:80%;
+  font-size: 80%;
+  margin-top: 10px;
+  margin: 0 auto;
+  width: 500px;
 }
 
 div.subheadline {
-    color:#006CB7;
-    font-weight:bold;
+  color: #006CB7;
+  font-weight: bold;
 }
 
 div.column {
-    width:50%;
-    float:left;
-    margin-bottom:10px;
+  float: left;
+  margin-bottom: 10px;
+  width: 50%;
 }
 
-div#subsidy{
-    clear:both;
+div#subsidy {
+  clear: both;
+  margin-top: 15px;
 }
 
 div#subsidy_logo {
-    height:150px;
-    width:129px;
-    margin:0 auto;
-    margin-bottom:5px;
-    background-image:url(media/logo_eu-fonds.png);
-    background-repeat:no-repeat;
-    background-position:center;
-    cursor:pointer;
+  background-image: url(/images/logo_eu-fonds.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 150px;
+  margin-bottom: 5px;
+  margin: 0 auto;
+  width: 129px;
 }
 
 div.section {
-    margin-top:5px;
-    font-weight:bold;
-    clear:both;
+  clear: both;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 div.justified {
-    text-align:justify;
+  text-align: justify;
 }
 
 div.justified_margin_top {
-    margin:0 auto;
-    margin-top:5px;
-    text-align:justify;
+  margin-top: 5px;
+  margin: 0 auto;
+  text-align: justify;
 }
 
 div.annotation {
-    margin-top:5px;
-    font-size:60%;
+  font-size: 60%;
+  margin-top: 5px;
 }
 
 div.screenshot_container {
-    width:650px;
-    margin:0 auto;
-    margin-top:5px;
+  margin-top: 5px;
+  margin: 0 auto;
+  width: 650px;
 }
 
 div.screenshot {
-    height:400px;
-    width:650px;
-    margin:0 auto;
-    border-style:dashed;
-    border-width:1px;
-    border-color:#006CB7;
+  border-color: #006CB7;
+  border-style: dashed;
+  border-width: 1px;
+  height: 400px;
+  margin: 0 auto;
+  width: 650px;
 }
 
 a {
-    color:#006CB7;
-    text-decoration:none;
+  color: #006CB7;
+  text-decoration: none;
 }
 
 a:hover {
-    color:#D81920;
-    text-decoration:none;
+  color: #D81920;
+  text-decoration: none;
 }
 
 span.bold {
-    font-weight:bold;
+  font-weight: bold;
 }
 
 span.code {
-    font-family:'Courier New',monospace;
+  font-family: 'Courier New',monospace;
 }
 
 span.italic {
-    font-style:italic;
+  font-style: italic;
 }
