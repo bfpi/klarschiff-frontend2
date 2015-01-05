@@ -75,61 +75,6 @@ ol_styles = {
     }
     return highlightStyleCache[text];
   }
-//  rss: new OpenLayers.StyleMap({
-//    "default": new OpenLayers.Style({
-//      fontFamily: "Verdana",
-//      fontSize: "12px",
-//      fontStyle: "italic",
-//      fontWeight: "bold",
-//      fontColor: "#FFEAD7",
-//      label: "${bezeichnung}",
-//      labelAlign: "cm",
-//      fillColor: "#FF8700",
-//      fillOpacity: 0.5,
-//      strokeColor: "#FF8700",
-//      cursor: "pointer"
-//    }),
-//    "select": new OpenLayers.Style({
-//      fontFamily: "Verdana",
-//      fontSize: "12px",
-//      fontStyle: "italic",
-//      fontWeight: "bold",
-//      fontColor: "#FFD7FF",
-//      label: "${bezeichnung}",
-//      labelAlign: "cm",
-//      fillColor: "#FF00FF",
-//      fillOpacity: 0.5,
-//      strokeColor: "#FF8700",
-//      cursor: "pointer"
-//    }),
-//    "temporary": new OpenLayers.Style({
-//      fillColor: "#FF8700",
-//      fillOpacity: 0.5,
-//      strokeColor: "#FF8700",
-//      cursor: "pointer"
-//    })
-//  }),
-//  klarschiff: new OpenLayers.StyleMap({
-//    "default": klarschiffDefaultStyle,
-//    "select": new OpenLayers.Style({
-//      graphicWidth: 56,
-//      graphicHeight: 64,
-//      graphicXOffset: -14,
-//      graphicYOffset: -51,
-//      externalGraphic: "../pc/media/icons/${vorgangstyp}_${status}_s.png",
-//      cursor: "pointer"
-//    }, {
-//      rules: clusterRules
-//    }),
-//    "temporary": new OpenLayers.Style({
-//      graphicWidth: 56,
-//      graphicHeight: 64,
-//      graphicXOffset: -14,
-//      graphicYOffset: -51,
-//      externalGraphic: "../pc/media/icons/${vorgangstyp}_${status}_s.png",
-//      cursor: "pointer"
-//    })
-//  })
 };
 
 var ol_config = {
@@ -143,7 +88,7 @@ var ol_config = {
       layers: "stadtplan",
       projection: "EPSG:25833",
       format: "image/png",
-      attribution_text: 'Kartenbild © Hansestadt Rostock (<a href="http://creativecommons.org/licenses/by/3.0/deed.de" target="_blank" style="color:#006CB7;text-decoration:none;">CC BY 3.0</a>) | Kartendaten © <a href="http://www.openstreetmap.org/" target="_blank" style="color:#006CB7;text-decoration:none;">OpenStreetMap</a> (<a href="http://opendatacommons.org/licenses/odbl/" target="_blank" style="color:#006CB7;text-decoration:none;">ODbL</a>) und <a href="https://geo.sv.rostock.de/uvgb.html" target="_blank" style="color:#006CB7;text-decoration:none;">uVGB-MV</a>',
+      attribution_text: 'Kartenbild © Universitäts- und Hansestadt Greifswald (<a href="http://creativecommons.org/licenses/by/3.0/deed.de" target="_blank" style="color:#006CB7;text-decoration:none;">CC BY 3.0</a>) | Kartendaten © <a href="http://www.openstreetmap.org/" target="_blank" style="color:#006CB7;text-decoration:none;">OpenStreetMap</a> (<a href="http://opendatacommons.org/licenses/odbl/" target="_blank" style="color:#006CB7;text-decoration:none;">ODbL</a>) und <a href="https://geo.sv.rostock.de/uvgb.html" target="_blank" style="color:#006CB7;text-decoration:none;">uVGB-MV</a>',
       default_layer: true,
       displayInLayerSwitcher: true
     },
