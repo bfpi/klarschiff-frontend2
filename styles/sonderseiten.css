@@ -55,8 +55,7 @@ div#subsidy_logo {
   background-repeat: no-repeat;
   cursor: pointer;
   height: 150px;
-  margin-bottom: 5px;
-  margin: 0 auto;
+  margin: 0 auto 5px auto;
   width: 129px;
 }
 
@@ -82,8 +81,7 @@ div.annotation {
 }
 
 div.screenshot_container {
-  margin-top: 5px;
-  margin: 0 auto;
+  margin: 5px auto 0 auto;
   width: 650px;
 }
 
