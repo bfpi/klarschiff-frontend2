@@ -1,6 +1,7 @@
 /* meldung_show.js */
 
-function showMeldung(feature) {
+function showMeldung(olFeature) {
+  var feature = olFeature.clone();
   var img = '<img id="meldung_details_icon" src="images/icons/' +
           feature.get("vorgangstyp") + '_' + feature.get("status") + '_layer.png"></img>';
 
