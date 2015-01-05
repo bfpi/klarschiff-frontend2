@@ -1,3 +1,5 @@
+/* meldung_show.js */
+
 function showMeldung(feature) {
   var img = '<img id="meldung_details_icon" src="images/icons/' +
           feature.get("vorgangstyp") + '_' + feature.get("status") + '_layer.png"></img>';
@@ -5,7 +7,7 @@ function showMeldung(feature) {
   var title = img + (feature.get("vorgangstyp") == 'idee' ? "Idee" : "Problem") +
           " (Meldung " + feature.get("id") + " – " + feature.get("datum_erstellt") + ") " +
           "<a class='directlink' title='Permalink auf Meldung " + feature.get("id") +
-          "' href='" + klarschiff_map + "?advice=" + feature.get("id") + "'>LINK</a>";
+          "' href='" + mapUrl + "?advice=" + feature.get("id") + "'>LINK</a>";
 
   if (ks_lut.kategorie[feature.get("kategorieid")].parent) {
     feature.set("unterkategorie", ks_lut.kategorie[feature.get("kategorieid")].name);
