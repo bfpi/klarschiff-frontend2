@@ -7,8 +7,7 @@ $jquery = "libs/jquery-1.11.1.js";
 
 $files = array();
 $js_tempfile = "";
-
-$referer = parse_url($_SERVER["HTTP_REFERER"]);
+$referer = parse_url(filter_input(INPUT_SERVER, 'HTTP_REFERER'));
 if(endsWith($referer['path'], "map.php")) {
   // map.php
   $files = array(
