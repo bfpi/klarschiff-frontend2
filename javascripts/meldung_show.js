@@ -20,6 +20,7 @@ function showMeldung(olFeature) {
 
   feature.set("status_id", feature.get("status"));
   feature.set("status", ks_lut.status[feature.get("status_id")].name);
+  feature.set("schwellenwert", unterstuetzer_schwellenwert);
 
   var dlg = $('<div></div>')
           .data('oWidth', 500)
