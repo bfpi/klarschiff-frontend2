@@ -24,4 +24,4 @@ KS.Search.init = function() {
   $(".result-element").on("click", function(e) {
     results.fadeOut();
   });
-}
+};
