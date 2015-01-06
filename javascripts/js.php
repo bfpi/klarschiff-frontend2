@@ -32,7 +32,7 @@ if(endsWith($referer['path'], "map.php")) {
     "javascripts/init.js",
     "javascripts/meldung_show.js"
   );
-  $js_tempfile = $config['minify_js_tempfile_folter'] . "ks_map.js";
+  $js_tempfile = $config['minify_js_tempfile_folder'] . "ks_map.js";
 } else {
   // index.php
   $files = array(
@@ -46,7 +46,7 @@ if(endsWith($referer['path'], "map.php")) {
     "javascripts/OpenLayers-layerFactories.js",
     "javascripts/index.js"
   );
-  $js_tempfile = $config['minify_js_tempfile_folter'] . "ks_index.js";
+  $js_tempfile = $config['minify_js_tempfile_folder'] . "ks_index.js";
 }
 
 if ($config['minify_js']) {
