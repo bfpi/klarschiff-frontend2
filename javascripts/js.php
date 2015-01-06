@@ -1,6 +1,7 @@
 /* js.php */
 <?php
 
+header("Content-Type: text/javascript; charset=utf-8");
 $config = include('../config/config.php');
 
 $jquery = "libs/jquery-1.11.1.js";

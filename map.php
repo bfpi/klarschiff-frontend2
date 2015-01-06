@@ -86,6 +86,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
         </div>
       </div>
     </div>
+    <div id="tooltip" style="display: none;"></div>
     <?php
     foreach (scandir("templates") as $template) {
       if ($template != "." && $template != "..") {

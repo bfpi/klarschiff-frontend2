@@ -46,16 +46,29 @@ function addControls(map) {
   map.addControl(scaleLine);
 
   $(map.getViewport()).on("mousemove", function(evt) {
-    pixel = map.getEventPixel(evt.originalEvent);
-    var feature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-      return feature;
-    });
+    var pixel = map.getEventPixel(evt.originalEvent);
+    var feature = map.forEachFeatureAtPixel(
+      pixel, function(feature, layer) { return feature; }
+    );
 
+    var tooltip = $("#tooltip");
     if (feature == undefined) {
       $("#" + map.getTarget()).css("cursor", "auto");
+      tooltip.hide();
     } else {
       $("#" + map.getTarget()).css("cursor", "pointer");
+      var features = feature.get("features");
+      if (features.length == 1) {
+        title = "Meldung "+ features[0].get("id");
+      } else {
+        title = "Fasst "+ features.length +" Meldungen zusammen:<br/>klicken zum Zoomen,<br/>in letzter Zoomstufe zum Anzeigen"
+      }
+      tooltip.html(title);
+      tooltip.css("left", (pixel[0] + 10) + 'px');
+      tooltip.css("top", (pixel[1] + 10) + 'px');
+      tooltip.show();
     }
+
   });
 
   map.on("click", function(e) {
