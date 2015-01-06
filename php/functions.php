@@ -4,8 +4,8 @@ function validate_meldung_im_erlaubten_bereich($config, $point) {
   $db_config = $config['database']['frontend'];
   $connection = pg_connect("host=" . $db_config['host'] .
     " port=" . $db_config['port'] .
-    " dbname=" . $db_config['database'] .
-    " user=" . $db_config['username'] .
+    " dbname=" . $db_config['dbname'] .
+    " user=" . $db_config['user'] .
     " password=" . $db_config['password'] . "") or die("1000#1000#" . $config['labels']['errors']['db_unavailable']);
 
   // Inside allowed area?
@@ -27,8 +27,8 @@ function trashmail_check($config, $email) {
   $db_config = $config['database']['frontend'];
   $connection = pg_connect("host=" . $db_config['host'] .
     " port=" . $db_config['port'] .
-    " dbname=" . $db_config['database'] .
-    " user=" . $db_config['username'] .
+    " dbname=" . $db_config['dbname'] .
+    " user=" . $db_config['user'] .
     " password=" . $db_config['password'] . "");
 
   $blacklist_this = false;
