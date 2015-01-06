@@ -40,11 +40,9 @@ if ($trashmail_check) {
 
 switch ($data["task"]) {
   case "validate":
-    $mydebug .= "\n\rvalidate";
     print json_encode(validate_meldung_im_erlaubten_bereich($config, $data["point"]));
     break;
   case "submit":
-    $mydebug .= "\n\rvalidate";
     if (validate_meldung_im_erlaubten_bereich($config, $data["point"])) {
       $backend_data = array(
         "typ" => $data["typ"],
