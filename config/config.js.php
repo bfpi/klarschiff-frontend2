@@ -29,7 +29,7 @@ var begruendungLeer = "Sie müssen eine Begründung angeben.";
 var freitextLeer = "Sie müssen Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung angeben.";
 
 var mapUrl = 'map.php';
-var geoserverUrl = '<?php echo GEOSERVER_URL; ?>';
+var owsUrl = '<?php echo OWS_URL; ?>';
 
 var styleCache = {};
 var highlightStyleCache = {};
@@ -119,7 +119,7 @@ var ol_config = {
     "Meldungen": {
       title: "Meldungen",
       type: "Vector",
-      url: geoserverUrl + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&outputFormat=application/json",
+      url: owsUrl + "?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&outputFormat=application/json",
       default_layer: true,
       displayInLayerSwitcher: false,
       enableClustering: true,
@@ -134,7 +134,7 @@ var ol_config = {
     "SketchBeobachtungsflaeche": {
       title: "SketchBeobachtungsflaeche",
       type: "Vector",
-      url: geoserverUrl + "klarschiff/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&outputFormat=application/json",
+      url: owsUrl + "?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&outputFormat=application/json",
       default_layer: false,
       displayInLayerSwitcher: false,
       style: ol_styles.beobachtungsflaeche

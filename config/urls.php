@@ -1,11 +1,12 @@
 <?php
 
-$base_url = "http://klarschiff-test";
+$base = "http://www.klarschiff-uhgw.de";
+define("BASE_URL", $base . "/");
 
-define("ADRESSSUCHE_URL", $base_url . ":8080/solr/select?");
-define("BACKEND_URL", $base_url . "/backend/");
-define("FRONTEND_URL", $base_url . "/");
-define("MOBILE_FRONTEND_URL", $base_url . "/mobil");
-define("GEOSERVER_URL", $base_url . ":8080/geoserver/");
+define("ADRESSSUCHE_URL", $base . ":8080/solr/select?");
+define("BACKEND_URL", BASE_URL . "backend/");
+define("FRONTEND_URL", BASE_URL . "pc/");
 define("MAP_URL", FRONTEND_URL . "map.php");
-define("WFS_URL", GEOSERVER_URL . "klarschiff/wms/reflect?layers=klarschiff:vorgaenge_rss&format=rss");
+define("MOBILE_FRONTEND_URL", BASE_URL . "mobil");
+define("OWS_URL", BASE_URL . "ows/klarschiff/ows");
+define("WFS_URL", BASE_URL . "ows/klarschiff/wms/reflect?layers=klarschiff:vorgaenge_rss&format=rss");

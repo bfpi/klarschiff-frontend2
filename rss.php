@@ -7,7 +7,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss">
   <channel>
     <title>Klarschiff: Meldungen</title>
-    <atom:link href="' . FRONTEND_URL . 'rss.php" rel="self" type="application/rss+xml" />
+    <atom:link href="<?php echo FRONTEND_URL, 'rss.php'; ?>" rel="self" type="application/rss+xml" />
     <link><?php echo FRONTEND_URL; ?></link>
     <description>Meldungen im Bürgerbeteiligungsportal Klarschiff</description>
     <language>de-de</language>
@@ -43,7 +43,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
         $details = "<i>nicht vorhanden</i>";
       }
       if ($rss['foto_vorhanden'] == 't' && $rss['foto_freigegeben'] == 't') {
-        $foto = "<br/><img src='" . FRONTEND_URL . "fotos/ks_" . $rss['id'] . "_thumb.jpg' alt='ks_" . $rss['id'] . "_thumb'>";
+        $foto = "<br/><img src='" . BASE_URL . "fotos/ks_" . $rss['id'] . "_thumb.jpg' alt='ks_" . $rss['id'] . "_thumb'>";
       } else if ($status == 'offen' && $rss['foto_vorhanden'] == 't' && $rss['foto_freigegeben'] == 'f') {
         $foto = "<i>redaktionelle Prüfung ausstehend</i>";
       } else if ($status != 'offen' && $rss['foto_vorhanden'] == 't' && $rss['foto_freigegeben'] == 'f') {
