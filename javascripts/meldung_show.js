@@ -75,6 +75,29 @@ function showMeldung(olFeature) {
   dlg.dialog('widget').find('.ui-dialog-title').html(title);
 
   moveMapToShowFeature(feature, dlg);
+  return dlg;
+}
+
+function enhanceDialogForCluster(dlg, features, currentIndex) {
+  dlg.find('#meldung_details_recorder').show().text("Meldung "+ (currentIndex + 1) +" von "+ features.length);
+  if(currentIndex > 0) {
+    dlg.find('#meldung_details_prev').show().button().click(function() {
+      var dlg = showMeldung(features[--currentIndex]);
+      enhanceDialogForCluster(dlg, features, currentIndex);
+    });
+  }
+  else {
+    dlg.find('#meldung_details_prev').show().button({ disabled: true });
+  }
+  if(currentIndex < features.length - 1) {
+    dlg.find('#meldung_details_next').show().button().click(function() {
+      var dlg = showMeldung(features[++currentIndex]);
+      enhanceDialogForCluster(dlg, features, currentIndex);
+    });
+  }
+  else {
+    dlg.find('#meldung_details_next').show().button({ disabled: true });
+  }
 }
 
 /**

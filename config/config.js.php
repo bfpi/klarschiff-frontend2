@@ -4,6 +4,7 @@ require_once 'config.php';
 ?>
 
 var zoom = 3.7;
+var maxZoom = 10;
 var lonLat_center = [13.409414, 54.089276];
 var mv_bbox_25833 = [380000, 5980000, 410000, 6010000];
 

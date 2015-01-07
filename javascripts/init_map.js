@@ -6,7 +6,8 @@ function init_map() {
     view: new ol.View({
       projection: projection_25833,
       center: mapCenterStart,
-      zoom: zoom
+      zoom: zoom,
+      maxZoom: maxZoom
     })
   });
 
@@ -74,9 +75,13 @@ function addControls(map) {
   map.on("click", function(e) {
     map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {
       if (layer && layer.get("title") === "Meldungen") {
-        size = feature.get("features").length;
+        var features = feature.get("features");
+        var size = features.length;
         if (size == 1) {
-          showMeldung(feature.get("features")[0]);
+          showMeldung(features[0]);
+        } else if (map.getView().getZoom() == maxZoom) {
+          var dlg = showMeldung(features[0]);
+          enhanceDialogForCluster(dlg, features, 0);
         } else {
           map.getView().setCenter(e.coordinate);
           current_zoom = map.getView().getZoom();
@@ -84,8 +89,8 @@ function addControls(map) {
             current_zoom = zoom;
           }
           map.getView().setZoom(parseInt(current_zoom + 1));
-          return;
         }
+        return;
       }
     })
   });
