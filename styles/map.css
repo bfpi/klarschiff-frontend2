@@ -447,18 +447,17 @@ div.scroll-checkbox {
 }
 
 .ui-state-active,
-.ui-state-hover.ui-state-active,
-.ui-widget-content .ui-state-active,
-.ui-widget-header .ui-state-active {
+.ui-state-default.ui-state-active.ui-state-hover {
   background: url("../images/ui-bg_inset-hard_50_d81920_1x100.png") repeat-x scroll 50% 50% #d81920;
   border: 1px solid #941616;
+  color: #ffffff;
 }
 
-.ui-state-hover,
-.ui-widget-content,
-.ui-widget-content .ui-state-hover{
+.ui-state-default.ui-state-hover {
   border: 1px solid #999999;
   background: #eee url("../images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;
+  color: #006cb7;
+  font-weight: bold;
 }
 
 .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon,
@@ -472,8 +471,6 @@ div.scroll-checkbox {
   background-image: url("../images/ui-icons_006cb7_256x240.png");
 }
 
-.ui-state-hover,
-.ui-state-hover:hover,
 #back_to_start:hover span a {
   color: #006cb7;
 }
