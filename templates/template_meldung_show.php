@@ -37,7 +37,7 @@ Status
   {%if foto_vorhanden == true && foto_freigegeben == true%}
   Foto
   <div class="meldung-foto">
-    <img src="fotos/${foto_normal}" />
+    <img src="<?php echo BASE_URL; ?>fotos/${foto_normal}" />
   </div>
   {%elif status == 'offen' && foto_vorhanden == true && foto_freigegeben == false%}
   Foto
