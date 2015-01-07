@@ -453,6 +453,7 @@ div.scroll-checkbox {
   color: #ffffff;
 }
 
+.ui-widget-content,
 .ui-state-default.ui-state-hover {
   border: 1px solid #999999;
   background: #eee url("../images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;
