@@ -76,13 +76,15 @@ function addControls(map) {
     map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {
       if (layer && layer.get("title") === "Meldungen") {
         var features = feature.get("features");
-        var size = features.length;
-        if (size == 1) {
+        if (features.length == 1) {
+          // Single feature -> show
           showMeldung(features[0]);
         } else if (map.getView().getZoom() == maxZoom) {
+          // Clustered features, max zoom -> show with recorder
           var dlg = showMeldung(features[0]);
           enhanceDialogForCluster(dlg, features, 0);
         } else {
+          // Zoom in
           map.getView().setCenter(e.coordinate);
           current_zoom = map.getView().getZoom();
           if (current_zoom == undefined) {
