@@ -578,8 +578,10 @@ div.scroll-checkbox {
 }
 
 #meldung_details_icon {
+  height: 22px;
   margin-right: 0.75em;
   vertical-align: middle;
+  width: 22px;
 }
 
 #meldung_show #meldung_details_show {
