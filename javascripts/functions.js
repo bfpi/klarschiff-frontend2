@@ -26,8 +26,9 @@ function meldungenStyles(features) {
       image: new ol.style.Icon(({
         anchorXUnits: 'pixels',
         anchorYUnits: 'pixels',
-        anchor: [4, 42],
-        src: "images/icons/" + feature.get("vorgangstyp") + "_" + feature.get("status") + ".png"
+        anchor: [8, 84],
+        src: "images/icons/" + feature.get("vorgangstyp") + "_" + feature.get("status") + ".png",
+        scale: 0.5
       }))
     }));
   } else {
@@ -35,8 +36,9 @@ function meldungenStyles(features) {
       image: new ol.style.Icon(({
         anchorXUnits: 'pixels',
         anchorYUnits: 'pixels',
-        anchor: [22, 22],
-        src: "images/icons/generalisiert.png"
+        anchor: [35, 35],
+        src: "images/icons/generalisiert.png",
+        scale: 0.6
       })),
       text: new ol.style.Text({
         text: size.toString(),

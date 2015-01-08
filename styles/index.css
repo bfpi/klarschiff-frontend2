@@ -249,6 +249,11 @@ div.issue {
   margin-top: 5px;
 }
 
+div.issue img {
+  height: 22px;
+  width: 22px;
+}
+
 div.footer {
   -webkit-border-radius: 5px;
   border-radius: 5px;
