@@ -34,7 +34,8 @@ function onNeueMeldung(event) {
     image: new ol.style.Icon(({
       anchorXUnits: 'pixels',
       anchorYUnits: 'pixels',
-      anchor: [15, 50],
+      anchor: [27, 96],
+      scale: 0.5,
       src: "images/icons/" + targetId + "_gemeldet_s.png"
     }))
   });
