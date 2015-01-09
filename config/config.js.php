@@ -124,7 +124,17 @@ var ol_config = {
       default_layer: true,
       displayInLayerSwitcher: false,
       enableClustering: true,
-      style: meldungenStyles
+      style: meldungenStyles,
+      eventHandlers: {
+	      change: function(evt) {
+          if (typeof(map.showAdvice) === "function") {
+            var features = evt.currentTarget.getSource().getFeatures();
+            if (features.length > 0) {
+              map.showAdvice(features);
+            }
+          }
+	      }
+      }
     },
     "SketchMeldung": {
       title: "SketchMeldung",

@@ -16,6 +16,23 @@ function init_map() {
     fitViewportToBBox(bboxString.split(","));
   }
 
+  map.advice_id_ = getUrlParam('advice');
+  if (map.advice_id_ !== null) {
+    map.showAdvice = function(features) {
+      if (map.advice_id_ !== null) {
+        features.forEach(function(feature) {
+          feature.get("features").forEach(function(f) {
+            if (f.get("id") == map.advice_id_) {
+              map.advice_id_ = null;
+              showMeldung(f);
+	            return;
+            }
+          });
+        });
+      }
+    };
+  }
+
   // Alle Layer erzeugen
   var layerFactory = new OLLayerFactory();
   $.each(ol_config.layers, function(name, def) {
@@ -95,18 +112,5 @@ function addControls(map) {
         return;
       }
     })
-  });
-
-  if (getUrlParam('advice') != null) {
-    setTimeout(openFeatureFromParameter, 100);
-  }
-}
-
-function openFeatureFromParameter() {
-  var features = getLayerByTitle("Meldungen").getSource().getFeatures();
-  features.forEach(function(ft) {
-    if (ft.get("features").length == 1 && ft.get("features")[0].get("id") == getUrlParam('advice')) {
-      showMeldung(ft.get("features")[0]);
-    }
   });
 }

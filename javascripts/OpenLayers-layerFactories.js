@@ -53,6 +53,11 @@ var OLLayerFactory = function() {
       visible: def.default_layer,
       displayInLayerSwitcher: def.displayInLayerSwitcher
     });
+    if (def.eventHandlers !== undefined) {
+      $.each(def.eventHandlers, function(name, handler) {
+        vectorLayer.on(name, handler);
+      });
+    };
     return vectorLayer;
   },
   /**
