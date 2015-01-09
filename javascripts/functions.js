@@ -36,7 +36,7 @@ function meldungenStyles(features) {
       image: new ol.style.Icon(({
         anchorXUnits: 'pixels',
         anchorYUnits: 'pixels',
-        anchor: [35, 35],
+        anchor: [35, 38],
         src: "images/icons/generalisiert.png",
         scale: 0.6
       })),
