@@ -70,14 +70,17 @@ function addControls(map) {
     );
 
     var tooltip = $("#tooltip");
-    if (feature == undefined) {
+    if (feature === undefined) {
       $("#" + map.getTarget()).css("cursor", "auto");
       tooltip.hide();
     } else {
       $("#" + map.getTarget()).css("cursor", "pointer");
       var features = feature.get("features");
       var title = '';
-      if (features.length == 1) {
+      if (features === undefined) {
+        // Fall: neue Meldung anlegen
+        title = "Verschieben an den Ort der Meldung";
+      } else if (features.length === 1) {
         title = "Meldung " + features[0].get("id");
       } else {
         title = "Fasst " + features.length + " Meldungen zusammen:<br/>klicken zum Zoomen,<br/>in letzter Zoomstufe zum Anzeigen"
