@@ -545,11 +545,13 @@ div.scroll-checkbox {
   display: block;
 }
 
+#meldung_show {
+  font-weight: bold;
+}
+
 #meldung_show .meldung_unterstuetzer {
   font-weight: bold;
   display: inline-block;
-  padding-top:2px;
-  height: 1.4em;
   width: 2em;
   text-align: center;
   background: #50C80F;
@@ -614,13 +616,16 @@ form#meldung label,
 }
 
 .meldung_eintrag {
-  font-size: 115%;
-  font-style: italic;
+  font-weight: normal;
   padding-bottom: 12px;
 }
 
 .meldung_eintrag-nicht-vorhanden {
-  font-size: 115%;
+  font-weight: normal;
+  padding-bottom: 12px;
+}
+
+.meldung-foto {
   padding-bottom: 12px;
 }
 

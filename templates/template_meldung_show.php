@@ -1,7 +1,7 @@
 <input type="hidden" name="id" value="${id}"/>
 <input type="hidden" name="zustaendigkeit" value="${zustaendigkeit}"/>
 <div id="supporters">
-  <p style="font-style:italic">bisher<span class="meldung_unterstuetzer" style="margin-top:3px;margin-bottom:3px">${unterstuetzer}</span>{%if unterstuetzer != 1%}Unterstützungen{%/if%}{%if unterstuetzer == 1%}Unterstützung{%/if%}{%if vorgangstyp == 'idee'%}<br/>(${schwellenwert} nötig){%/if%}</p>
+  <p>bisher<span class="meldung_unterstuetzer">${unterstuetzer}</span>{%if unterstuetzer != 1%}Unterstützungen{%/if%}{%if unterstuetzer == 1%}Unterstützung{%/if%}{%if vorgangstyp == 'idee'%}<br/>(${schwellenwert} nötig){%/if%}</p>
 </div>
 Hauptkategorie
 <p class="meldung_eintrag">${hauptkategorie}</p>
