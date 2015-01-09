@@ -16,6 +16,7 @@ if(endsWith($referer['path'], "map.php")) {
     "libs/jquery-tmpl-1.0.4.js",
     "libs/jquery-placeholder-1.3.js",
     "libs/jquery-ui-1.11.2.js",
+    "libs/jquery-form-3.51.0.js",
     "libs/proj4js-2.3.3.js",
     "libs/OpenLayers-3.0.0.js",
     "javascripts/functions.js",

@@ -1,4 +1,4 @@
-<form id="meldung" action="../pc/frontend/meldung_submit.php" method="POST" enctype="multipart/form-data">
+<form id="meldung" action="php/meldung_submit.php" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="task" value="submit"/>
   <input type="hidden" name="typ" value="${typ}"/>
   <input type="hidden" name="point" value="${point}"/>

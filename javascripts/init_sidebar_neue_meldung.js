@@ -327,7 +327,6 @@ function openMeldungDialog(feature, targetId) {
 /**
  * Event-Handler, wird beim Click auf den "Meldung absetzen"-Button ausgeführt,
  * um die Daten zum Server zu schicken.
- * TODO: Eingabe-Validierung.
  */
 function meldungFormSubmit() {
   // Attributdaten aus Formular abholen
@@ -345,7 +344,6 @@ function meldungFormSubmit() {
   };
 
   // clientseitige Validierung
-  var error = false;
   if (postData.hauptkategorie == "0") {
     $('select[name="hauptkategorie"]').addClass("error");
     eingabeFehlerPopup("hauptkategorieLeer");
@@ -418,11 +416,8 @@ function meldungFormSubmit() {
   }
 
   // Daten abschicken, Rückmeldung nur bei Fehler!
-  $.ajax({
-    url: 'php/meldung_submit.php',
-    data: $('form#meldung').serialize(),
-    method: 'post',
-    beforeSend: function() {
+  $('form#meldung').ajaxSubmit({
+    beforeSubmit: function() {
       dlg.parent().css("display", "none");
       $('body').spinner({
         title: "neue Meldung",
@@ -441,8 +436,6 @@ function meldungFormSubmit() {
       }).spinner("show");
     },
     success: function() {
-      //var layer = getLayerByTitle("Meldungen");
-      //layer.refresh({force: true});
       map.render();
       $('body').spinner("success", "<p>Es kann einige Minuten dauern, bis die Meldung auf der Karte erscheint. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.</p>");
     },
