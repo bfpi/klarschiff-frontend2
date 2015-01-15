@@ -1,3 +1,4 @@
+/* init_sidebar_neue_meldung.js */
 /**
  * Event-Handler (jQuery), wird aufgerufen, wenn der Link zum Eintragen einer
  * neuen Meldung auf der Karte geklickt wird. Das Control zum abgreifen eines

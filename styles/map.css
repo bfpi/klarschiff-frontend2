@@ -213,7 +213,6 @@ form#meldung label, #meldung_abuse label {
 form .help {
   color: #333;
   font-size: 0.7em;
-  margin-top: 1.5em;
 }
 
 #beobachtungsflaechen button {
@@ -229,10 +228,11 @@ form .help {
 #mapicons label {
   font-size: 90%;
   font-weight: normal;
-  margin-left: 0.3em;
+  width: 100%;
 }
 
 #mapicons input {
+  margin-right: 0.3em;
   vertical-align: middle;
 }
 

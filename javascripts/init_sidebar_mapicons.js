@@ -1,3 +1,4 @@
+/* init_sidebar_mapicons.js */
 function init_mapicons() {
   // mapicons
   var mapicons = $('#mapicons');
@@ -11,20 +12,20 @@ function init_mapicons() {
     }
 
     var div = $('<div></div>').attr('id', id);
-    div.append(checkbox)
-            .append($('<label></label>')
-            .attr('for', id)
-            .html(mapicons_config[id].label));
+    var label = $('<label></label>')
+      .append(checkbox).append(mapicons_config[id].label);
     $.each(mapicons_config[id].icons, function(key, val) {
-      div.append($("<img/>").attr("src", "images/icons/" + val));
+      label.append($("<img/>").attr("src", "images/icons/" + val));
     });
+    div.append(label);
     kol.append(div);
   }
 
-  var generalisiert = $('<div></div>').attr('id', 'generalisiert');
-  generalisiert.append($('<label></label>').html('zusammengefasste Meldungen'));
-  generalisiert.append($("<img/>").attr("src", "images/icons/generalisiert_layer.png"));
-  kol.append(generalisiert);
+  kol.append($('<div></div>').attr('id', 'generalisiert').append(
+    $('<label></label>').html('zusammengefasste Meldungen').append(
+      $("<img/>").attr("src", "images/icons/generalisiert_layer.png")
+    )
+  ));
   $('input', kol).click(function() {
     buildFilter();
   });

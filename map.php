@@ -8,6 +8,8 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <title>Klarschiff – Portal zur Bürgerbeteiligung – Frontend</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="images/icons/favicon.ico" />
+
     <link rel="stylesheet" type="text/css" href="styles/OpenLayers-3.0.0.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.11.2.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.1.css" media="all" />

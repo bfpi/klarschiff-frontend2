@@ -244,3 +244,6 @@ if (ideeMeldungenMoeglich) {
   };
   mapicons_config = $.extend(mapicons_config, idee_mapicons_config);
 }
+
+// JQuery-UI konfigurieren
+$.ui.dialog.prototype.options.closeText = "Schließen";
