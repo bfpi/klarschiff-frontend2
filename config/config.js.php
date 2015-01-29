@@ -246,4 +246,6 @@ if (ideeMeldungenMoeglich) {
 }
 
 // JQuery-UI konfigurieren
-$.ui.dialog.prototype.options.closeText = "Schließen";
+if ($.ui !== undefined) {
+  $.ui.dialog.prototype.options.closeText = "Schließen";
+}
