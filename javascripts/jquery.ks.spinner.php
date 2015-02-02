@@ -9,7 +9,7 @@ $config = include(dirname(__FILE__) . "/../config/config.php");
     options: {
       title: "Spinner",
       message: undefined,
-      markup: '<div id="spinner"><img src="<?= FRONTEND_URL ?>images/spinner.gif"/></div>{%html message%}',
+      markup: '<div id="spinner"><img src="<?php echo FRONTEND_URL; ?>images/spinner.gif"/></div>{%html message%}',
       modal: true,
       error: undefined,
       success: undefined,

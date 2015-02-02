@@ -77,7 +77,7 @@ if ($config['minify_js']) {
   }
   
   ?>
-  importJQuery("<?= $jquery ?>", function() {
+  importJQuery("<?php echo $jquery ?>", function() {
     <?php
     foreach ($files as $file) {
       echo 'importJs("' . $file . '");';

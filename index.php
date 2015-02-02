@@ -36,7 +36,7 @@ $config = include 'config/config.php';
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li><a href="<?= MAP_URL ?>">Karte</a></li>
+                <li><a href="<?php echo MAP_URL; ?>">Karte</a></li>
                 <?php
                 foreach ($config['links']['help_and_impressing'] as $link) {
                   echo '<li><a href="', $link['url'], '" target="_blank">', $link['label'], '</a></li>';

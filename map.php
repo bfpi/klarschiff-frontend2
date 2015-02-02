@@ -23,7 +23,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
       <div id="sidebar" class="sidebar-open">
         <div id="sidebar_toggle" class="sidebar-open" title="Menü ein-/ausfahren"></div>
         <div id="sidebar-content">
-          <div class="headline"><?= $config['labels']['sidebar_headline'] ?></div>
+          <div class="headline"><?php echo $config['labels']['sidebar_headline']; ?></div>
           <div id="layerswitcher"></div>
 
           <div id="widgets">
@@ -81,7 +81,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
             </div>
           </div>
           <div id="back_to_start">
-            <a href="<?= FRONTEND_URL ?>">
+            <a href="<?php echo FRONTEND_URL; ?>">
               Startseite
             </a>
           </div>
