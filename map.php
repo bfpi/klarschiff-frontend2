@@ -10,12 +10,13 @@ $config = include(dirname(__FILE__) . "/config/config.php");
 
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="images/icons/favicon.ico" />
 
-    <link rel="stylesheet" type="text/css" href="styles/OpenLayers-3.0.0.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="libs/OpenLayers.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.11.2.min.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.1.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/map.css" media="all" />
 
-    <script type="text/javascript" src="javascripts/js.php"></script>
+    <script type="text/javascript" src="javascripts/build/map-libs.js"></script>
+    <script type="text/javascript" src="javascripts/build/map.js"></script>
   </head>
   <body>
     <div id="content">
