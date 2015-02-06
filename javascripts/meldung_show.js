@@ -1,6 +1,7 @@
 /* meldung_show.js */
 
 function showMeldung(olFeature) {
+  onMeldungShowClose(); 
   var feature = olFeature.clone();
   var img = '<img id="meldung_details_icon" src="images/icons/' +
           feature.get("vorgangstyp") + '_' + feature.get("status") + '_layer.png"></img>';
@@ -28,11 +29,13 @@ function showMeldung(olFeature) {
           .dialog({
     autoOpen: false,
     width: 500,
-    close: onMeldungShowClose()
+    close: function(evt, ui) {
+      onMeldungShowClose();
+    }
   }).addClass(feature.get("vorgangstyp"));
 
   $('#template_meldung_show')
-          .tmpl(feature.values_)
+          .tmpl(feature.getProperties())
           .appendTo(dlg);
 
   var schwellenwertClass = "unter-schwellenwert";
@@ -150,7 +153,7 @@ function meldungSupportDialog() {
   var showDlg = $('#meldung_show');
   var id = $('input[name="id"]').val();
   var email = $('input[name="meldung_actions_email"]').val();
-  showDlg.dialog('destroy').remove();
+  showDlg.dialog('close');
 
   var dlg = $('<div></div>')
           .attr("id", 'meldung_support')
@@ -182,7 +185,7 @@ function meldungAbuseDialog() {
   var showDlg = $('#meldung_show');
   var id = $('input[name="id"]').val();
   var email = $('input[name="meldung_actions_email"]').val();
-  showDlg.dialog('destroy').remove();
+  showDlg.dialog('close');
 
   var dlg = $('<div></div>')
           .attr("id", 'meldung_abuse')
@@ -217,7 +220,7 @@ function meldungLobHinweiseKritikDialog() {
   var id = $('input[name="id"]').val();
   var email = $('input[name="meldung_actions_email"]').val();
   var zustaendigkeit = $('input[name="zustaendigkeit"]').val();
-  showDlg.dialog('destroy').remove();
+  showDlg.dialog('close');
 
   var dlg = $('<div></div>')
           .attr("id", 'meldung_lobhinweisekritik')

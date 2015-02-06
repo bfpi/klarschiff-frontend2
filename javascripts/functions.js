@@ -52,7 +52,7 @@ function meldungenStyles(features) {
 }
 
 function moveMapToShowFeature(feature, dlg) {
-  featureOffset = map.getPixelFromCoordinate(feature.getGeometry().flatCoordinates);
+  featureOffset = map.getPixelFromCoordinate(feature.getGeometry().getCoordinates());
 
   var viertel = ($(map.getViewport()).width() - dlg.width()) / 4;
   new_top = featureOffset[1];
