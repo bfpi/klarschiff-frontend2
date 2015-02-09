@@ -15,6 +15,7 @@ Eine Installationsanleitung für Debian basierte Systeme ist hier zu finden: htt
 1. In der Projektwurzel gibt es eine `package.json` zur Definition der notwendigen Pakete und Tools via NPM
   
         npm install
+        sudo npm install -g grunt-cli
 
 1. Die eigentlichen Aufgaben erledigen Grunt-Tasks:
   1. Installation / Einrichtung der referenzierten Bibliotheken anhand der Konfiguation aus der `Gruntfile.js`: 
