@@ -15,6 +15,7 @@ Eine Installationsanleitung für Debian basierte Systeme ist hier zu finden: htt
 1. In der Projektwurzel gibt es eine `package.json` zur Definition der notwendigen Pakete und Tools via NPM
   
         npm install
+        sudo npm install -g grunt-cli
 
 1. Die eigentlichen Aufgaben erledigen Grunt-Tasks:
   1. Installation / Einrichtung der referenzierten Bibliotheken anhand der Konfiguation aus der `Gruntfile.js`: 
@@ -23,7 +24,7 @@ Eine Installationsanleitung für Debian basierte Systeme ist hier zu finden: htt
 
   1. Die Tasks sind für zwei Umgebungen vorbereitet: 
     1. `development`: (Standardkonfiguration), die JavaScripte werden nur zusammengefasst, nicht komprimiert und es gibt einen Wachtdog, der bei Änderungen an den Quelldateien automatisch neue Builds für die Referenz in der Seite erstellt.
-    2. `production`: Konfiguration via `GRUNT_ENV=production` (ggf. in der `/etc/profile`). Die Scripte werden für eine bessere Performance zusätzlich komprimiert an den Browser ausgeliefert. Ein automatisierter Watchdienst ist bisher nicht konfiguriert.
+    2. `production`: Konfiguration via `GRUNT_ENV=production` (ggf. in der `/etc/environment`). Die Scripte werden für eine bessere Performance zusätzlich komprimiert an den Browser ausgeliefert. Ein automatisierter Watchdienst ist bisher nicht konfiguriert.
   
   1. Für beide Umgebungen wird der Standard-Tasks wie folgt aufgerufen:
   
