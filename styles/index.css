@@ -274,34 +274,37 @@ a:hover {
   text-decoration: none;
 }
 
-div#start {
-  margin-top: 74px;
+#start {
+  margin-top: 64px;
+  width: 100%;
 }
 
-div#start a.button {
-  -webkit-border-radius: 5px;
-  -webkit-box-shadow: inset 0px 0px 6px #ffffff;
-  background: #006cb7;
-  background: -moz-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
-  background: -ms-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
-  background: -o-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
-  background: -webkit-linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
-  background: linear-gradient(top, #cbe3ed 0%, #006cb7 100%);
-  border-radius: 5px;
-  border: 2px solid #006cb7;
-  box-shadow: inset 0px 0px 6px #ffffff;
+.ui-button .ui-button-text {
+  display: block;
+  line-height: 2;
+}
+
+.ui-button-text {
+  font-family: Verdana,sans-serif;
+  font-size: 14px;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header {
+  background: url("../images/ui-bg_highlight-hard_50_006cb7_1x100.png") repeat-x scroll 50% 50% #f6f6f6;
+  border: 1px solid #164194;
   color: #ffffff;
-  font-size: 16px;
   font-weight: bold;
-  padding: 8px 81.5px;
 }
 
-div#start a.button:hover {
-  background: #d81920;
-  background: -moz-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
-  background: -ms-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
-  background: -o-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
-  background: -webkit-linear-gradient(top, #f1bdc1 0%, #d81920 100%);
-  background: linear-gradient(top, #f1bdc1 0%, #d81920 100%);
-  border-color: #d81920;
+.ui-widget-content,
+.ui-state-default.ui-state-hover {
+  border: 1px solid #999999;
+  background: #eee url("../images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;
+  color: #006cb7;
+}
+
+.ui-corner-all {
+  border-radius: 6px;
 }

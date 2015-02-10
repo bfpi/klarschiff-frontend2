@@ -3,6 +3,8 @@ jQuery(function($) {
 
   eyeCatcher();
   initSearch();
+  
+  $('a.button').button();
 
   $(document).on('click', 'div#map', function(e) {
     window.location.href = mapUrl;

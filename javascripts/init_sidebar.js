@@ -8,7 +8,7 @@ function init_sidebar() {
 
   $('#back_to_start').button()
   $('#beobachtungsflaechen button').button();
-  $('#sonderseiten button').button();
+  $('#sonderseiten a').button();
 
   $('#flaeche_stadtgebiet').click(beobachtungsflaecheStadtgebiet);
   $('#flaeche_stadtteil').click(beobachtungsflaecheStartSelect);

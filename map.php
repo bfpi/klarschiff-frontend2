@@ -15,7 +15,7 @@ $config = include(dirname(__FILE__) . "/config/config.php");
     <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="styles/map.css" media="all" />
 
-    <script type="text/javascript" src="javascripts/build/map-libs.js"></script>
+    <script type="text/javascript" src="javascripts/build/libs.js"></script>
     <script type="text/javascript" src="javascripts/build/map.js"></script>
   </head>
   <body>
@@ -76,16 +76,14 @@ $config = include(dirname(__FILE__) . "/config/config.php");
             <div id="sonderseiten">
               <?php
               foreach ($config['links']['help_and_impressing'] as $link) {
-                echo "<button onClick=\"window.open('" . $link['url'] . "', '_blank')\">" . $link['label'] . "</button>";
+                echo '<a href="' . $link['url'] . '", target="_blank">' . $link['label'] . "</a>";
               }
               ?>
             </div>
           </div>
-          <div id="back_to_start">
-            <a href="<?php echo FRONTEND_URL; ?>">
-              Startseite
-            </a>
-          </div>
+          <a id="back_to_start" href="<?php echo FRONTEND_URL; ?>">
+            Startseite
+          </a>
         </div>
       </div>
     </div>

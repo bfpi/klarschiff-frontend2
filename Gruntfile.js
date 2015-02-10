@@ -110,16 +110,6 @@ module.exports = function(grunt) {
           ],
         }
       },
-      'index-libs-js': {
-        files: {
-          "javascripts/build/index-libs.js": [
-            "libs/jquery<%= min %>.js",
-            "libs/bootstrap<%= min %>.js",
-            "libs/proj4js<%= min %>.js",
-            "libs/OpenLayers<%= min %>.js",
-          ],
-        }
-      },
       'map-js': {
         files: {
           "javascripts/build/map.js": [
@@ -140,9 +130,9 @@ module.exports = function(grunt) {
             ],
         }
       },
-      'map-libs-js': {
+      'libs-js': {
         files: {
-          "javascripts/build/map-libs.js": [
+          "javascripts/build/libs.js": [
             "libs/jquery<%= min %>.js",
             "libs/bootstrap<%= min %>.js",
             "libs/jquery-tmpl<%= min %>.js",
@@ -230,7 +220,6 @@ module.exports = function(grunt) {
   grunt.registerTask('curl:prebuild-js', ['curl:config-js', 'curl:jq-ks-spinner-js', 'curl:init-ks-lut-js']);
 
   grunt.registerTask('concat:js', ['concat:index-js', 'concat:map-js']);
-  grunt.registerTask('concat:libs-js', ['concat:index-libs-js', 'concat:map-libs-js']);
   grunt.registerTask('install', ['curl:libs', 'default']);
 
   grunt.registerTask('dev-default', ['concat', 'watch']);
