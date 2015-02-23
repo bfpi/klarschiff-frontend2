@@ -26,7 +26,7 @@ $config = include 'config/config.php';
       <div id="header" class="row clearfix">
         <img id="headerimage" src="images/headerimage.jpg" height="120" width="430" alt="Blick auf die Voluten am Rathausgiebel Foto: HNM">
         <img id="sloganimage" src="images/sloganimage-uhgw.jpg" alt="Schriftzug Universitäts- und Hansestadt Greifswald">
-        <img id="klarschifflogo" src="images/klarschiff_hgw_303px.png" alt="Logo Klarschiff-HGW">
+        <img id="klarschifflogo" src="images/klarschiff_hgw_328px.png" alt="Logo Klarschiff-HGW">
       </div>
       <div id="menu" class="row">
         <nav class="navbar navbar-default" role="navigation">
@@ -51,7 +51,7 @@ $config = include 'config/config.php';
       </div>
       <div id="eye-catcher" class="row">
         <div class="overlay guide">
-          <h3><span class="italic">Klarschiff.UHGW</span> – Bürgerbeteiligung</h3>
+          <h3><span class="italic">Klarschiff.HGW</span> – Bürgerbeteiligung</h3>
           <p>
             Rufen Sie die <a href="<?php echo MAP_URL; ?>" target="_self">
               <span class="bold">Karte</span></a> auf <span class="bold">→</span>
