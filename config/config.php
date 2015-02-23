@@ -4,7 +4,7 @@ require_once 'urls.php';
 return array(
   'database' => include('database.php'),
   'labels' => array(
-    'sidebar_headline' => '<img id="logopc" src="' . FRONTEND_URL . 'images/klarschiff_uhgw_328px.png" alt="Klarschiff.UHGW"/>',
+    'sidebar_headline' => '<img id="logopc" src="' . FRONTEND_URL . 'images/klarschiff_hgw_303px.png" alt="Klarschiff.HGW"/>',
     'errors' => array(
       'db_unavailable' => 'Datenbank ist nicht erreichbar.',
       'ausserhalb_des_bereichs' => 'Die neue Meldung befindet sich außerhalb Greifswalds.',

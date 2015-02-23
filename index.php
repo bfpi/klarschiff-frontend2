@@ -26,7 +26,7 @@ $config = include 'config/config.php';
       <div id="header" class="row clearfix">
         <img id="headerimage" src="images/headerimage.jpg" height="120" width="430" alt="Blick auf die Voluten am Rathausgiebel Foto: HNM">
         <img id="sloganimage" src="images/sloganimage-uhgw.jpg" alt="Schriftzug Universitäts- und Hansestadt Greifswald">
-        <img id="klarschifflogo" src="images/klarschiff_uhgw_328px.png" alt="Logo Klarschiff-UHGW">
+        <img id="klarschifflogo" src="images/klarschiff_hgw_303px.png" alt="Logo Klarschiff-HGW">
       </div>
       <div id="menu" class="row">
         <nav class="navbar navbar-default" role="navigation">
