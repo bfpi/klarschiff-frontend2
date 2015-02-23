@@ -16,7 +16,7 @@ function onNeueMeldung(event) {
   clearMeldungSketch();
 
   // ggf. Hinweis zur Meldungserstellung anzeigen
-  showAdviceInstruction();
+  showAdviceInstruction(targetId);
 
   // Mittelpunkt der Karte ermitteln.
   var position = map.getCoordinateFromPixel([mapDiv.width() / 2, mapDiv.height() / 2]);
@@ -543,14 +543,14 @@ function eingabeFehlerPopup(eingabeFehlerTyp) {
 }
 
 var showInitialAdviceInstruction = true;
-function showAdviceInstruction() {
+function showAdviceInstruction(targetId) {
   if (!showInitialAdviceInstruction) {
     return;
   }
   var dlg = $('<div></div>').attr('id', 'advise-instruction').html(
           'Bitte setzen Sie in der Karte das Symbol durch Verschieben mit gedrückter ' +
-          'linker Maustaste an den Ort des Problems / der Idee.<br/><br/>' +
-          'Teilen Sie bitte pro Meldung nur ein Problem / eine Idee aus den vorgegebenen ' +
+          'linker Maustaste an den Ort ' + (targetId === 'problem' ? 'des Problems' : 'der Idee') + '.<br/><br/>' +
+          'Teilen Sie bitte pro Meldung nur ' + (targetId === 'problem' ? 'ein Problem' : 'eine Idee') + ' aus den vorgegebenen ' +
           'Kategorien mit.<br/><br/>Sehen Sie bitte von Meldungen ab, die komplexe ' +
           'städtebauliche oder verkehrsplanerische Sachverhalte behandeln.'
           ).dialog({
