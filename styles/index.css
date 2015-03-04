@@ -106,6 +106,7 @@ div.overlay {
   border-radius: 5px;
   border: 2px solid #006cb7;
   height: 189px;
+  opacity: 0.9;
   padding: 8px 10px;
   position: absolute;
   text-align: justify;
