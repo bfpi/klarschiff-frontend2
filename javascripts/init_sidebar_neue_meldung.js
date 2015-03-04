@@ -213,10 +213,10 @@ function openMeldungDialog(feature, targetId) {
     t.empty();
 
     var kategorien = getKategorien(parent, targetId);
-    $.each(kategorien, function(key, val) {
+    $.each(kategorien, function(i, v) {
       $('<option></option>')
-              .attr('value', key)
-              .html(val)
+              .attr('value', v.id)
+              .html(v.name)
               .appendTo(t);
     });
 
@@ -459,16 +459,19 @@ function onMeldungFormClose() {
 }
 
 function getKategorien(parent, typ) {
-  var kategorien = {}
-  kategorien[0] = "auswählen…";
+  var kategorien = new Array();
   for (var i in ks_lut.kategorie) {
     if (ks_lut.kategorie[i].parent == parent) {
       if (parent == undefined && ks_lut.kategorie[i].typ != typ) {
         continue;
       }
-      kategorien[i] = ks_lut.kategorie[i].name;
+      kategorien.push({ id: i, name: ks_lut.kategorie[i].name });
     }
   }
+  kategorien.sort(function(a, b) {
+    return a.name.localeCompare(b.name);
+  });
+  kategorien.unshift({ id: 0, name: "auswählen…" });
   return kategorien;
 }
 
