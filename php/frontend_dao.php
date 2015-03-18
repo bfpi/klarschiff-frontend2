@@ -80,7 +80,7 @@ class FrontendDAO {
         . "v.status, hk.name AS hauptkategorie, uk.name AS unterkategorie, "
         . "v.betreff_vorhanden, v.betreff_freigegeben, v.titel AS betreff, "
         . "v.details_vorhanden, v.details_freigegeben, v.details, v.foto_vorhanden, "
-        . "v.foto_freigegeben, v.bemerkung, wfs.unterstuetzer AS unterstuetzungen, "
+        . "v.foto_freigegeben, v.foto_thumb, v.bemerkung, wfs.unterstuetzer AS unterstuetzungen, "
         . "ST_X(ST_Transform(v.the_geom,4326)) AS x, "
         . "ST_Y(ST_Transform(v.the_geom,4326)) AS y "
         . "FROM klarschiff.klarschiff_vorgang v, klarschiff.klarschiff_kategorie uk, "

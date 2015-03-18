@@ -43,7 +43,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
         $details = "<i>nicht vorhanden</i>";
       }
       if ($rss['foto_vorhanden'] == 't' && $rss['foto_freigegeben'] == 't') {
-        $foto = "<br/><img src='" . BASE_URL . "fotos/ks_" . $rss['id'] . "_thumb.jpg' alt='ks_" . $rss['id'] . "_thumb'>";
+        $foto = "<br/><img src='" . BASE_URL . "fotos/" . $rss['foto_thumb'] . "' alt='" . $rss['foto_thumb'] . "'>";
       } else if ($status == 'offen' && $rss['foto_vorhanden'] == 't' && $rss['foto_freigegeben'] == 'f') {
         $foto = "<i>redaktionelle Prüfung ausstehend</i>";
       } else if ($status != 'offen' && $rss['foto_vorhanden'] == 't' && $rss['foto_freigegeben'] == 'f') {
