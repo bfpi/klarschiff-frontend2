@@ -4,10 +4,10 @@ require_once 'urls.php';
 return array(
   'database' => include('database.php'),
   'labels' => array(
-    'sidebar_headline' => '<img id="logopc" src="' . FRONTEND_URL . 'images/klarschiff_hgw_328px.png" alt="Klarschiff.HGW"/>',
+    'sidebar_headline' => '<img id="logopc" src="' . FRONTEND_URL . 'images/klarschiff_sn_328px.png" alt="Klarschiff.SN"/>',
     'errors' => array(
       'db_unavailable' => 'Datenbank ist nicht erreichbar.',
-      'ausserhalb_des_bereichs' => 'Die neue Meldung befindet sich außerhalb Greifswalds.',
+      'ausserhalb_des_bereichs' => 'Die neue Meldung befindet sich außerhalb Schwerins.',
       'mail_on_blacklist' => 'Ihre E-Mail-Adresse wird nicht akzeptiert, da sie auf unserer Trashmail-Blacklist steht.'
     )
   ),

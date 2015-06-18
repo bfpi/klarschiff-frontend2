@@ -1,6 +1,6 @@
 <?php
 
-$base = "http://klarschiff-test";
+$base = "http://www.klarschiff-sn.de";
 define("BASE_URL", $base . "/");
 
 define("ADRESSSUCHE_URL", $base . ":8080/solr/select?");

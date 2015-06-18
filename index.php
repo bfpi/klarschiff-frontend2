@@ -24,9 +24,7 @@ $config = include 'config/config.php';
   <body>
     <div class="container">
       <div id="header" class="row clearfix">
-        <img id="headerimage" src="images/headerimage.jpg" height="120" width="430" alt="Blick auf die Voluten am Rathausgiebel Foto: HNM">
-        <img id="sloganimage" src="images/sloganimage-uhgw.jpg" alt="Schriftzug Universitäts- und Hansestadt Greifswald">
-        <img id="klarschifflogo" src="images/klarschiff_hgw_328px.png" alt="Logo Klarschiff-HGW">
+        <img id="headerimage" src="images/header.png" height="120" width="998" alt="Klarschiff.SN" />
       </div>
       <div id="menu" class="row">
         <nav class="navbar navbar-default" role="navigation">
@@ -51,7 +49,7 @@ $config = include 'config/config.php';
       </div>
       <div id="eye-catcher" class="row">
         <div class="overlay guide">
-          <h3><span class="italic">Klarschiff.HGW</span> – Bürgerbeteiligung</h3>
+          <h3><span class="italic">Klarschiff.SN</span> – Bürgerbeteiligung</h3>
           <p>
             Rufen Sie die <a href="<?php echo MAP_URL; ?>" target="_self">
               <span class="bold">Karte</span></a> auf <span class="bold">→</span>
@@ -120,7 +118,7 @@ $config = include 'config/config.php';
         <h3><span class="italic">Klarschiff</span> aus Sicht der Verwaltung</h3>
         Falls Sie daran interessiert sind, wie die „Rückseite“ von <span class="italic">Klarschiff</span>
         aussieht, also die Verwaltungsanwendung, dann rufen Sie dieses als
-        <a href="/backend" target="_blank"><span class="bold">Backend</span></a>
+        <a href="/backend_sn" target="_blank"><span class="bold">Backend</span></a>
         bezeichnete Anwendung doch einfach auf.
       </div>
     </div>
