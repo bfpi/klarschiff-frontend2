@@ -111,14 +111,14 @@ $config = include 'config/config.php';
       <div class="row footer">
         <h3><span class="italic">Klarschiff</span> mobil</h3>
         Wenn Sie diese Website mit einem Smartphone oder Tablet besuchen, wird automatisch die
-        <a href="/mobil" target="_self"><span class="bold">mobile Version</span></a> von
+        <a href="<?php echo MOBILE_FRONTEND_URL; ?>" target="_self"><span class="bold">mobile Version</span></a> von
         <span class="italic">Klarschiff</span> gestartet.
       </div>
       <div class="row footer">
         <h3><span class="italic">Klarschiff</span> aus Sicht der Verwaltung</h3>
         Falls Sie daran interessiert sind, wie die „Rückseite“ von <span class="italic">Klarschiff</span>
         aussieht, also die Verwaltungsanwendung, dann rufen Sie dieses als
-        <a href="/backend_sn" target="_blank"><span class="bold">Backend</span></a>
+        <a href="<?php echo BACKEND_URL; ?>" target="_blank"><span class="bold">Backend</span></a>
         bezeichnete Anwendung doch einfach auf.
       </div>
     </div>
