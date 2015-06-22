@@ -2,9 +2,9 @@
 # POSTGRESQL DATABASE
 define("HOST","localhost");
 define("PORT",5432);
-define("NAME","klarschiff_suche");
-define("USER","admin");
-define("PASS","admin");
+define("NAME","standortsuche");
+define("USER","standortsuche");
+define("PASS","standortsuche");
 define("SCHEMA","public");
 
 # ORT

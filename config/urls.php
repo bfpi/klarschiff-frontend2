@@ -1,10 +1,10 @@
 <?php
 
-$base = "http://www.klarschiff-sn.de";
-define("BASE_URL", $base . "/");
+$base = "http://klarschiff-test";
+define("BASE_URL", $base . "/sn/");
 
 define("ADRESSSUCHE_URL", $base . ":8080/solr/select?");
-define("BACKEND_URL", BASE_URL . "backend/");
+define("BACKEND_URL", BASE_URL . "backend_sn/");
 define("FRONTEND_URL", BASE_URL . "pc/");
 define("MAP_URL", FRONTEND_URL . "map.php");
 define("MOBILE_FRONTEND_URL", BASE_URL . "mobil");
