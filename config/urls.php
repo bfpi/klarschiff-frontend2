@@ -1,7 +1,7 @@
 <?php
 
 $base = "http://klarschiff-test";
-define("BASE_URL", $base . "/");
+define("BASE_URL", $base . "/hgw/");
 
 define("ADRESSSUCHE_URL", $base . ":8080/solr/select?");
 define("BACKEND_URL", BASE_URL . "backend/");

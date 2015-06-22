@@ -9,18 +9,21 @@ module.exports = function(grunt) {
       jqui: '1.11.2',
       proj4: '2.3.3',
     },
+/*    shell: {
+      'config-js': ... {
+        }*/
     curl: {
       'config-js': {
         dest: 'javascripts/build/config.js',
-        src: 'http://localhost/pc/config/config.js.php',
+        src: 'http://localhost/hgw/pc/config/config.js.php',
       },
       'jq-ks-spinner-js': {
         dest: 'javascripts/build/jquery.ks.spinner.js',
-        src: 'http://localhost/pc/javascripts/jquery.ks.spinner.php',
+        src: 'http://localhost/hgw/pc/javascripts/jquery.ks.spinner.php',
       },
       'init-ks-lut-js': {
         dest: 'javascripts/build/init_ks_lut.js',
-        src: 'http://localhost/pc/javascripts/init_ks_lut.js.php',
+        src: 'http://localhost/hgw/pc/javascripts/init_ks_lut.js.php',
       },
       'ol-css': {
         dest: 'libs/OpenLayers.css',
@@ -196,6 +199,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('curl:libs', [ 
       'curl:bootstrap-css',
