@@ -1,6 +1,6 @@
 /* config.js.php */
 <?php
-require_once 'config.php';
+$config = include('config.php');
 ?>
 
 var zoom = 3.7;
@@ -11,7 +11,7 @@ var mv_bbox_25833 = [380000, 5980000, 410000, 6010000];
 var problemMeldungenMoeglich = true;
 var ideeMeldungenMoeglich = false;
 
-var unterstuetzer_schwellenwert = 20;
+var unterstuetzer_schwellenwert = <?php echo $config['thresholds']['supporter']; ?>;
 
 var placeholder_betreff = "Bitte geben Sie einen Betreff an.";
 var placeholder_details = "Bitte beschreiben Sie Ihre Meldung genauer.";
@@ -30,7 +30,6 @@ var begruendungLeer = "Sie müssen eine Begründung angeben.";
 var freitextLeer = "Sie müssen Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung angeben.";
 
 var mapUrl = 'map.php';
-var owsUrl = '<?php echo OWS_URL; ?>';
 
 var styleCache = {};
 var highlightStyleCache = {};
@@ -120,7 +119,7 @@ var ol_config = {
     "Meldungen": {
       title: "Meldungen",
       type: "Vector",
-      url: owsUrl + "?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:vorgaenge&outputFormat=application/json",
+      url: "<?php echo MELDUNGEN_WFS_URL; ?>",
       default_layer: true,
       displayInLayerSwitcher: false,
       enableClustering: true,
@@ -145,7 +144,7 @@ var ol_config = {
     "SketchBeobachtungsflaeche": {
       title: "SketchBeobachtungsflaeche",
       type: "Vector",
-      url: owsUrl + "?service=WFS&version=1.0.0&request=GetFeature&typeName=klarschiff:klarschiff_stadtteile_hro&outputFormat=application/json",
+      url: "<?php echo STADTTEILE_WFS_URL; ?>",
       default_layer: false,
       displayInLayerSwitcher: false,
       style: ol_styles.beobachtungsflaeche
