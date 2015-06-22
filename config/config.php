@@ -15,6 +15,9 @@ return array(
     'report_idea' => false,
     'report_problem' => true
   ),
+  'thresholds' => array(
+    'supporter' => 20
+  ),
   'links' => array(
     'help_and_impressing' => array(
       array(
