@@ -10,12 +10,12 @@ $frontend = new FrontendDAO();
 
 $config = include dirname(__FILE__) . "/../config/config.php";
 
-$problem_categories = filter_input(INPUT_POST, 'problem_kategorie');
+$problem_categories = filter_input(INPUT_POST, 'problem_kategorie', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 if (empty($problem_categories) || !is_array($problem_categories)) {
   $problem_categories = array();
 }
 
-$idea_categories = filter_input(INPUT_POST, 'idee_kategorie');
+$idea_categories = filter_input(INPUT_POST, 'idee_kategorie', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 if (empty($idea_categories) || !is_array($idea_categories)) {
   $idea_categories = array();
 }
