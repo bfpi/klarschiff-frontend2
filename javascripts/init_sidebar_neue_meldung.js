@@ -191,7 +191,10 @@ function openMeldungDialog(feature, targetId) {
           .dialog({
     autoOpen: false,
     width: 500,
-    close: onMeldungFormClose,
+    close: function(evt, ui) {
+      $(this).dialog('destroy').remove();
+      onMeldungFormClose();
+    },
     buttons: {
       "melden": meldungFormSubmit,
       "abbrechen": function() {
@@ -336,8 +339,8 @@ function meldungFormSubmit() {
     task: "submit",
     typ: $('input[name="typ"]', dlg).val(),
     point: $('input[name="point"]', dlg).val(),
-    hauptkategorie: $('select[name="hauptkategorie"]').val(),
-    unterkategorie: $('select[name="unterkategorie"]').val(),
+    hauptkategorie: $('select[name="hauptkategorie"]', dlg).val(),
+    unterkategorie: $('select[name="unterkategorie"]', dlg).val(),
     betreff: $('input[name="betreff"]', dlg).val(),
     details: $('textarea[name="details"]', dlg).val(),
     email: $('input[name="email"]', dlg).val(),
