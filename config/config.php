@@ -4,7 +4,8 @@ require_once 'urls.php';
 return array(
   'database' => include('database.php'),
   'labels' => array(
-    'sidebar_headline' => '<img id="logopc" src="' . FRONTEND_URL . 'images/klarschiff_sn_328px.png" alt="Klarschiff.SN"/>',
+    'name' => 'Klarschiff.SN',
+    'sidebar_headline' => '<img id="logopc" src="' . FRONTEND_URL . 'images/klarschiff_logo_328px.png" alt="Klarschiff.SN"/>',
     'errors' => array(
       'db_unavailable' => 'Datenbank ist nicht erreichbar.',
       'ausserhalb_des_bereichs' => 'Die neue Meldung befindet sich außerhalb Schwerins.',
@@ -18,24 +19,26 @@ return array(
   'thresholds' => array(
     'supporter' => 20
   ),
-  'links' => array(
-    'help_and_impressing' => array(
-      array(
-        'label' => 'Hilfe',
-        'url' => FRONTEND_URL . 'hilfe.html'
-      ),
-      array(
-        'label' => 'Datenschutz',
-        'url' => FRONTEND_URL . 'datenschutz.html'
-      ),
-      array(
-        'label' => 'Impressum',
-        'url' => FRONTEND_URL . 'impressum.html'
-      ),
-      array(
-        'label' => 'Nutzungsbedingungen',
-        'url' => FRONTEND_URL . 'nutzungsbedingungen.html'
-      )
+  'nav' => array(
+    array(
+      'label' => 'Startseite',
+      'url' => BASE_URL
+    ),
+    array(
+      'label' => 'Hilfe',
+      'url' => FRONTEND_URL . 'hilfe.php'
+    ),
+    array(
+      'label' => 'Datenschutz',
+      'url' => FRONTEND_URL . 'datenschutz.php'
+    ),
+    array(
+      'label' => 'Impressum',
+      'url' => FRONTEND_URL . 'impressum.php'
+    ),
+    array(
+      'label' => 'Nutzungsbedingungen',
+      'url' => FRONTEND_URL . 'nutzungsbedingungen.php'
     )
   )
 );

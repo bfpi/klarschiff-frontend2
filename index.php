@@ -23,30 +23,7 @@ $config = include 'config/config.php';
   </head>
   <body>
     <div class="container">
-      <div id="header" class="row clearfix">
-        <img id="headerimage" src="images/header.png" height="120" width="998" alt="Klarschiff.SN" />
-      </div>
-      <div id="menu" class="row">
-        <nav class="navbar navbar-default" role="navigation">
-          <div class="container-fluid">
-            <div class="navbar-header pull-left">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <img alt="Brand" src="images/klarschiff.png">
-              </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li><a href="<?php echo MAP_URL; ?>">Karte</a></li>
-                <?php
-                foreach ($config['links']['help_and_impressing'] as $link) {
-                  echo '<li><a href="', $link['url'], '" target="_blank">', $link['label'], '</a></li>';
-                }
-                ?>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
+      <?php include("header.inc.php"); ?>
       <div id="eye-catcher" class="row">
         <div class="overlay guide">
           <h3><span class="italic">Klarschiff.SN</span> – Bürgerbeteiligung</h3>
